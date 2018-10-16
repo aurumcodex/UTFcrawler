@@ -1,6 +1,6 @@
 # UTFcrawler
 This is a project that is designed to create an RPG game using Unicode characters as ASCII art, instead of using raw ASCII.  <br/>
-![GitHub repo size in bytes](https://img.shields.io/github/repo-size/badges/shields.svg) 
+ 
 ![Current Version](https://img.shields.io/badge/version-0.0.1-blue.svg)
 ![Crates.io](https://img.shields.io/crates/l/rustc-serialize.svg)
 
