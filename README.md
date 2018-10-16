@@ -44,8 +44,16 @@ This is a project that is designed to create an RPG game using Unicode character
     - [ ] implement fields for a player character to exist and be controlled
     - [ ] implement a function that handles experience points
     - [ ] implement a function that deals with level ups
+    - [ ] declare archetypes for the player (think classes in a traditional RPG)
     
-        
+- status.rs
+    - [ ] declare enums and values for status ailments and potential psyche ailments
+    
+- util.rs
+    - [ ] implement saving functionality
+    - [ ] implement loading functionality
+
+
 #### For the team members: 
 Recommended reading: [The Rust Programming Language](https://doc.rust-lang.org/stable/book/2018-edition/)  
 Recommended IDE: [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/#section=windows)  
