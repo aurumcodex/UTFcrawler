@@ -36,6 +36,10 @@ pub struct Player {
 }
 
 impl Player {
+    pub fn new() -> Player {
+        
+    }
+
     pub fn incr_exp(&mut self, add_exp: u32) {
         self.exp += add_exp
     }
