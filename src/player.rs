@@ -3,7 +3,11 @@
 //!
 // mod status;
 
+extern crate rand;
+
+// use std::io;
 use crate::status::{Ailment, Psyche};
+use rand::Rng;
 
 #[derive(Debug)]
 pub enum Archetype {
@@ -36,11 +40,31 @@ pub struct Player {
 }
 
 impl Player {
-    pub fn new() -> Player {
-        
+    pub fn new(name: String) -> Player {
+        Player {
+            player_name: name,
+            level: 1,
+            exp: 0,
+            archetype: Archetype::Gunner,
+            hp: rand::thread_rng().gen_range(20, 50),
+            mp: rand::thread_rng().gen_range(20, 50),
+            phys_attk: rand::thread_rng().gen_range(20, 50),
+            phys_def: rand::thread_rng().gen_range(20, 50),
+            mag_attk: rand::thread_rng().gen_range(20, 50),
+            mag_def: rand::thread_rng().gen_range(20, 50),
+            strength: rand::thread_rng().gen_range(20, 50),
+            magic: rand::thread_rng().gen_range(20, 50),
+            vitality: rand::thread_rng().gen_range(20, 50),
+            dexterity: rand::thread_rng().gen_range(20, 50),
+            agility: rand::thread_rng().gen_range(20, 50),
+            luck: rand::thread_rng().gen_range(20, 50),
+            status: Ailment::Normal,
+            psyche: Psyche::Normal,
+        }
     }
 
     pub fn incr_exp(&mut self, add_exp: u32) {
+        println!("gained {} EXP", add_exp);
         self.exp += add_exp
     }
 

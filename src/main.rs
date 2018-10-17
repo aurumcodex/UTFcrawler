@@ -6,6 +6,7 @@ extern crate rand;
 mod player;
 mod status;
 
+use std::io;
 use self::player::*;
 use self::status::{Ailment, Psyche};
 use rand::Rng;
@@ -16,30 +17,14 @@ fn main() {
     // additional like in combat branch
     println!("Hello, world!");
 
-    // let mut test_player = Player {
-        // player_name: String::from(""),
-        // level: 1,
-        // exp: 0,
-        // archetype: player::Archetype::Gunner,
-        // hp: rand::thread_rng().gen_range(20, 50),
-        // mp: rand::thread_rng().gen_range(20, 50),
-        // phys_attk: rand::thread_rng().gen_range(20, 50),
-        // phys_def: rand::thread_rng().gen_range(20, 50),
-        // mag_attk: rand::thread_rng().gen_range(20, 50),
-        // mag_def: rand::thread_rng().gen_range(20, 50),
-        // strength: rand::thread_rng().gen_range(20, 50),
-        // magic: rand::thread_rng().gen_range(20, 50),
-        // vitality: rand::thread_rng().gen_range(20, 50),
-        // dexterity: rand::thread_rng().gen_range(20, 50),
-        // agility: rand::thread_rng().gen_range(20, 50),
-        // luck: rand::thread_rng().gen_range(20, 50),
-        // status: Ailment::Normal,
-        // psyche: Psyche::Normal,
-    // };
-// 
-    // println!("enter player name:: ");
-    // let mut input_name = String::new();
-    // let mut test_player =
 
+    println!("enter player's name:");
+    let mut plyr_name: String = String::new();
+    io::stdin().read_line(&mut plyr_name).expect("failed to read line");
+    let mut test_player: Player = Player::new(plyr_name);
     test_player.print_stats();
+    test_player.incr_exp(rand::thread_rng().gen_range(5, 10));
+    println!("player EXP is now {}", &test_player.exp);
+
+    
 }
