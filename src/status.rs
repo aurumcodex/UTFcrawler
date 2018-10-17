@@ -12,6 +12,7 @@ pub enum Ailment {
     Unconscious,
 }
 
+#[derive(Debug)]
 pub enum Psyche {
     Normal,
     Drunk,

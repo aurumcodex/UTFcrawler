@@ -6,8 +6,8 @@ extern crate rand;
 mod player;
 mod status;
 
-use player::*;
-use status::{Ailment, Psyche};
+use self::player::*;
+use self::status::{Ailment, Psyche};
 use rand::Rng;
 
 fn main() {
@@ -17,10 +17,10 @@ fn main() {
     println!("Hello, world!");
 
     let mut test_player = Player {
-        player_name: String::from("bob ross");
+        player_name: String::from("bob ross"),
         level: 1,
         exp: 0,
-        archetype: Archetype::Gunner,
+        archetype: player::Archetype::Gunner,
         hp: rand::thread_rng().gen_range(20, 50),
         mp: rand::thread_rng().gen_range(20, 50),
         phys_attk: rand::thread_rng().gen_range(20, 50),
@@ -35,7 +35,7 @@ fn main() {
         luck: rand::thread_rng().gen_range(20, 50),
         status: Ailment::Normal,
         psyche: Psyche::Normal,
-    }
+    };
 
     test_player.print_stats();
 }
