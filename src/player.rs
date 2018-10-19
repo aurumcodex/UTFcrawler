@@ -13,7 +13,7 @@ use rand::Rng;
 pub enum Archetype {
     Mercenary,
     Gunner,
-    Thaumaturgist,
+    Occultist,
     Blackguard,
     Freelancer,
 }
@@ -66,6 +66,10 @@ impl Player {
     pub fn incr_exp(&mut self, add_exp: u32) {
         println!("gained {} EXP", add_exp);
         self.exp += add_exp
+    }
+
+    pub fn level_up(&mut self) {
+
     }
 
     pub fn print_stats(&self) {

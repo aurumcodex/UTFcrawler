@@ -48,7 +48,7 @@ This is a project that is designed to create an RPG game using Unicode character
     - [ ] declare archetypes for the player (think classes in a traditional RPG)
     
 - status.rs
-    - [ ] declare enums and values for status ailments and potential psyche ailments
+    - [x] declare enums and values for status ailments and potential psyche ailments (partially, more might be added later.)
     
 - util.rs
     - [ ] implement saving functionality

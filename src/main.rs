@@ -5,11 +5,13 @@ extern crate rand;
 
 mod player;
 mod status;
+mod combat;
 
 use std::io;
 use self::player::*;
 use self::status::{Ailment, Psyche};
 use rand::Rng;
+use combat::*;
 
 fn main() {
     // TODO: create all the functions and data types that we'll need to use.
@@ -26,5 +28,5 @@ fn main() {
     test_player.incr_exp(rand::thread_rng().gen_range(5, 10));
     println!("player EXP is now {}", &test_player.exp);
 
-    
+    combat(&mut test_player);
 }

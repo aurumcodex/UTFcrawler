@@ -19,3 +19,20 @@ pub enum Psyche {
     Terror,
     Depressed,
 }
+
+#[derive(Debug)]
+pub enum EnemyAilment {
+    Normal,
+    Poisoned,
+    Paralyzed,
+    Asleep,
+    Blind,
+    Dead,
+}
+
+#[derive(Debug)]
+pub enum EnemyPsyche {
+    Normal,
+    Terrified,
+    Enraged,
+}
