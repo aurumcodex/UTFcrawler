@@ -1,6 +1,8 @@
 //!
 //!  Authors: Nathan Adams, Reid Marsh, Nicholas Sandserson, Pressy Muraguri
 //!
+//!  Nicholas checking in!
+
 extern crate rand;
 
 mod player;
