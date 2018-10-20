@@ -2,6 +2,7 @@
 //! Authors: Nathan Adams, Reid Marsh, Nicolas Sanderson, Pressy Muraguri
 //!
 // mod status;
+// test comment for checking prompt
 
 extern crate rand;
 
