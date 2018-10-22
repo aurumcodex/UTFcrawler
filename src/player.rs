@@ -14,9 +14,9 @@ use rand::Rng;
 pub enum Archetype {
     Mercenary,
     Gunner,
-    Occultist,
+    Alchemist,
     Blackguard,
-    Freelancer,
+    Generalist,
 }
 
 pub struct Player {
@@ -42,13 +42,13 @@ pub struct Player {
 }
 
 impl Player {
-    pub fn new(name: String) -> Player {
+    pub fn new(name: String, arch: Archetype) -> Player {
         Player {
             player_name: name,
             level: 1,
             exp: 0,
             to_next_level: 20,
-            archetype: Archetype::Gunner,
+            archetype: arch,
             hp: rand::thread_rng().gen_range(20, 50),
             mp: rand::thread_rng().gen_range(20, 50),
             phys_attk: rand::thread_rng().gen_range(20, 50),
@@ -73,6 +73,11 @@ impl Player {
 
     pub fn level_up(&mut self) {
 
+    }
+
+    pub fn take_dmg(&mut self, damage: i16) {
+        self.hp -= damage;
+        if self.hp <= 0 {self.status = Ailment::Unconscious}
     }
 
     pub fn print_stats(&self) {

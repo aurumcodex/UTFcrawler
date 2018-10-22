@@ -4,6 +4,8 @@
 //!  Nicholas checking in!
 
 extern crate rand;
+// extern crate ansi_term;
+extern crate termion;
 
 mod player;
 mod enemy;
@@ -16,18 +18,31 @@ use self::enemy::*;
 use self::status::*;
 use self::combat::*;
 use rand::Rng;
+use termion::{color, cursor, style};
 
 fn main() {
     // TODO: create all the functions and data types that we'll need to use.
     // that comes later, though.
     // additional like in combat branch
-    println!("Hello, world!");
+    let hi_hp = color::Rgb(146, 180, 33);
+    let mid_hp = color::Rgb(189, 130, 35);
+    let low_hp = color::Rgb(189, 43, 35);
+    let norm = color::Rgb(155, 50, 135);
+    
+    println!("yaay testing stuff");
 
 
     println!("enter player's name:");
     let mut plyr_name: String = String::new();
     io::stdin().read_line(&mut plyr_name).expect("failed to read line");
-    let mut test_player: Player = Player::new(plyr_name);
+    // let mut plyr_arch: Archetype;
+    println!("enter player's archetype:");
+    let mut plyr_type: String = String::new();
+    io::stdin().read_line(&mut plyr_type).expect("failed to read line");
+    
+    
+    let mut test_player: Player = Player::new(plyr_name, Archetype::Alchemist);
+    println!("{}{}Welcome, {}{}", color::Fg(norm), style::Bold, test_player.player_name, style::Reset);
 
     test_player.print_stats();
     test_player.incr_exp(rand::thread_rng().gen_range(5, 10));
@@ -63,7 +78,7 @@ fn main() {
     test_enemy.print_stats();
     test_enemy.decr_hp(3);
 
-    println!("enemy hp is now: {}", test_enemy.hp);
+    println!("enemy hp is now: {}☺", test_enemy.hp);
     println!("enemy status is  now: {:?}", test_enemy.status);
 
     test_enemy.print_stats();
@@ -80,4 +95,8 @@ fn main() {
 //    combat(&mut test_player);
 //    let neg_float = -420.69f32;
 //    println!("a negative float: {}", neg_float);
+    println!();
+
+    test_player.incr_exp(test_enemy.given_exp);
+    println!("player exp is now: {}", test_player.exp)
 }
