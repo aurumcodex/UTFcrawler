@@ -49,6 +49,11 @@ impl Enemy {
         }
     }
 
+    pub fn decr_hp(&mut self, damage: i16) {
+        self.hp -= damage;
+        if self.hp <= 0 {self.status = EnemyAilment::Dead}
+    }// decr_hp
+
     pub fn print_stats(&self) {
         println!("Enemy ID: {} \n\
                   Enemy Name: {} \n\
@@ -86,10 +91,5 @@ impl Enemy {
                   self.luck,
                   self.status,
                   self.psyche);
-    }
-
-    pub fn decr_hp(&mut self, damage: i16) {
-        self.hp -= damage;
-        if self.hp <= 0 {self.status = EnemyAilment::Dead}
-    }
+    }// print_stats
 }

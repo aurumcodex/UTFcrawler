@@ -4,8 +4,8 @@
 //!  Nicholas checking in!
 
 extern crate rand;
-// extern crate ansi_term;
-extern crate termion;
+extern crate ansi_term;
+//extern crate termion;
 
 mod player;
 mod enemy;
@@ -18,16 +18,24 @@ use self::enemy::*;
 use self::status::*;
 use self::combat::*;
 use rand::Rng;
-use termion::{color, cursor, style};
+//use termion::{color, cursor, style};
+use ansi_term::{Color, Style};
 
 fn main() {
     // TODO: create all the functions and data types that we'll need to use.
     // that comes later, though.
-    // additional like in combat branch
-    let hi_hp = color::Rgb(146, 180, 33);
-    let mid_hp = color::Rgb(189, 130, 35);
-    let low_hp = color::Rgb(189, 43, 35);
-    let norm = color::Rgb(155, 50, 135);
+
+//    termion variables
+//    let hi_hp = color::Rgb(146, 180, 33);
+//    let mid_hp = color::Rgb(189, 130, 35);
+//    let low_hp = color::Rgb(189, 43, 35);
+//    let norm = color::Rgb(155, 50, 135);
+
+//    ansi_term variables
+    let hi_hp = Color::RGB(146, 180, 33);
+    let mid_hp = Color::RGB(189, 130, 35);
+    let low_hp = Color::RGB(189, 42, 35);
+    let norm = Color::RGB(155, 50, 135);
     
     println!("yaay testing stuff");
 
@@ -39,10 +47,16 @@ fn main() {
     println!("enter player's archetype:");
     let mut plyr_type: String = String::new();
     io::stdin().read_line(&mut plyr_type).expect("failed to read line");
-    
+//    match plyr_type.as_str() {
+//
+//    }
     
     let mut test_player: Player = Player::new(plyr_name, Archetype::Alchemist);
-    println!("{}{}Welcome, {}{}", color::Fg(norm), style::Bold, test_player.player_name, style::Reset);
+//    termion
+//    println!("{}{}Welcome, {}{}", color::Fg(norm), style::Bold, test_player.player_name, style::Reset);
+
+//    ansi_term
+    println!("{}{}", Style::new().bold().fg(norm).paint("Greetings, "), Style::new().bold().fg(norm).paint(&test_player.player_name));
 
     test_player.print_stats();
     test_player.incr_exp(rand::thread_rng().gen_range(5, 10));
