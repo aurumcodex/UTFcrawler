@@ -82,6 +82,7 @@ fn main() {
         luck: rand::thread_rng().gen_range(1, 10),
         status: EnemyAilment::Normal,
         psyche: EnemyPsyche::Normal,
+        is_dead: false,
     };
     test_enemy.print_stats();
     test_enemy.decr_hp(3);
@@ -112,5 +113,15 @@ fn main() {
     println!();
 
     test_player.incr_exp(test_enemy.given_exp);
-    println!("player exp is now: {}", test_player.exp)
+    println!("player exp is now: {}", test_player.exp);
+    println!("check enemy status:: is_dead? -> {}", test_enemy.is_dead);
+
+    println!("player is currently dead? :: {}", test_player.check_status());
+
+    let mut test_num = 42;
+    // note: loop within an if is still infinite loop
+    while test_num < 50 {
+        println!("num is :: {}", test_num);
+        test_num += 1;
+    }
 }

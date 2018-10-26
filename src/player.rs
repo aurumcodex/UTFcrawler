@@ -39,6 +39,7 @@ pub struct Player {
     pub luck: u8,
     pub status: Ailment,
     pub psyche: Psyche,
+    pub is_dead: bool,
 }
 
 impl Player {
@@ -63,6 +64,7 @@ impl Player {
             luck: rand::thread_rng().gen_range(20, 50),
             status: Ailment::Normal,
             psyche: Psyche::Normal,
+            is_dead: false,
         }
     }
 
@@ -79,6 +81,8 @@ impl Player {
         self.hp -= damage;
         if self.hp <= 0 {self.status = Ailment::Unconscious}
     }
+
+    pub fn check_status(&self) -> bool { self.is_dead }
 
     pub fn print_stats(&self) {
         println!("Player Name: {}", self.player_name);
@@ -99,5 +103,6 @@ impl Player {
         println!("Player Luck: {}", self.luck);
         println!("Player Status: {:?}", self.status);
         println!("Player Psyche: {:?}", self.psyche);
+        println!("Is Player Dead? :: {}", self.is_dead);
     }
 }

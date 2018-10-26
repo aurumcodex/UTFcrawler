@@ -36,6 +36,7 @@ pub struct Enemy {
     pub luck: u8,
     pub status: EnemyAilment,
     pub psyche: EnemyPsyche,
+    pub is_dead: bool,
 }
 
 impl Enemy {
@@ -51,7 +52,10 @@ impl Enemy {
 
     pub fn decr_hp(&mut self, damage: i16) {
         self.hp -= damage;
-        if self.hp <= 0 {self.status = EnemyAilment::Dead}
+        if self.hp <= 0 {
+            self.status = EnemyAilment::Dead;
+            self.is_dead = true;
+        }
     }// decr_hp
 
     pub fn print_stats(&self) {
@@ -72,7 +76,8 @@ impl Enemy {
                   Enemy Agility: {} \n\
                   Enemy Luck: {} \n\
                   Enemy Status: {:?} \n\
-                  Enemy Psyche: {:?} \n",
+                  Enemy Psyche: {:?} \n\
+                  Enemy Is Dead? :: {} \n",
                   self.enemy_id,
                   self.enemy_name,
                   self.enemy_type,
@@ -90,6 +95,7 @@ impl Enemy {
                   self.agility,
                   self.luck,
                   self.status,
-                  self.psyche);
+                  self.psyche,
+                  self.is_dead);
     }// print_stats
 }
