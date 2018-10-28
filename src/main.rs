@@ -63,7 +63,7 @@ fn main() {
     println!("{}{}", Style::new().bold().fg(norm).paint("Greetings, "), Style::new().bold().fg(norm).paint(&test_player.player_name));
 
     test_player.print_stats();
-    test_player.incr_exp(rand::thread_rng().gen_range(5, 10));
+    test_player.gain_exp(rand::thread_rng().gen_range(5, 10));
     println!("player EXP is now {}", &test_player.exp);
 
     let mut test_enemy = Enemy {
@@ -88,35 +88,14 @@ fn main() {
         psyche: EnemyPsyche::Normal,
         is_dead: false,
     };
-    test_enemy.print_stats();
-    test_enemy.decr_hp(3);
 
-    println!("enemy hp is now: {}", test_enemy.hp);
-    println!("enemy status is  now: {:?}", test_enemy.status);
-
-//    test_enemy.print_stats();
-    test_enemy.decr_hp(3);
-
-    println!("enemy hp is now: {}☺", test_enemy.hp);
-    println!("enemy status is  now: {:?}", test_enemy.status);
-
-//    test_enemy.print_stats();
-    test_enemy.decr_hp(3);
-
-    println!("enemy hp is now: {}", test_enemy.hp);
-    println!("enemy status is  now: {:?}", test_enemy.status);
-
-//    test_enemy.print_stats();
-    test_enemy.decr_hp(4);
-
-    println!("enemy hp is now: {}", test_enemy.hp);
-    println!("enemy status is  now: {:?}", test_enemy.status);
-//    combat(&mut test_player);
-//    let neg_float = -420.69f32;
-//    println!("a negative float: {}", neg_float);
     println!();
 
-    test_player.incr_exp(test_enemy.given_exp);
+    combat::combat(&mut test_player, &mut test_enemy);
+
+    println!();
+
+//    test_player.gain_exp(test_enemy.given_exp);
     println!("player exp is now: {}", test_player.exp);
     println!("check enemy status:: is_dead? -> {}", test_enemy.is_dead);
 

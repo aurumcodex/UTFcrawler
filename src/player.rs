@@ -12,11 +12,7 @@ use rand::Rng;
 
 #[derive(Debug)]
 pub enum Archetype {
-    Mercenary,
-    Gunner,
-    Alchemist,
-    Blackguard,
-    Generalist,
+    Mercenary, Gunner, Alchemist, Blackguard, Generalist,
 }
 
 pub struct Player {
@@ -68,13 +64,17 @@ impl Player {
         }
     }
 
-    pub fn incr_exp(&mut self, add_exp: u32) {
+    pub fn gain_exp(&mut self, add_exp: u32) {
         println!("gained {} EXP", add_exp);
         self.exp += add_exp
     }
 
     pub fn level_up(&mut self) {
+        // TODO: implement leveling up functions, i.e. stat increases, resetting to next level value
+    }
 
+    pub fn check_level_up(&self) {
+        // TODO: implement
     }
 
     pub fn take_dmg(&mut self, damage: i16) {

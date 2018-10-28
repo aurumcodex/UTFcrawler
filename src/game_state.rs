@@ -1,8 +1,6 @@
 extern crate ansi_term;
 //extern crate termion;
 
-use ansi_term::{Color};
-//use termion::*;
 pub mod palettes {
     pub mod nes_palette {
         // ansi_term color variables [will be replaced, or least commented out when swapping to termion]
@@ -67,5 +65,11 @@ pub mod palettes {
 
 #[derive(Debug)]
 pub enum Palette {
-    NES, C64, ATARI, DEFAULT,
+    NES, C64, ATARI,
+}
+
+pub enum Floor {
+    Floor1, Floor2, Floor3, Floor4, Floor5,
+    Floor6, Floor7, Floor8, Floor9, Floor10,
+    Floor11, Floor12, Floor13, Floor14, Floor15,
 }

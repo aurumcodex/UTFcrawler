@@ -9,9 +9,7 @@ use rand::Rng;
 
 #[derive(Debug)]
 pub enum EnemyType {
-    Common,
-    Rare,
-    Boss,
+    Common, Rare, Boss,
 }
 
 //pub enum EnemyLevel
@@ -51,6 +49,7 @@ impl Enemy {
     }
 
     pub fn decr_hp(&mut self, damage: i16) {
+        println!("Enemy took {} damage", damage);
         self.hp -= damage;
         if self.hp <= 0 {
             self.status = EnemyAilment::Dead;
