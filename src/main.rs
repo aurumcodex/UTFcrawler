@@ -11,12 +11,14 @@ mod player;
 mod enemy;
 mod status;
 mod combat;
+mod game_state;
 
 use std::io;
 use self::player::*;
 use self::enemy::*;
 use self::status::*;
 use self::combat::*;
+use self::game_state::palettes::*;
 use rand::Rng;
 //use termion::{color, cursor, style};
 use ansi_term::{Color, Style};
@@ -32,11 +34,13 @@ fn main() {
 //    let norm = color::Rgb(155, 50, 135);
 
 //    ansi_term variables
-    let hi_hp = Color::RGB(146, 180, 33);
-    let mid_hp = Color::RGB(189, 130, 35);
-    let low_hp = Color::RGB(189, 42, 35);
-    let norm = Color::RGB(155, 50, 135);
-    
+    let black = Color::RGB(0, 0, 0);
+    let drk_gray = Color::RGB(78, 83, 92);
+    let med_gray = Color::RGB(142, 152, 167);
+    let lgt_gray = Color::RGB(193, 198, 207);
+    let white = Color::RGB(244, 245, 247);
+    let norm = Color::RGB(104, 68, 252);
+
     println!("yaay testing stuff");
 
 
@@ -90,19 +94,19 @@ fn main() {
     println!("enemy hp is now: {}", test_enemy.hp);
     println!("enemy status is  now: {:?}", test_enemy.status);
 
-    test_enemy.print_stats();
+//    test_enemy.print_stats();
     test_enemy.decr_hp(3);
 
     println!("enemy hp is now: {}☺", test_enemy.hp);
     println!("enemy status is  now: {:?}", test_enemy.status);
 
-    test_enemy.print_stats();
+//    test_enemy.print_stats();
     test_enemy.decr_hp(3);
 
     println!("enemy hp is now: {}", test_enemy.hp);
     println!("enemy status is  now: {:?}", test_enemy.status);
 
-    test_enemy.print_stats();
+//    test_enemy.print_stats();
     test_enemy.decr_hp(4);
 
     println!("enemy hp is now: {}", test_enemy.hp);
@@ -124,4 +128,64 @@ fn main() {
         println!("num is :: {}", test_num);
         test_num += 1;
     }
+
+    println!();
+
+    let nes_meg = "this is a string to print out in many a colour using the NES palette!";
+    println!("{}", Style::new().fg(nes_palette::NES_BLACK).on(nes_palette::NES_WHITE).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_BLUE).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_BROWN).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_BRT_BLUE).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_BRT_GREEN).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_BRT_RED).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_CYAN).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_DRK_GREY).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_GREEN).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_LGT_GREY).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_MED_GREY).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_ORANGE).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_PURPLE).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_RED).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_WHITE).paint(nes_meg));
+    println!("{}", Style::new().fg(nes_palette::NES_YELLOW).paint(nes_meg));
+
+    println!();
+
+    let c64_msg = "this is a string to print out in many a colour using the C64 palette!";
+    println!("{}", Style::new().fg(c64_palette::C64_BLACK).on(c64_palette::C64_WHITE).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_BLUE).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_BROWN).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_CYAN).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_DRK_GREY).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_GREEN).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_LGT_BLUE).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_LGT_GREEN).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_LGT_GREY).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_LGT_RED).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_MED_GREY).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_ORANGE).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_PURPLE).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_RED).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_WHITE).paint(c64_msg));
+    println!("{}", Style::new().fg(c64_palette::C64_YELLOW).paint(c64_msg));
+
+    println!();
+
+    let atari_msg = "this is a string to print out in many a colour using the Atari 2600 palette!";
+    println!("{}", Style::new().fg(atari_palette::ATARI_BLACK).on(atari_palette::ATARI_WHITE).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_BLUE).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_BLUE2).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_BROWN).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_DRK_GREY).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_GREEN).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_GREEN2).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_LGT_GREY).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_OLIVE).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_ORANGE).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_PURPLE).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_RED).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_RED2).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_TEAL).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_WHITE).paint(atari_msg));
+    println!("{}", Style::new().fg(atari_palette::ATARI_YELLOW).paint(atari_msg));
 }
