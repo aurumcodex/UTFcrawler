@@ -18,7 +18,7 @@ pub enum Psyche {
     Drunk,
     Terror,
     Depressed,
-    Halucinating,
+    Hallucinating,
 }
 
 #[derive(Debug)]

@@ -10,9 +10,9 @@ extern crate rand;
 use crate::status::{Ailment, Psyche};
 use rand::Rng;
 
-#[derive(Debug)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq)]
 pub enum Archetype {
-    Mercenary, Gunner, Alchemist, Blackguard, Generalist,
+    Mercenary, Gunner, Alchemist, Blackguard, Generalist, None,
 }
 
 pub struct Player {
@@ -22,13 +22,9 @@ pub struct Player {
     pub to_next_level: u32,
     pub archetype: Archetype,
     pub hp: i16,
-    pub mp: u16,
-    pub phys_attk: u16,
-    pub phys_def: u16,
-    pub mag_attk: u16,
-    pub mag_def: u16,
+    pub ap: u16,
     pub strength: u8,
-    pub magic: u8,
+    pub alchemy: u8,
     pub vitality: u8,
     pub dexterity: u8,
     pub agility: u8,
@@ -47,13 +43,9 @@ impl Player {
             to_next_level: 20,
             archetype: arch,
             hp: rand::thread_rng().gen_range(20, 50),
-            mp: rand::thread_rng().gen_range(20, 50),
-            phys_attk: rand::thread_rng().gen_range(20, 50),
-            phys_def: rand::thread_rng().gen_range(20, 50),
-            mag_attk: rand::thread_rng().gen_range(20, 50),
-            mag_def: rand::thread_rng().gen_range(20, 50),
+            ap: rand::thread_rng().gen_range(20, 50),
             strength: rand::thread_rng().gen_range(20, 50),
-            magic: rand::thread_rng().gen_range(20, 50),
+            alchemy: rand::thread_rng().gen_range(20, 50),
             vitality: rand::thread_rng().gen_range(20, 50),
             dexterity: rand::thread_rng().gen_range(20, 50),
             agility: rand::thread_rng().gen_range(20, 50),
@@ -79,7 +71,10 @@ impl Player {
 
     pub fn take_dmg(&mut self, damage: i16) {
         self.hp -= damage;
-        if self.hp <= 0 {self.status = Ailment::Unconscious}
+        if self.hp <= 0 {
+            self.status = Ailment::Unconscious;
+            self.is_dead = true;
+        }
     }
 
     pub fn check_status(&self) -> bool { self.is_dead }
@@ -90,13 +85,9 @@ impl Player {
         println!("Player EXP: {}", self.exp);
         println!("Player Archetype: {:?}", self.archetype);
         println!("Player HP: {}", self.hp);
-        println!("Player MP: {}", self.mp);
-        println!("Player Phys Attk: {}", self.phys_attk);
-        println!("Player Phys Def: {}", self.phys_def);
-        println!("Player Magic Attk: {}", self.mag_attk);
-        println!("Player Magic Def: {}", self.mag_def);
+        println!("Player MP: {}", self.ap);
         println!("Player Strength: {}", self.strength);
-        println!("Player Magic: {}", self.magic);
+        println!("Player Magic: {}", self.alchemy);
         println!("Player Vitality: {}", self.vitality);
         println!("Player Dexterity: {}", self.dexterity);
         println!("Player Agility: {}", self.agility);

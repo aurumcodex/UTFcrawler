@@ -47,15 +47,35 @@ fn main() {
     println!("enter player's name:");
     let mut plyr_name: String = String::new();
     io::stdin().read_line(&mut plyr_name).expect("failed to read line");
-    // let mut plyr_arch: Archetype;
-    println!("enter player's archetype:");
-    let mut plyr_type: String = String::new();
-    io::stdin().read_line(&mut plyr_type).expect("failed to read line");
-//    match plyr_type.as_str() {
+//    println!("enter player's archetype:");
+//    io::stdin().read_line(&mut plyr_type).expect("failed to read line");
+
+//    while  {
+//        match plyr_type.as_str() {
+//            "Alchemist" => {
+//                plyr_arch = Archetype::Alchemist;
+//                break;
+//            },
+//            "alchemist" =>
 //
+//        }
 //    }
+//    println!("archetype is :: {}", plyr_type);
+    let mut plyr_arch = Archetype::None;
+
+    while plyr_arch == Archetype::None {
+        let mut plyr_type: String = String::new();
+        println!("enter the archetype you wish to use:: ");
+        io::stdin().read_line(&mut plyr_type).expect("failed to read line");
+        if plyr_type.trim().eq(&String::from("Alchemist")) || plyr_type.trim().eq(&String::from("alchemist")) { plyr_arch = Archetype::Alchemist; }
+        if plyr_type.trim().eq(&String::from("Blackguard")) || plyr_type.trim().eq(&String::from("blackguard")) { plyr_arch = Archetype::Blackguard; }
+        if plyr_type.trim().eq(&String::from("Generalist")) || plyr_type.trim().eq(&String::from("generalist")) { plyr_arch = Archetype::Generalist; }
+        if plyr_type.trim().eq(&String::from("Gunner")) || plyr_type.trim().eq(&String::from("gunner")) { plyr_arch = Archetype::Gunner; }
+        if plyr_type.trim().eq(&String::from("Mercenary")) || plyr_type.trim().eq(&String::from("mercenary")) { plyr_arch = Archetype::Mercenary; }
+    }
+
     
-    let mut test_player: Player = Player::new(plyr_name, Archetype::Alchemist);
+    let mut test_player: Player = Player::new(plyr_name, plyr_arch);
 //    termion
 //    println!("{}{}Welcome, {}{}", color::Fg(norm), style::Bold, test_player.player_name, style::Reset);
 

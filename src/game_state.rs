@@ -68,6 +68,7 @@ pub enum Palette {
     NES, C64, ATARI,
 }
 
+#[derive(Debug)]
 pub enum Floor {
     Floor1, Floor2, Floor3, Floor4, Floor5,
     Floor6, Floor7, Floor8, Floor9, Floor10,
