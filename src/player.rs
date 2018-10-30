@@ -63,6 +63,10 @@ impl Player {
 
     pub fn level_up(&mut self) {
         // TODO: implement leveling up functions, i.e. stat increases, resetting to next level value
+        self.hp += rand::thread_rng().gen_range(2, 5);
+        self.ap += rand::thread_rng().gen_range(2, 5);
+        self.level += 1;
+        // self.
     }
 
     pub fn check_level_up(&self) {

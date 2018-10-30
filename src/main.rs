@@ -3,6 +3,7 @@
 //!
 //!  Nicholas checking in!
 
+
 extern crate rand;
 extern crate ansi_term;
 //extern crate termion;
@@ -47,20 +48,7 @@ fn main() {
     println!("enter player's name:");
     let mut plyr_name: String = String::new();
     io::stdin().read_line(&mut plyr_name).expect("failed to read line");
-//    println!("enter player's archetype:");
-//    io::stdin().read_line(&mut plyr_type).expect("failed to read line");
 
-//    while  {
-//        match plyr_type.as_str() {
-//            "Alchemist" => {
-//                plyr_arch = Archetype::Alchemist;
-//                break;
-//            },
-//            "alchemist" =>
-//
-//        }
-//    }
-//    println!("archetype is :: {}", plyr_type);
     let mut plyr_arch = Archetype::None;
 
     while plyr_arch == Archetype::None {
@@ -72,6 +60,7 @@ fn main() {
         if plyr_type.trim().eq(&String::from("Generalist")) || plyr_type.trim().eq(&String::from("generalist")) { plyr_arch = Archetype::Generalist; }
         if plyr_type.trim().eq(&String::from("Gunner")) || plyr_type.trim().eq(&String::from("gunner")) { plyr_arch = Archetype::Gunner; }
         if plyr_type.trim().eq(&String::from("Mercenary")) || plyr_type.trim().eq(&String::from("mercenary")) { plyr_arch = Archetype::Mercenary; }
+        else { println!("please reenter your choice:: "); }
     }
 
     
@@ -187,4 +176,6 @@ fn main() {
     println!("{}", Style::new().fg(atari_palette::ATARI_TEAL).paint(atari_msg));
     println!("{}", Style::new().fg(atari_palette::ATARI_WHITE).paint(atari_msg));
     println!("{}", Style::new().fg(atari_palette::ATARI_YELLOW).paint(atari_msg));
+    
+    println!("this is a test line written in neovim. please ignore it");
 }

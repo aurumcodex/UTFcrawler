@@ -44,7 +44,7 @@ pub mod palettes {
 
     pub mod atari_palette {
         // ansi_term color variables [will be replaced, or least commented out when swapping to termion]
-        pub const ATARI_BLACK: ansi_term::Color     = ansi_term::Color::RGB(0, 0,  0);
+        pub const ATARI_BLACK: ansi_term::Color     = ansi_term::Color::RGB(0, 0, 0);
         pub const ATARI_DRK_GREY: ansi_term::Color  = ansi_term::Color::RGB(108, 108, 108);
         pub const ATARI_LGT_GREY: ansi_term::Color  = ansi_term::Color::RGB(200, 200, 200);
         pub const ATARI_WHITE: ansi_term::Color     = ansi_term::Color::RGB(255, 255, 255);
@@ -60,6 +60,14 @@ pub mod palettes {
         pub const ATARI_GREEN2: ansi_term::Color    = ansi_term::Color::RGB(108, 152, 80);
         pub const ATARI_OLIVE: ansi_term::Color     = ansi_term::Color::RGB(132, 140, 76);
         pub const ATARI_BROWN: ansi_term::Color     = ansi_term::Color::RGB(132, 104, 48);
+    }
+
+    pub mod default_palette {
+        // ansi_term color variables [will be replaced, or least commented out when swapping to termion]
+        pub const DFLT_BLACK: ansi_term::Color      = ansi_term::Color::RGB(39, 42, 46);
+        pub const DFLT_WHITE: ansi_term::Color      = ansi_term::Color::RGB(244, 245, 247);
+        pub const DFLT_RED: ansi_term::Color        = ansi_term::Color::RGB(152, 0, 23);
+        pub const DFLT_CYAN: ansi_term::Color       = ansi_term::Color::RGB(30, 239, 193);
     }
 }
 
