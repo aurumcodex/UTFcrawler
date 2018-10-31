@@ -178,4 +178,15 @@ fn main() {
     println!("{}", Style::new().fg(atari_palette::ATARI_YELLOW).paint(atari_msg));
     
     println!("this is a test line written in neovim. please ignore it");
+
+    let mut i = 0;
+    let mut big_num: u8 = 247;
+    while i < 10 {
+        big_num += 1;
+        if big_num == 255 {
+            println!("hit max number");
+            break;
+        }
+        println!("num is :: {}", big_num);
+    }
 }
