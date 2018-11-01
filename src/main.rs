@@ -179,7 +179,7 @@ fn main() {
     
     println!("this is a test line written in neovim. please ignore it");
 
-    let mut i = 0;
+    let mut i: i32 = 0;
     let mut big_num: u8 = 247;
     while i < 10 {
         big_num += 1;
@@ -189,4 +189,8 @@ fn main() {
         }
         println!("num is :: {}", big_num);
     }
+
+    println!();
+
+    test_player.print_stats();
 }

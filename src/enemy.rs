@@ -21,11 +21,7 @@ pub struct Enemy {
     pub level: u8,
     pub given_exp: u32,
     pub hp: i16,
-    pub mp: u16,
-    pub phys_attk: u16,
-    pub phys_def: u16,
-    pub mag_attk: u16,
-    pub mag_def: u16,
+    pub ap: i16,
     pub strength: u8,
     pub magic: u8,
     pub vitality: u8,
@@ -96,5 +92,6 @@ impl Enemy {
                   self.status,
                   self.psyche,
                   self.is_dead);
+
     }// print_stats
 }

@@ -10,7 +10,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
         enemy.decr_hp(3);
     }
     if player.is_dead == true {
-
+        println!("you have died");
     }
     if enemy.is_dead == true {
         println!("enemy status is  now: {:?}", enemy.status);
