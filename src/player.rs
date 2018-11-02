@@ -8,7 +8,7 @@ extern crate rand;
 use crate::status::{Ailment, Psyche};
 use rand::Rng;
 
-#[derive(Debug, Eq, PartialEq)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq)]
 pub enum Archetype {
     Mercenary, Gunner, Alchemist, Blackguard, Generalist, None,
 }
@@ -48,7 +48,7 @@ impl Player {
                 vitality: rand::thread_rng().gen_range(3, 11)-2,
                 dexterity: rand::thread_rng().gen_range(3, 11),
                 agility: rand::thread_rng().gen_range(3, 11)-1,
-                luck: rand::thread_rng().gen_range(3, 11)-1,
+                luck: rand::thread_rng().gen_range(3, 11),
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
