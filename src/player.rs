@@ -17,9 +17,12 @@ pub struct Player {
     pub player_name: String,
     pub level: u8,
     pub exp: u32,
-    pub to_next_level: u32,
+    pub to_next_level: i32,
+    pub prev_next_level: u32,
     pub archetype: Archetype,
+    pub max_hp: i16,
     pub hp: i16,
+    pub max_ap: i16,
     pub ap: i16,
     pub strength: u8,
     pub alchemy: u8,
@@ -34,15 +37,25 @@ pub struct Player {
 
 impl Player {
     pub fn new(name: String, arch: Archetype) -> Player {
+        let gen_normal_max_hp = rand::thread_rng().gen_range(40, 56);
+        let gen_normal_max_ap = rand::thread_rng().gen_range(40, 56);
+        let gen_heavy_max_hp = rand::thread_rng().gen_range(50, 66);
+        let gen_heavy_max_ap = rand::thread_rng().gen_range(50, 66);
+        let gen_weak_max_hp = rand::thread_rng().gen_range(35, 51);
+        let gen_weak_max_ap = rand::thread_rng().gen_range(35, 51);
+
         match arch {
             Archetype::Alchemist => Player {
                 player_name: name,
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
+                prev_next_level: 20,
                 archetype: arch,
-                hp: rand::thread_rng().gen_range(40, 56),
-                ap: rand::thread_rng().gen_range(15, 23),
+                max_hp: gen_weak_max_hp,
+                max_ap: gen_heavy_max_ap,
+                hp: gen_weak_max_hp,
+                ap: gen_heavy_max_ap,
                 strength: rand::thread_rng().gen_range(3, 11)-3,
                 alchemy: rand::thread_rng().gen_range(3, 11)+3,
                 vitality: rand::thread_rng().gen_range(3, 11)-2,
@@ -59,9 +72,12 @@ impl Player {
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
+                prev_next_level: 20,
                 archetype: arch,
-                hp: rand::thread_rng().gen_range(40, 56),
-                ap: rand::thread_rng().gen_range(15, 23),
+                max_hp: gen_max_hp,
+                max_ap: gen_max_ap,
+                hp: gen_max_hp,
+                ap: gen_max_ap,
                 strength: rand::thread_rng().gen_range(3, 11),
                 alchemy: rand::thread_rng().gen_range(3, 11)-2,
                 vitality: rand::thread_rng().gen_range(3, 11)-3,
@@ -78,9 +94,12 @@ impl Player {
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
+                prev_next_level: 20,
                 archetype: arch,
-                hp: rand::thread_rng().gen_range(40, 56),
-                ap: rand::thread_rng().gen_range(15, 23),
+                max_hp: gen_max_hp,
+                max_ap: gen_max_ap,
+                hp: gen_max_hp,
+                ap: gen_max_ap,
                 strength: rand::thread_rng().gen_range(3, 11)+1,
                 alchemy: rand::thread_rng().gen_range(3, 11)+1,
                 vitality: rand::thread_rng().gen_range(3, 11)+1,
@@ -97,9 +116,12 @@ impl Player {
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
+                prev_next_level: 20,
                 archetype: arch,
-                hp: rand::thread_rng().gen_range(40, 56),
-                ap: rand::thread_rng().gen_range(15, 23),
+                max_hp: gen_max_hp,
+                max_ap: gen_max_ap,
+                hp: gen_max_hp,
+                ap: gen_max_ap,
                 strength: rand::thread_rng().gen_range(3, 11)-2,
                 alchemy: rand::thread_rng().gen_range(3, 11)-3,
                 vitality: rand::thread_rng().gen_range(3, 11)-1,
@@ -116,9 +138,12 @@ impl Player {
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
+                prev_next_level: 20,
                 archetype: arch,
-                hp: rand::thread_rng().gen_range(40, 56),
-                ap: rand::thread_rng().gen_range(15, 23),
+                max_hp: gen_heavy_max_hp,
+                max_ap: gen_weak_max_ap,
+                hp: gen_heavy_max_hp,
+                ap: gen_weak_max_ap,
                 strength: rand::thread_rng().gen_range(3, 11)+3,
                 alchemy: rand::thread_rng().gen_range(3, 11)-3,
                 vitality: rand::thread_rng().gen_range(3, 11),
@@ -130,25 +155,7 @@ impl Player {
                 is_dead: false,
             },
             _ => { Player::default(name) }
-        }
-        // Player {
-        //     player_name: name,
-        //     level: 1,
-        //     exp: 0,
-        //     to_next_level: 20,
-        //     archetype: arch,
-        //     hp: rand::thread_rng().gen_range(20, 50),
-        //     ap: rand::thread_rng().gen_range(20, 50),
-        //     strength: rand::thread_rng().gen_range(20, 50),
-        //     alchemy: rand::thread_rng().gen_range(20, 50),
-        //     vitality: rand::thread_rng().gen_range(20, 50),
-        //     dexterity: rand::thread_rng().gen_range(20, 50),
-        //     agility: rand::thread_rng().gen_range(20, 50),
-        //     luck: rand::thread_rng().gen_range(20, 50),
-        //     status: Ailment::Normal,
-        //     psyche: Psyche::Normal,
-        //     is_dead: false,
-        // }
+        }// match statement
     }
     
     pub fn default(name: String) -> Player {
@@ -156,9 +163,12 @@ impl Player {
             player_name: name,
             level: 0,
             exp: 0,
-            to_next_level: 0,
+            to_next_level: 20,
+            prev_next_level: 20,
             archetype: Archetype::None,
+            max_hp: 1,
             hp: 1,
+            max_ap: 0,
             ap: 0,
             strength: 0,
             alchemy: 0,
@@ -182,7 +192,7 @@ impl Player {
         self.hp += rand::thread_rng().gen_range(2, 5);
         self.ap += rand::thread_rng().gen_range(2, 5);
         self.level += 1;
-        // self.
+        self.to_next_level += ();
     }
 
     pub fn check_level_up(&self) {
@@ -204,8 +214,10 @@ impl Player {
         println!("Player Level: {}", self.level);
         println!("Player EXP: {}", self.exp);
         println!("Player Archetype: {:?}", self.archetype);
+        println!("Player Max HP: {}", self.max_hp);
         println!("Player HP: {}", self.hp);
-        println!("Player MP: {}", self.ap);
+        println!("Player Max AP: {}", self.max_ap);
+        println!("Player AP: {}", self.ap);
         println!("Player Strength: {}", self.strength);
         println!("Player Magic: {}", self.alchemy);
         println!("Player Vitality: {}", self.vitality);
