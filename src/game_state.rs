@@ -78,7 +78,6 @@ pub enum Palette {
 
 #[derive(Debug)]
 pub enum Floor {
-    Floor1, Floor2, Floor3, Floor4, Floor5,
-    Floor6, Floor7, Floor8, Floor9, Floor10,
-    Floor11, Floor12, Floor13, Floor14, Floor15,
+    GF, B1F, B2F, B3F, B4F,
+    B5F, B6F, B7F, B8F, B9F,
 }
