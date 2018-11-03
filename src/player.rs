@@ -195,7 +195,7 @@ impl Player {
         self.level += 1;
 //        self.prev_next_level +=
         self.to_next_level += (self.prev_next_level * 1.5 as i32);
-        self.
+//        self.
     }
 
     pub fn check_level_up(&mut self) {
