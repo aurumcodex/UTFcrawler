@@ -64,16 +64,20 @@ pub mod palettes {
 
     pub mod default_palette {
         // ansi_term color variables [will be replaced, or least commented out when swapping to termion]
-        pub const DFLT_BLACK: ansi_term::Color      = ansi_term::Color::RGB(39, 42, 46);
-        pub const DFLT_WHITE: ansi_term::Color      = ansi_term::Color::RGB(244, 245, 247);
-        pub const DFLT_RED: ansi_term::Color        = ansi_term::Color::RGB(152, 0, 23);
-        pub const DFLT_CYAN: ansi_term::Color       = ansi_term::Color::RGB(30, 239, 193);
+        pub const DFLT_BLACK: ansi_term::Color      = ansi_term::Color::Black;
+        pub const DFLT_RED: ansi_term::Color        = ansi_term::Color::Red;
+        pub const DFLT_GREEN: ansi_term::Color      = ansi_term::Color::Green;
+        pub const DFLT_YELLOW: ansi_term::Color     = ansi_term::Color::Yellow;
+        pub const DFLT_BLUE: ansi_term::Color       = ansi_term::Color::Blue;
+        pub const DFLT_MAGENTA: ansi_term::Color    = ansi_term::Color::Purple;
+        pub const DFLT_CYAN: ansi_term::Color       = ansi_term::Color::Cyan;
+        pub const DFLT_WHITE: ansi_term::Color      = ansi_term::Color::White;
     }
 }
 
 #[derive(Debug)]
 pub enum Palette {
-    NES, C64, ATARI,
+    NES, C64, ATARI, DEFAULT,
 }
 
 #[derive(Debug)]
@@ -81,3 +85,4 @@ pub enum Floor {
     GF, B1F, B2F, B3F, B4F,
     B5F, B6F, B7F, B8F, B9F,
 }
+

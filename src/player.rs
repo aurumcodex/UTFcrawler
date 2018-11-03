@@ -18,11 +18,11 @@ pub struct Player {
     pub level: u8,
     pub exp: u32,
     pub to_next_level: i32,
-    pub prev_next_level: u32,
+    pub prev_next_level: i32,
     pub archetype: Archetype,
     pub max_hp: i16,
-    pub hp: i16,
     pub max_ap: i16,
+    pub hp: i16,
     pub ap: i16,
     pub strength: u8,
     pub alchemy: u8,
@@ -74,10 +74,10 @@ impl Player {
                 to_next_level: 20,
                 prev_next_level: 20,
                 archetype: arch,
-                max_hp: gen_max_hp,
-                max_ap: gen_max_ap,
-                hp: gen_max_hp,
-                ap: gen_max_ap,
+                max_hp: gen_normal_max_hp,
+                max_ap: gen_normal_max_ap,
+                hp: gen_normal_max_hp,
+                ap: gen_normal_max_ap,
                 strength: rand::thread_rng().gen_range(3, 11),
                 alchemy: rand::thread_rng().gen_range(3, 11)-2,
                 vitality: rand::thread_rng().gen_range(3, 11)-3,
@@ -96,10 +96,10 @@ impl Player {
                 to_next_level: 20,
                 prev_next_level: 20,
                 archetype: arch,
-                max_hp: gen_max_hp,
-                max_ap: gen_max_ap,
-                hp: gen_max_hp,
-                ap: gen_max_ap,
+                max_hp: gen_normal_max_hp,
+                max_ap: gen_normal_max_ap,
+                hp: gen_normal_max_hp,
+                ap: gen_normal_max_ap,
                 strength: rand::thread_rng().gen_range(3, 11)+1,
                 alchemy: rand::thread_rng().gen_range(3, 11)+1,
                 vitality: rand::thread_rng().gen_range(3, 11)+1,
@@ -118,10 +118,10 @@ impl Player {
                 to_next_level: 20,
                 prev_next_level: 20,
                 archetype: arch,
-                max_hp: gen_max_hp,
-                max_ap: gen_max_ap,
-                hp: gen_max_hp,
-                ap: gen_max_ap,
+                max_hp: gen_normal_max_hp,
+                max_ap: gen_normal_max_ap,
+                hp: gen_normal_max_hp,
+                ap: gen_normal_max_ap,
                 strength: rand::thread_rng().gen_range(3, 11)-2,
                 alchemy: rand::thread_rng().gen_range(3, 11)-3,
                 vitality: rand::thread_rng().gen_range(3, 11)-1,
@@ -189,14 +189,18 @@ impl Player {
 
     pub fn level_up(&mut self) {
         // TODO: implement leveling up functions, i.e. stat increases, resetting to next level value
+        let temp_next_lvl_exp = &self.prev_next_level;
         self.hp += rand::thread_rng().gen_range(2, 5);
         self.ap += rand::thread_rng().gen_range(2, 5);
         self.level += 1;
-        self.to_next_level += ();
+//        self.prev_next_level +=
+        self.to_next_level += (self.prev_next_level * 1.5 as i32);
+        self.
     }
 
-    pub fn check_level_up(&self) {
+    pub fn check_level_up(&mut self) {
         // TODO: implement
+        if self.to_next_level <= 0 { self.level_up() }
     }
 
     pub fn take_dmg(&mut self, damage: i16) {

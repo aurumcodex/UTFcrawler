@@ -55,11 +55,21 @@ fn main() {
         let mut plyr_type: String = String::new();
         println!("enter the archetype you wish to use:: ");
         io::stdin().read_line(&mut plyr_type).expect("failed to read line");
-        if plyr_type.trim().eq(&String::from("Alchemist")) || plyr_type.trim().eq(&String::from("alchemist")) { plyr_arch = Archetype::Alchemist; }
-        if plyr_type.trim().eq(&String::from("Blackguard")) || plyr_type.trim().eq(&String::from("blackguard")) { plyr_arch = Archetype::Blackguard; }
-        if plyr_type.trim().eq(&String::from("Generalist")) || plyr_type.trim().eq(&String::from("generalist")) { plyr_arch = Archetype::Generalist; }
-        if plyr_type.trim().eq(&String::from("Gunner")) || plyr_type.trim().eq(&String::from("gunner")) { plyr_arch = Archetype::Gunner; }
-        if plyr_type.trim().eq(&String::from("Mercenary")) || plyr_type.trim().eq(&String::from("mercenary")) { plyr_arch = Archetype::Mercenary; }
+        if plyr_type.trim().eq(&String::from("Alchemist")) || plyr_type.trim().eq(&String::from("alchemist")) {
+            plyr_arch = Archetype::Alchemist;
+        }
+        if plyr_type.trim().eq(&String::from("Blackguard")) || plyr_type.trim().eq(&String::from("blackguard")) {
+            plyr_arch = Archetype::Blackguard;
+        }
+        if plyr_type.trim().eq(&String::from("Generalist")) || plyr_type.trim().eq(&String::from("generalist")) {
+            plyr_arch = Archetype::Generalist;
+        }
+        if plyr_type.trim().eq(&String::from("Gunner")) || plyr_type.trim().eq(&String::from("gunner")) {
+            plyr_arch = Archetype::Gunner;
+        }
+        if plyr_type.trim().eq(&String::from("Mercenary")) || plyr_type.trim().eq(&String::from("mercenary")) {
+            plyr_arch = Archetype::Mercenary;
+        }
         else { println!("please reenter your choice:: "); }
     }
 
@@ -81,14 +91,12 @@ fn main() {
         enemy_name: String::from("test enemy"),
         level: rand::thread_rng().gen_range(1, 10),
         given_exp: rand::thread_rng().gen_range(1, 10),
+        max_hp: 10,
+        max_ap: 10,
         hp: 10,
-        mp: rand::thread_rng().gen_range(1, 10),
-        phys_attk: rand::thread_rng().gen_range(1, 10),
-        phys_def: rand::thread_rng().gen_range(1, 10),
-        mag_attk: rand::thread_rng().gen_range(1, 10),
-        mag_def: rand::thread_rng().gen_range(1, 10),
+        ap: 10,
         strength: rand::thread_rng().gen_range(1, 10),
-        magic: rand::thread_rng().gen_range(1, 10),
+        alchemy: rand::thread_rng().gen_range(1, 10),
         vitality: rand::thread_rng().gen_range(1, 10),
         dexterity: rand::thread_rng().gen_range(1, 10),
         agility: rand::thread_rng().gen_range(1, 10),
@@ -116,6 +124,9 @@ fn main() {
         println!("num is :: {}", test_num);
         test_num += 1;
     }
+
+    let test_int_as_float: i8 = 1.1 as i8;
+    println!("testing int as a float :: {}", test_int_as_float);
 
     println!();
 
@@ -176,7 +187,20 @@ fn main() {
     println!("{}", Style::new().fg(atari_palette::ATARI_TEAL).paint(atari_msg));
     println!("{}", Style::new().fg(atari_palette::ATARI_WHITE).paint(atari_msg));
     println!("{}", Style::new().fg(atari_palette::ATARI_YELLOW).paint(atari_msg));
-    
+
+    println!();
+
+    let default_msg = "this is a string to print out in many a colour using the default terminal color palette!";
+    println!("{}", Style::new().fg(default_palette::DFLT_BLACK).on(default_palette::DFLT_WHITE).paint(default_msg));
+    println!("{}", Style::new().fg(default_palette::DFLT_RED).paint(default_msg));
+    println!("{}", Style::new().fg(default_palette::DFLT_GREEN).paint(default_msg));
+    println!("{}", Style::new().fg(default_palette::DFLT_YELLOW).paint(default_msg));
+    println!("{}", Style::new().fg(default_palette::DFLT_BLUE).paint(default_msg));
+    println!("{}", Style::new().fg(default_palette::DFLT_MAGENTA).paint(default_msg));
+    println!("{}", Style::new().fg(default_palette::DFLT_CYAN).paint(default_msg));
+    println!("{}", Style::new().fg(default_palette::DFLT_WHITE).paint(default_msg));
+
+
     println!("this is a test line written in neovim. please ignore it");
 
     let mut i: i32 = 0;
