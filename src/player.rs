@@ -17,19 +17,19 @@ pub struct Player {
     pub player_name: String,
     pub level: u8,
     pub exp: u32,
-    pub to_next_level: i32,
-    pub prev_next_level: i32,
+    pub to_next_level: i64,
+    pub prev_next_level: i64,
     pub archetype: Archetype,
     pub max_hp: i16,
     pub max_ap: i16,
     pub hp: i16,
     pub ap: i16,
-    pub strength: u8,
-    pub alchemy: u8,
-    pub vitality: u8,
-    pub dexterity: u8,
-    pub agility: u8,
-    pub luck: u8,
+    pub strength: u16,
+    pub alchemy: u16,
+    pub vitality: u16,
+    pub dexterity: u16,
+    pub agility: u16,
+    pub luck: u16,
     pub status: Ailment,
     pub psyche: Psyche,
     pub is_dead: bool,
@@ -65,7 +65,6 @@ impl Player {
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
-
             },
             Archetype::Blackguard => Player {
                 player_name: name,
@@ -87,7 +86,6 @@ impl Player {
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
-
             },
             Archetype::Generalist => Player {
                 player_name: name,
@@ -109,7 +107,6 @@ impl Player {
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
-
             },
             Archetype::Gunner => Player {
                 player_name: name,
@@ -131,7 +128,6 @@ impl Player {
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
-
             },
             Archetype::Mercenary => Player {
                 player_name: name,
@@ -167,8 +163,8 @@ impl Player {
             prev_next_level: 20,
             archetype: Archetype::None,
             max_hp: 1,
-            hp: 1,
             max_ap: 0,
+            hp: 1,
             ap: 0,
             strength: 0,
             alchemy: 0,
@@ -184,23 +180,91 @@ impl Player {
 
     pub fn gain_exp(&mut self, add_exp: u32) {
         println!("gained {} EXP", add_exp);
-        self.exp += add_exp
+        self.exp += add_exp;
+        self.to_next_level -= add_exp as i64;
     }
 
     pub fn level_up(&mut self) {
-        // TODO: implement leveling up functions, i.e. stat increases, resetting to next level value
-        let temp_next_lvl_exp = &self.prev_next_level;
-        self.hp += rand::thread_rng().gen_range(2, 5);
-        self.ap += rand::thread_rng().gen_range(2, 5);
+        // TODO: finish changing the stats for the different classes
+        let temp_next_lvl_exp: f64 = self.prev_next_level as f64 * 1.7f64 + (self.prev_next_level as f64).powi(self.level as i32).ln();
         self.level += 1;
-//        self.prev_next_level +=
-        self.to_next_level += (self.prev_next_level * 1.5 as i32);
-//        self.
+        self.to_next_level += temp_next_lvl_exp as i64;
+//        self.hp += rand::thread_rng().gen_range(2, 5);
+//        self.ap += rand::thread_rng().gen_range(2, 5);
+        match self.archetype {
+            Archetype::Alchemist => {
+                self.max_hp += rand::thread_rng().gen_range(3, 7);
+                self.max_ap += rand::thread_rng().gen_range(6, 10);
+                self.hp = self.max_hp;
+                self.ap = self.max_ap;
+                self.strength += rand::thread_rng().gen_range(1, 4);
+                self.alchemy += rand::thread_rng().gen_range(2, 6);
+                self.vitality += rand::thread_rng().gen_range(1, 4);
+                self.dexterity += rand::thread_rng().gen_range(2, 5);
+                self.agility += rand::thread_rng().gen_range(1, 3);
+                self.luck += rand::thread_rng().gen_range(2, 4);
+                self.status = Ailment::Normal;
+            },
+            Archetype::Blackguard => {
+                self.max_hp += rand::thread_rng().gen_range(4, 8);
+                self.max_ap += rand::thread_rng().gen_range(3, 7);
+                self.hp = self.max_hp;
+                self.ap = self.max_ap;
+                self.strength += rand::thread_rng().gen_range(1, 4);
+                self.alchemy += rand::thread_rng().gen_range(2, 6);
+                self.vitality += rand::thread_rng().gen_range(1, 4);
+                self.dexterity += rand::thread_rng().gen_range(2, 5);
+                self.agility += rand::thread_rng().gen_range(1, 3);
+                self.luck += rand::thread_rng().gen_range(2, 4);
+                self.status = Ailment::Normal;
+            },
+            Archetype::Generalist => {
+                self.max_hp += rand::thread_rng().gen_range(3, 7);
+                self.max_ap += rand::thread_rng().gen_range(6, 10);
+                self.hp = self.max_hp;
+                self.ap = self.max_ap;
+                self.strength += rand::thread_rng().gen_range(1, 4);
+                self.alchemy += rand::thread_rng().gen_range(2, 6);
+                self.vitality += rand::thread_rng().gen_range(1, 4);
+                self.dexterity += rand::thread_rng().gen_range(2, 5);
+                self.agility += rand::thread_rng().gen_range(1, 3);
+                self.luck += rand::thread_rng().gen_range(2, 4);
+                self.status = Ailment::Normal;
+            },
+            Archetype::Gunner => {
+                self.max_hp += rand::thread_rng().gen_range(3, 7);
+                self.max_ap += rand::thread_rng().gen_range(6, 10);
+                self.hp = self.max_hp;
+                self.ap = self.max_ap;
+                self.strength += rand::thread_rng().gen_range(1, 4);
+                self.alchemy += rand::thread_rng().gen_range(2, 6);
+                self.vitality += rand::thread_rng().gen_range(1, 4);
+                self.dexterity += rand::thread_rng().gen_range(2, 5);
+                self.agility += rand::thread_rng().gen_range(1, 3);
+                self.luck += rand::thread_rng().gen_range(2, 4);
+                self.status = Ailment::Normal;
+            },
+            Archetype::Mercenary => {
+                self.max_hp += rand::thread_rng().gen_range(3, 7);
+                self.max_ap += rand::thread_rng().gen_range(6, 10);
+                self.hp = self.max_hp;
+                self.ap = self.max_ap;
+                self.strength += rand::thread_rng().gen_range(1, 4);
+                self.alchemy += rand::thread_rng().gen_range(2, 6);
+                self.vitality += rand::thread_rng().gen_range(1, 4);
+                self.dexterity += rand::thread_rng().gen_range(2, 5);
+                self.agility += rand::thread_rng().gen_range(1, 3);
+                self.luck += rand::thread_rng().gen_range(2, 4);
+                self.status = Ailment::Normal;
+            },
+            _ => {},
+        }
     }
 
     pub fn check_level_up(&mut self) {
-        // TODO: implement
-        if self.to_next_level <= 0 { self.level_up() }
+        if self.level <= 150 as u8 {
+            if self.to_next_level <= 0 { self.level_up() }
+        }
     }
 
     pub fn take_dmg(&mut self, damage: i16) {
@@ -217,6 +281,7 @@ impl Player {
         println!("Player Name: {}", self.player_name);
         println!("Player Level: {}", self.level);
         println!("Player EXP: {}", self.exp);
+        println!("Player To Next Level: {}", self.to_next_level);
         println!("Player Archetype: {:?}", self.archetype);
         println!("Player Max HP: {}", self.max_hp);
         println!("Player HP: {}", self.hp);
@@ -232,4 +297,5 @@ impl Player {
         println!("Player Psyche: {:?}", self.psyche);
         println!("Is Player Dead? :: {}", self.is_dead);
     }
+
 }

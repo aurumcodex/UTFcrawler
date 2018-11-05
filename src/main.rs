@@ -217,4 +217,23 @@ fn main() {
     println!();
 
     test_player.print_stats();
+
+    println!();
+
+    test_player.level_up();
+    test_player.print_stats();
+
+    println!();
+
+    test_player.level_up();
+    test_player.print_stats();
+
+    println!();
+
+    for i in test_player.level..125 {
+        test_player.level_up();
+        println!("Player strength is {}", test_player.strength);
+    }
+
+    test_player.print_stats();
 }
