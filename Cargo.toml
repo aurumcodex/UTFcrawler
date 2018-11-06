@@ -9,8 +9,5 @@ edition = "2018"
 
 [dependencies]
 rand = "0.5.5"
-ansi_term = "0.11.0"
-#termion = "1.5.1"
-#use ansi_term for use in windows
-#termion is for normal linux development
-#if need be, throw together a virtual machine and install ubuntu to continue development
+termion = "1.5.1"
+#ansi_term = "0.11.0"

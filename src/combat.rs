@@ -2,6 +2,8 @@
 //!  Authors: Nathan Adams, Reid Marsh, Nicholas Sandserson, Pressy Muraguri
 //!
 
+#![allow(dead_code)]
+
 use crate::player::*;
 use crate::enemy::*;
 

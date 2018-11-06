@@ -2,6 +2,9 @@
 //! Authors: Nathan Adams, Reid Marsh, Nicolas Sanderson, Pressy Muraguri
 //!
 
+#![allow(dead_code)]
+#[warn(unused_imports)]
+
 extern crate rand;
 
 use crate::status::{EnemyAilment, EnemyPsyche};
@@ -9,7 +12,7 @@ use rand::Rng;
 
 #[derive(Debug)]
 pub enum EnemyType {
-    Common, Rare, Boss,
+    Common, Boss,
 }
 
 //pub enum EnemyLevel
@@ -36,12 +39,11 @@ pub struct Enemy {
 }
 
 impl Enemy {
-    pub fn new(foe_type: EnemyType, id: u8) {
+    pub fn new(foe_type: EnemyType, _id: u8) {
         match foe_type {
             // TODO: implement a default construction of enemies so that they can be properly created
             // and set up.
             EnemyType::Common => (),
-            EnemyType::Rare => (),
             EnemyType::Boss => ()
         }
     }
