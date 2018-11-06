@@ -233,6 +233,9 @@ fn main() {
     for i in test_player.level..125 {
         test_player.level_up();
         println!("Player strength is {}", test_player.strength);
+        if test_player.level % 15 == 0 {
+            test_player.print_stats();
+        }
     }
 
     test_player.print_stats();
