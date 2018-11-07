@@ -68,6 +68,11 @@ pub enum Floor {
     GF, B1F, B2F, B3F, B4F,
 }
 
+pub struct Score {
+    score: u64,
+    hi_score: u64,
+}
+
 pub fn check_colors() {
     let mut window = stdout().into_raw_mode().unwrap();
     let color_count = window.available_colors().unwrap();

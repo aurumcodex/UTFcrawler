@@ -19,11 +19,10 @@ use std::io;
 use self::player::*;
 use self::enemy::*;
 use self::status::*;
-use self::combat::*;
+// use self::combat::*;
 use self::game_state::palettes::*;
 use rand::Rng;
 use termion::{color, cursor, style};
-//use ansi_term::{Color, Style};
 
 fn main() {
     // TODO: create all the functions and data types that we'll need to use.
@@ -34,15 +33,7 @@ fn main() {
 //    let mid_hp = color::Rgb(189, 130, 35);
 //    let low_hp = color::Rgb(189, 43, 35);
     let norm = color::Rgb(104, 68, 252);
-
-//    ansi_term variables
-//    let black = Color::RGB(0, 0, 0);
-//    let drk_gray = Color::RGB(78, 83, 92);
-//    let med_gray = Color::RGB(142, 152, 167);
-//    let lgt_gray = Color::RGB(193, 198, 207);
-//    let white = Color::RGB(244, 245, 247);
-//    let norm = Color::RGB(104, 68, 252);
-
+    
     println!("yaay testing stuff");
 
     println!("enter player's name:");

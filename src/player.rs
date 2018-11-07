@@ -183,9 +183,7 @@ impl Player {
     pub fn gain_exp(&mut self, add_exp: u32) {
 //        println!("gained {} EXP", add_exp);
         self.exp += add_exp;
-        if self.level < 11_u8 {
-            self.to_next_level -= add_exp as i64;
-        }
+        if self.level < 11_u8 { self.to_next_level -= add_exp as i64; }
         self.check_level_up();
     }
 
