@@ -13,6 +13,8 @@ mod player;
 mod enemy;
 mod status;
 mod combat;
+mod dungeon;
+mod inventory;
 mod game_state;
 
 use std::io;
@@ -20,6 +22,8 @@ use self::player::*;
 use self::enemy::*;
 use self::status::*;
 // use self::combat::*;
+use self::dungeon::*;
+use self::inventory::*;
 use self::game_state::palettes::*;
 use rand::Rng;
 use termion::{color, cursor, style};
