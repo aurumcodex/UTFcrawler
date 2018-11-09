@@ -12,4 +12,4 @@ rust-nightly:
     image: rustlang/rust:nightly
     script:
         - cargo build --verbose
-    allow-failure: true
+    allow_failure: true
