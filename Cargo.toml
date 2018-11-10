@@ -5,7 +5,7 @@ authors = ["Nathan Adams <nadams2@unca.edu>",
            "Reid Marsh <rmarsh@unca.edu>",
            "Nicholas Sanderson <nsanders@unca.edu>",
            "Pressy Muraguri <pmuragur@unca.edu>"]
-edition = "2018"
+
 
 [dependencies]
 rand = "0.5.5"

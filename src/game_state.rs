@@ -68,9 +68,14 @@ pub enum Floor {
     GF, B1F, B2F, B3F, B4F,
 }
 
+#[derive(Debug)]
+pub enum GameState {
+    Title, InGame, Combat, Menu,
+}
+
 pub struct Score {
-    score: u64,
-    hi_score: u64,
+    pub score: u64,
+    pub hi_score: u64,
 }
 
 pub fn check_colors() {
