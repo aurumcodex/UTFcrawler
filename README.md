@@ -1,8 +1,10 @@
 # UTFcrawler
 This is a project that is designed to create an RPG game using Unicode characters as ASCII art, instead of using raw ASCII.  <br/>
  
-![Current Version](https://img.shields.io/badge/version-0.0.1-blue.svg)
-![Crates.io](https://img.shields.io/crates/l/rustc-serialize.svg)
+![Language](https://img.shields.io/badge/rust-1.30.0-654321.svg?logo=rust&logoColor=rgb(225,225,225)&style=flat-square)
+![Current Version](https://img.shields.io/badge/version-0.0.1-519331.svg?style=flat-square)
+![Crates.io](https://img.shields.io/crates/l/rustc-serialize.svg?style=popout-square&colorB=1a5c86)
+![Build Status](https://gitlab.com/utf-crawler/utf-crawler/badges/master/pipeline.svg)
 
 ### TODO List:
 - main.rs:
