@@ -6,9 +6,9 @@
 #[derive(Debug)]
 pub enum Ailment {
     Normal,
-    Poisoned,
-    Paralyzed,
-    Asleep,
+//    Poisoned,
+//    Paralyzed,
+//    Asleep,
     Blind,
     Unconscious,
 }
@@ -17,19 +17,19 @@ pub enum Ailment {
 #[derive(Debug)]
 pub enum Psyche {
     Normal,
-    Drunk,
-    Terror,
-    Depressed,
-    Hallucinating,
+//    Drunk,
+//    Terror,
+//    Depressed,
+//    Hallucinating,
 }
 
 #[allow(dead_code)]
 #[derive(Debug)]
 pub enum EnemyAilment {
     Normal,
-    Poisoned,
-    Paralyzed,
-    Asleep,
+//    Poisoned,
+//    Paralyzed,
+//    Asleep,
     Blind,
     Dead,
 }
@@ -38,6 +38,6 @@ pub enum EnemyAilment {
 #[derive(Debug)]
 pub enum EnemyPsyche {
     Normal,
-    Terrified,
-    Enraged,
+//    Terrified,
+//    Enraged,
 }

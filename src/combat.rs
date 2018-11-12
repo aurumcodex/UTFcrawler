@@ -6,6 +6,9 @@
 
 use crate::player::*;
 use crate::enemy::*;
+use crate::game_state::Score;
+
+
 
 pub fn combat(player: &mut Player, enemy: &mut Enemy) {
     while player.is_dead != true && enemy.is_dead != true {

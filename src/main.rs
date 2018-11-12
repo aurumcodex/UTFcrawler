@@ -24,6 +24,7 @@ use self::status::*;
 // use self::combat::*;
 use self::dungeon::*;
 use self::inventory::*;
+use self::game_state::TITLE;
 use self::game_state::palettes::*;
 use rand::Rng;
 use termion::{color, cursor, style};
@@ -32,10 +33,6 @@ fn main() {
     // TODO: create all the functions and data types that we'll need to use.
     // that comes later, though.
 
-//    termion variables
-//    let hi_hp = color::Rgb(146, 180, 33);
-//    let mid_hp = color::Rgb(189, 130, 35);
-//    let low_hp = color::Rgb(189, 43, 35);
     let norm = color::Rgb(104, 68, 252);
     
     println!("yaay testing stuff");
@@ -68,15 +65,8 @@ fn main() {
         else { println!("please reenter your choice:: "); }
     }
 
-
     
     let mut test_player: Player = Player::new(plyr_name, plyr_arch);
-//    termion
-//    println!("{}{}Welcome, {}{}", color::Fg(norm), style::Bold, test_player.player_name, style::Reset);
-
-//    ansi_term
-//    println!("{}{}", Style::new().bold().fg(norm).paint("Greetings, "), Style::new().bold().fg(norm)
-//        .paint(&test_player.player_name));
 
     println!("{}{}greetings, {}{}{}", style::Bold, color::Fg(norm), test_player.player_name, color::Fg(color::Reset), style::Reset);
 
@@ -84,26 +74,8 @@ fn main() {
     test_player.gain_exp(rand::thread_rng().gen_range(5, 10));
     println!("player EXP is now {}", &test_player.exp);
 
-    let mut test_enemy = Enemy {
-        enemy_type: EnemyType::Common,
-        enemy_id: -1,
-        enemy_name: String::from("test enemy"),
-        level: rand::thread_rng().gen_range(1, 10),
-        given_exp: rand::thread_rng().gen_range(1, 10),
-        max_hp: 10,
-        max_ap: 10,
-        hp: 10,
-        ap: 10,
-        strength: rand::thread_rng().gen_range(1, 10),
-        alchemy: rand::thread_rng().gen_range(1, 10),
-        vitality: rand::thread_rng().gen_range(1, 10),
-        dexterity: rand::thread_rng().gen_range(1, 10),
-        agility: rand::thread_rng().gen_range(1, 10),
-        luck: rand::thread_rng().gen_range(1, 10),
-        status: EnemyAilment::Normal,
-        psyche: EnemyPsyche::Normal,
-        is_dead: false,
-    };
+
+    let mut test_enemy = Enemy::new(EnemyType::Common, rand::thread_rng().gen_range(3, 15) * test_player.level);
 
     println!();
 
@@ -178,7 +150,14 @@ fn main() {
     println!("{}{}{}", color::Fg(default_palette::DFLT_MAGENTA), default_msg, color::Fg(color::Reset));
     println!("{}{}{}", color::Fg(default_palette::DFLT_GREEN), default_msg, color::Fg(color::Reset));
     println!("{}{}{}", color::Fg(default_palette::DFLT_BLUE), default_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(default_palette::DFLT_YELLOW), default_msg, color::Fg(color::Reset));
+    println!("{}{}{}", color::Fg(default_palette::DFLT_LGT_BLACK), default_msg, color::Fg(color::Reset));
+    println!("{}{}{}", color::Fg(default_palette::DFLT_LGT_RED), default_msg, color::Fg(color::Reset));
+    println!("{}{}{}", color::Fg(default_palette::DFLT_LGT_GREEN), default_msg, color::Fg(color::Reset));
+    println!("{}{}{}", color::Fg(default_palette::DFLT_LGT_YELLOW), default_msg, color::Fg(color::Reset));
+    println!("{}{}{}", color::Fg(default_palette::DFLT_LGT_BLUE), default_msg, color::Fg(color::Reset));
+    println!("{}{}{}", color::Fg(default_palette::DFLT_LGT_MAGENTA), default_msg, color::Fg(color::Reset));
+    println!("{}{}{}", color::Fg(default_palette::DFLT_LGT_CYAN), default_msg, color::Fg(color::Reset));
+    println!("{}{}{}", color::Fg(default_palette::DFLT_LGT_WHITE), default_msg, color::Fg(color::Reset));
 
     println!("this is a test line written in neovim. please ignore it");
 
@@ -217,10 +196,27 @@ fn main() {
 //        }
 //    }
 
-    while test_player.level < 11 {
+
+    while test_player.level < 13 {
         test_player.gain_exp(20);
         if test_player.level == 10 { break; }
     }
 
+
     game_state::check_colors();
+
+    let mut n:u16 = 1;
+    let mut q = 1;
+    while q < 17 {
+//        n <<= 1;
+//        n /= 2;
+        println!("n is : {}", n);
+        n = (n+2) / 2 << 1;
+        q += 1;
+    }
+
+//    println!("{} {} {}", color::Fg(nes_palette::NES_PURPLE), TITLE, color::Fg(color::Reset));
+    println!("{} {} {}", color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
+//    println!("{} {} {}", color::Fg(default_palette::DFLT_LGT_GREEN), TITLE, color::Fg(color::Reset));
+    println!();
 }
