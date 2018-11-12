@@ -1,5 +1,4 @@
 ![Title Name](utf-crawler.png)
-<img src="utf-crawler.png" alt="Titile Image"/>
 
 # UTFcrawler
 This is a project that is designed to create an RPG game using Unicode characters as ASCII art, instead of using raw ASCII.  <br/>
