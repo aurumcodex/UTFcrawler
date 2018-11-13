@@ -6,8 +6,8 @@
 #![allow(dead_code)]
 
 extern crate rand;
-//extern crate ansi_term;
 extern crate termion;
+//extern crate ansi_term;
 
 mod player;
 mod enemy;
@@ -18,6 +18,7 @@ mod inventory;
 mod game_state;
 
 use std::io;
+use std::io::{Read, Write, stdout, stdin};
 use self::player::*;
 use self::enemy::*;
 use self::status::*;
@@ -28,10 +29,15 @@ use self::game_state::TITLE;
 use self::game_state::palettes::*;
 use rand::Rng;
 use termion::{color, cursor, style};
+use termion::raw::IntoRawMode;
 
 fn main() {
     // TODO: create all the functions and data types that we'll need to use.
     // that comes later, though.
+
+//    let stdin = stdin();
+//    let mut stdout = stdout().into_raw_mode().unwrap();
+//    stdout = stdout.lock();
 
     let norm = color::Rgb(104, 68, 252);
     
@@ -117,6 +123,9 @@ fn main() {
     println!("{}{}{}", color::Fg(nes_palette::NES_RED), nes_msg, color::Fg(color::Reset));
     println!("{}{}{}", color::Fg(nes_palette::NES_WHITE), nes_msg, color::Fg(color::Reset));
     println!("{}{}{}", color::Fg(nes_palette::NES_YELLOW), nes_msg, color::Fg(color::Reset));
+//    write!(stdout, "{}{}{}{}{}", color::Fg(nes_palette::NES_BLACK), color::Bg(nes_palette::NES_WHITE),
+//            nes_msg, color::Bg(color::Reset), color::Fg(color::Reset));
+
 
     println!();
 
@@ -178,23 +187,7 @@ fn main() {
 
     println!();
 
-//    test_player.level_up();
-//    test_player.print_stats();
-
     println!();
-
-//    test_player.level_up();
-//    test_player.print_stats();
-
-    println!();
-
-//    for i in test_player.level..125 {
-//        test_player.level_up();
-//        println!("Player strength is {}", test_player.strength);
-//        if test_player.level % 15 == 0 {
-//            test_player.print_stats();
-//        }
-//    }
 
 
     while test_player.level < 13 {
@@ -205,7 +198,7 @@ fn main() {
 
     game_state::check_colors();
 
-    let mut n:u16 = 1;
+    let mut n:u8 = 1;
     let mut q = 1;
     while q < 17 {
 //        n <<= 1;

@@ -189,22 +189,14 @@ impl Player {
 
     pub fn level_up(&mut self) {
         // FIXME: exp gain formula
-//        let temp_next_lvl_exp: f64 =
-//            ((self.prev_next_level as f64 * ((self.prev_next_level as f64)
-//                .powi(self.level as i32 + 1_i32).log10())) * 1.7654_f64 + (((self.prev_next_level as f64)
-//                .powi(self.level as i32 + 1_i32)).ln())) / ((self.level as f64 + 1_f64).powf(1.4_f64));
-
         if self.level < 17_u8 {
             println!("player has gained a level!");
-//            self.to_next_level += self.level * 2 % 2;
-//            self.to_next_level <<= 1;
-//            self.to_next_level /= 2;
-            self.to_next_level = (self.to_next_level + 2) / 2 << 1;
+            self.prev_next_level = (self.prev_next_level + 2) / 2 << 1;
+            self.to_next_level = self.prev_next_level;
 
             println!("player needs {} more enemies to level up", self.to_next_level);
 
             self.level += 1;
-//            self.prev_next_level = temp_next_lvl_exp as i64;
 
             match self.archetype {
                 Archetype::Alchemist => {
@@ -314,5 +306,4 @@ impl Player {
         println!("Player Psyche: {:?}", self.psyche);
         println!("Is Player Dead? :: {}", self.is_dead);
     }
-
 }

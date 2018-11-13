@@ -95,6 +95,8 @@ pub struct Score {
     pub hi_score: u64,
 }
 
+
+
 pub fn check_colors() {
     let mut window = stdout().into_raw_mode().unwrap();
     let color_count = window.available_colors().unwrap();
