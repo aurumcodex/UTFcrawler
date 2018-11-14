@@ -30,14 +30,16 @@ use self::game_state::palettes::*;
 use rand::Rng;
 use termion::{color, cursor, style};
 use termion::raw::IntoRawMode;
+use termion::input::TermRead;
 
 fn main() {
     // TODO: create all the functions and data types that we'll need to use.
     // that comes later, though.
 
    let stdin = stdin();
-   let mut stdin = stdin.lock();
-   let mut stdout = stdout().into_raw_mode().unwrap();
+   // let mut stdin = stdin.lock();
+   let stdout = stdout();
+   let mut stdout = stdout.lock();
    // stdout = stdout.lock();
 
     let norm = color::Rgb(104, 68, 252);
@@ -49,32 +51,36 @@ fn main() {
     // io::stdin().read_line(&mut plyr_name).expect("failed to read line");
     let plyr_name = stdin.read_line();
 
-    let mut plyr_arch = Archetype::None;
+    let plyr_type = stdin.read_line();
 
-    while plyr_arch == Archetype::None {
-        let mut plyr_type: String = String::new();
-        println!("enter the archetype you wish to use:: ");
-        io::stdin().read_line(&mut plyr_type).expect("failed to read line");
-        if plyr_type.trim().eq(&String::from("Alchemist")) || plyr_type.trim().eq(&String::from("alchemist")) {
-            plyr_arch = Archetype::Alchemist;
-        }
-        if plyr_type.trim().eq(&String::from("Blackguard")) || plyr_type.trim().eq(&String::from("blackguard")) {
-            plyr_arch = Archetype::Blackguard;
-        }
-        if plyr_type.trim().eq(&String::from("Generalist")) || plyr_type.trim().eq(&String::from("generalist")) {
-            plyr_arch = Archetype::Generalist;
-        }
-        if plyr_type.trim().eq(&String::from("Gunner")) || plyr_type.trim().eq(&String::from("gunner")) {
-            plyr_arch = Archetype::Gunner;
-        }
-        if plyr_type.trim().eq(&String::from("Mercenary")) || plyr_type.trim().eq(&String::from("mercenary")) {
-            plyr_arch = Archetype::Mercenary;
-        }
-        else { println!("please reenter your choice:: "); }
-    }
+    let mut plyr_arch = Archetype::Gunner;
+
+    //while plyr_arch == Archetype::None {
+    //    // let mut plyr_type: String = String::new();
+    //    println!("enter the archetype you wish to use:: ");
+    //    // io::stdin().read_line(&mut plyr_type).expect("failed to read line");
+    //    //
+    //    let mut plyr_type = stdin.read_line();
+    //    if plyr_type.trim().eq(&String::from("Alchemist")) || plyr_type.trim().eq(&String::from("alchemist")) {
+    //        plyr_arch = Archetype::Alchemist;
+    //    }
+    //    if plyr_type.trim().eq(&String::from("Blackguard")) || plyr_type.trim().eq(&String::from("blackguard")) {
+    //        plyr_arch = Archetype::Blackguard;
+    //    }
+    //    if plyr_type.trim().eq(&String::from("Generalist")) || plyr_type.trim().eq(&String::from("generalist")) {
+    //        plyr_arch = Archetype::Generalist;
+    //    }
+    //    if plyr_type.trim().eq(&String::from("Gunner")) || plyr_type.trim().eq(&String::from("gunner")) {
+    //        plyr_arch = Archetype::Gunner;
+    //    }
+    //    if plyr_type.trim().eq(&String::from("Mercenary")) || plyr_type.trim().eq(&String::from("mercenary")) {
+    //        plyr_arch = Archetype::Mercenary;
+    //    }
+    //    else { println!("please reenter your choice:: "); }
+    //}
 
     
-    let mut test_player: Player = Player::new(plyr_name, plyr_arch);
+    let mut test_player: Player = Player::new(String::from("bacon"), plyr_arch);
 
     println!("{}{}greetings, {}{}{}", style::Bold, color::Fg(norm), test_player.player_name, color::Fg(color::Reset), style::Reset);
 
