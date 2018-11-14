@@ -35,17 +35,19 @@ fn main() {
     // TODO: create all the functions and data types that we'll need to use.
     // that comes later, though.
 
-//    let stdin = stdin();
-//    let mut stdout = stdout().into_raw_mode().unwrap();
-//    stdout = stdout.lock();
+   let stdin = stdin();
+   let mut stdin = stdin.lock();
+   let mut stdout = stdout().into_raw_mode().unwrap();
+   // stdout = stdout.lock();
 
     let norm = color::Rgb(104, 68, 252);
     
-    println!("yaay testing stuff");
+    println!("yaay testing stuff\r");
 
-    println!("enter player's name:");
-    let mut plyr_name: String = String::new();
-    io::stdin().read_line(&mut plyr_name).expect("failed to read line");
+    println!("enter player's name: \r");
+    // let mut plyr_name: String = String::new();
+    // io::stdin().read_line(&mut plyr_name).expect("failed to read line");
+    let plyr_name = stdin.read_line();
 
     let mut plyr_arch = Archetype::None;
 
