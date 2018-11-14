@@ -7,6 +7,15 @@ use std::io::stdout;
 use termion::color::{DetectColors, AnsiValue, Bg};
 use termion::raw::IntoRawMode;
 
+pub const TITLE: &str = r"
+  :::    :::  ::::::::  :::::::::      :::     :::       ::: :::        :::::::::: :::::::::
+  :+:    :+: :+:    :+: :+:    :+:   :+: :+:   :+:       :+: :+:        :+:        :+:    :+:
+  +:+    +:+ +:+        +:+    +:+  +:+   +:+  +:+       +:+ +:+        +:+        +:+    +:+
+  +#+    +:+ +#+        +#++:++#:  +#++:++#++: +#+  +:+  +#+ +#+        +#++:++#   +#++:++#:
+  +#+    +#+ +#+        +#+    +#+ +#+     +#+ +#+ +#+#+ +#+ +#+        +#+        +#+    +#+
+  #+#    #+# #+#    #+# #+#    #+# #+#     #+#  #+#+# #+#+#  #+#        #+#        #+#    #+#
+   ########   ########  ###    ### ###     ###   ###   ###   ########## ########## ###    ### ";
+
 pub mod palettes {
     pub mod nes_palette {
         pub const NES_BLACK: termion::color::Rgb       = termion::color::Rgb(0, 0, 0);
@@ -47,14 +56,22 @@ pub mod palettes {
     }
 
     pub mod default_palette {
-        pub const DFLT_BLACK: termion::color::Black     = termion::color::Black;
-        pub const DFLT_RED: termion::color::Red         = termion::color::Red;
-        pub const DFLT_GREEN: termion::color::Green     = termion::color::Green;
-        pub const DFLT_YELLOW: termion::color::Yellow   = termion::color::Yellow;
-        pub const DFLT_BLUE: termion::color::Blue       = termion::color::Blue;
-        pub const DFLT_MAGENTA: termion::color::Magenta = termion::color::Magenta;
-        pub const DFLT_CYAN: termion::color::Cyan       = termion::color::Cyan;
-        pub const DFLT_WHITE: termion::color::White     = termion::color::White;
+        pub const DFLT_BLACK: termion::color::Black              = termion::color::Black;
+        pub const DFLT_RED: termion::color::Red                  = termion::color::Red;
+        pub const DFLT_GREEN: termion::color::Green              = termion::color::Green;
+        pub const DFLT_YELLOW: termion::color::Yellow            = termion::color::Yellow;
+        pub const DFLT_BLUE: termion::color::Blue                = termion::color::Blue;
+        pub const DFLT_MAGENTA: termion::color::Magenta          = termion::color::Magenta;
+        pub const DFLT_CYAN: termion::color::Cyan                = termion::color::Cyan;
+        pub const DFLT_WHITE: termion::color::White              = termion::color::White;
+        pub const DFLT_LGT_BLACK: termion::color::LightBlack     = termion::color::LightBlack;
+        pub const DFLT_LGT_RED: termion::color::LightRed         = termion::color::LightRed;
+        pub const DFLT_LGT_GREEN: termion::color::LightGreen     = termion::color::LightGreen;
+        pub const DFLT_LGT_YELLOW: termion::color::LightYellow   = termion::color::LightYellow;
+        pub const DFLT_LGT_BLUE: termion::color::LightBlue       = termion::color::LightBlue;
+        pub const DFLT_LGT_MAGENTA: termion::color::LightMagenta = termion::color::LightMagenta;
+        pub const DFLT_LGT_CYAN: termion::color::LightCyan       = termion::color::LightCyan;
+        pub const DFLT_LGT_WHITE: termion::color::LightWhite     = termion::color::LightWhite;
     }
 }
 
@@ -68,10 +85,17 @@ pub enum Floor {
     GF, B1F, B2F, B3F, B4F,
 }
 
-pub struct Score {
-    score: u64,
-    hi_score: u64,
+#[derive(Debug)]
+pub enum GameState {
+    Title, InGame, Combat, Menu,
 }
+
+pub struct Score {
+    pub score: u64,
+    pub hi_score: u64,
+}
+
+
 
 pub fn check_colors() {
     let mut window = stdout().into_raw_mode().unwrap();
@@ -81,5 +105,5 @@ pub fn check_colors() {
     for i in 0..color_count {
         print!("{} {}", Bg(AnsiValue(i as u8)), Bg(AnsiValue(0)));
     }
-    println!();
+    println!("{}\r\n\n", Bg(termion::color::Reset));
 }

@@ -18,9 +18,9 @@ pub enum Archetype {
 pub struct Player {
     pub player_name: String,
     pub level: u8,
-    pub exp: u32,
-    pub to_next_level: i64,
-    pub prev_next_level: i64,
+    pub exp: usize,
+    pub to_next_level: u8,
+    pub prev_next_level: u8,
     pub archetype: Archetype,
     pub max_hp: i16,
     pub max_ap: i16,
@@ -52,7 +52,7 @@ impl Player {
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
-                prev_next_level: 20,
+                prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_weak_max_hp,
                 max_ap: gen_heavy_max_ap,
@@ -73,7 +73,7 @@ impl Player {
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
-                prev_next_level: 20,
+                prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_normal_max_hp,
                 max_ap: gen_normal_max_ap,
@@ -94,7 +94,7 @@ impl Player {
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
-                prev_next_level: 20,
+                prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_normal_max_hp,
                 max_ap: gen_normal_max_ap,
@@ -115,7 +115,7 @@ impl Player {
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
-                prev_next_level: 20,
+                prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_normal_max_hp,
                 max_ap: gen_normal_max_ap,
@@ -136,7 +136,7 @@ impl Player {
                 level: 1,
                 exp: 0,
                 to_next_level: 20,
-                prev_next_level: 20,
+                prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_heavy_max_hp,
                 max_ap: gen_weak_max_ap,
@@ -152,17 +152,17 @@ impl Player {
                 psyche: Psyche::Normal,
                 is_dead: false,
             },
-            _ => { Player::default(name) }
+            _ => { Player::default() }
         }// match statement
     }
     
-    pub fn default(name: String) -> Player {
+    pub fn default() -> Player {
         Player {
-            player_name: name,
+            player_name: String::from("unknown player entity"),
             level: 0,
             exp: 0,
             to_next_level: 20,
-            prev_next_level: 20,
+            prev_next_level: 1,
             archetype: Archetype::None,
             max_hp: 1,
             max_ap: 0,
@@ -174,32 +174,29 @@ impl Player {
             dexterity: 0,
             agility: 0,
             luck: 0,
-            status: Ailment::Normal,
+            status: Ailment::Blind,
             psyche: Psyche::Normal,
             is_dead: false,
         }
     }
 
-    pub fn gain_exp(&mut self, add_exp: u32) {
+    pub fn gain_exp(&mut self, add_exp: usize) {
 //        println!("gained {} EXP", add_exp);
         self.exp += add_exp;
-        if self.level < 11_u8 { self.to_next_level -= add_exp as i64; }
+        self.to_next_level -= 1;
         self.check_level_up();
     }
 
     pub fn level_up(&mut self) {
         // FIXME: exp gain formula
-        let temp_next_lvl_exp: f64 =
-            ((self.prev_next_level as f64 * ((self.prev_next_level as f64)
-                .powi(self.level as i32 + 1_i32).log10())) * 1.7654_f64 + (((self.prev_next_level as f64)
-                .powi(self.level as i32 + 1_i32)).ln())) / ((self.level as f64 + 1_f64).powf(1.4_f64));
-
-        if self.level < 10_u8 {
+        if self.level < 17_u8 {
             println!("player has gained a level!");
-            self.level += 1;
+            self.prev_next_level = (self.prev_next_level + 2) / 2 << 1;
+            self.to_next_level = self.prev_next_level;
 
-            self.to_next_level += temp_next_lvl_exp as i64;
-            self.prev_next_level = temp_next_lvl_exp as i64;
+            println!("player needs {} more enemies to level up", self.to_next_level);
+
+            self.level += 1;
 
             match self.archetype {
                 Archetype::Alchemist => {
@@ -274,8 +271,8 @@ impl Player {
     }
 
     pub fn check_level_up(&mut self) {
-        if self.level <= 10_u8 {
-            if self.to_next_level <= 0 { self.level_up() }
+        if self.level < 17_u8 {
+            if self.to_next_level == 0 { self.level_up() }
         }
     }
 
@@ -309,5 +306,4 @@ impl Player {
         println!("Player Psyche: {:?}", self.psyche);
         println!("Is Player Dead? :: {}", self.is_dead);
     }
-
 }
