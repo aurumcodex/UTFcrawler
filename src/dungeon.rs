@@ -7,7 +7,7 @@
 extern crate rand;
 extern crate termion;
 
-use crate::game_state::*;
+use crate::game_state::palettes::*;
 use crate::combat::*;
 use rand::Rng;
 use termion::{color, cursor};
