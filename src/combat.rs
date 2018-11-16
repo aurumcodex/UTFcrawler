@@ -52,11 +52,5 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
         println!("enemy status is  now: {:?}", enemy.status);
         player.gain_exp(enemy.given_exp);
         player.check_level_up();
-<<<<<<< HEAD
-    }
-
-}
-=======
     }// on victory
 }
->>>>>>> 6674fbfab0288b0d71f3c0d6cb17f805d619c002
