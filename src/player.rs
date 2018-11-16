@@ -51,7 +51,7 @@ impl Player {
                 player_name: name,
                 level: 1,
                 exp: 0,
-                to_next_level: 20,
+                to_next_level: 1,
                 prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_weak_max_hp,
@@ -72,7 +72,7 @@ impl Player {
                 player_name: name,
                 level: 1,
                 exp: 0,
-                to_next_level: 20,
+                to_next_level: 1,
                 prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_normal_max_hp,
@@ -93,7 +93,7 @@ impl Player {
                 player_name: name,
                 level: 1,
                 exp: 0,
-                to_next_level: 20,
+                to_next_level: 1,
                 prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_normal_max_hp,
@@ -114,7 +114,7 @@ impl Player {
                 player_name: name,
                 level: 1,
                 exp: 0,
-                to_next_level: 20,
+                to_next_level: 1,
                 prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_normal_max_hp,
@@ -135,7 +135,7 @@ impl Player {
                 player_name: name,
                 level: 1,
                 exp: 0,
-                to_next_level: 20,
+                to_next_level: 1,
                 prev_next_level: 1,
                 archetype: arch,
                 max_hp: gen_heavy_max_hp,
@@ -161,7 +161,7 @@ impl Player {
             player_name: String::from("unknown player entity"),
             level: 0,
             exp: 0,
-            to_next_level: 20,
+            to_next_level: 200,
             prev_next_level: 1,
             archetype: Archetype::None,
             max_hp: 1,
@@ -181,7 +181,6 @@ impl Player {
     }
 
     pub fn gain_exp(&mut self, add_exp: usize) {
-//        println!("gained {} EXP", add_exp);
         self.exp += add_exp;
         self.to_next_level -= 1;
         self.check_level_up();
@@ -287,23 +286,23 @@ impl Player {
     pub fn check_status(&self) -> bool { self.is_dead }
 
     pub fn print_stats(&self) {
-        println!("Player Name: {}", self.player_name);
-        println!("Player Level: {}", self.level);
-        println!("Player EXP: {}", self.exp);
-        println!("Player To Next Level: {}", self.to_next_level);
-        println!("Player Archetype: {:?}", self.archetype);
-        println!("Player Max HP: {}", self.max_hp);
-        println!("Player HP: {}", self.hp);
-        println!("Player Max AP: {}", self.max_ap);
-        println!("Player AP: {}", self.ap);
-        println!("Player Strength: {}", self.strength);
-        println!("Player Magic: {}", self.alchemy);
-        println!("Player Vitality: {}", self.vitality);
-        println!("Player Dexterity: {}", self.dexterity);
-        println!("Player Agility: {}", self.agility);
-        println!("Player Luck: {}", self.luck);
-        println!("Player Status: {:?}", self.status);
-        println!("Player Psyche: {:?}", self.psyche);
-        println!("Is Player Dead? :: {}", self.is_dead);
+        println!("Player Name: {}\n\r", self.player_name);
+        println!("Player Level: {}\n\r", self.level);
+        println!("Player EXP: {}\n\r", self.exp);
+        println!("Player To Next Level: {}\n\r", self.to_next_level);
+        println!("Player Archetype: {:?}\n\r", self.archetype);
+        println!("Player Max HP: {}\n\r", self.max_hp);
+        println!("Player HP: {}\n\r", self.hp);
+        println!("Player Max AP: {}\n\r", self.max_ap);
+        println!("Player AP: {}\n\r", self.ap);
+        println!("Player Strength: {}\n\r", self.strength);
+        println!("Player Magic: {}\n\r", self.alchemy);
+        println!("Player Vitality: {}\n\r", self.vitality);
+        println!("Player Dexterity: {}\n\r", self.dexterity);
+        println!("Player Agility: {}\n\r", self.agility);
+        println!("Player Luck: {}\n\r", self.luck);
+        println!("Player Status: {:?}\n\r", self.status);
+        println!("Player Psyche: {:?}\n\r", self.psyche);
+        println!("Is Player Dead? :: {}\n\r", self.is_dead);
     }
 }

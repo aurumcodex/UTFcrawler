@@ -6,6 +6,7 @@
 
 extern crate rand;
 
+use crate::combat::*;
 use rand::Rng;
 
 // TODO: do dungeon crafting things
