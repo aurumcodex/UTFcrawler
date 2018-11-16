@@ -32,6 +32,22 @@ use termion::{color, cursor, style};
 use termion::raw::IntoRawMode;
 use termion::input::TermRead;
 
+
+ fn main() {
+
+    let mut a: usize = 0;
+    let mut i: usize = 0;
+    
+    let mut length: usize = rand::thread_rng().gen_range(5, 26);
+    let mut width: usize = rand::thread_rng().gen_range(5, 26);
+    
+ 
+	drawMap(mapGen(length, width), length, width);
+	
+}
+
+
+/*
 fn main() {
     // TODO: create all the functions and data types that we'll need to use.
     // that comes later, though.
@@ -217,3 +233,4 @@ fn main() {
 
     combat::combat(&mut test_player, &mut test_enemy_2);
 }
+*/

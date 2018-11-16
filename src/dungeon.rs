@@ -15,7 +15,7 @@ use termion::{color, cursor};
 
 // TODO: do dungeon crafting things
 
-fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
+pub fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
 	
 	//pub const NES_BLACK: termion::color::Rgb = termion::color::Rgb(0, 0, 0); 
     //pub const NES_DRK_GREY: termion::color::Rgb = termion::color::Rgb(97, 97, 97); 
@@ -342,7 +342,7 @@ fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
 			}
 }
 
-fn mapGen(length: usize, width: usize) ->  [[usize; 32]; 32]{
+pub fn mapGen(length: usize, width: usize) ->  [[usize; 32]; 32]{
 	let mut a: usize = 0;
     let mut i: usize = 0;
     
