@@ -37,7 +37,7 @@ pub fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
 	
 	 let mut select: usize = rand::thread_rng().gen_range(1, 6);
 	
-	//select = 4;
+	//select = 5;
 	
 	let mut a: usize = 0;
     let mut i: usize = 0;
@@ -108,7 +108,7 @@ pub fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
     
      if(select == 4){
 		let mut corner: usize = rand::thread_rng().gen_range(0, 4);
-		//corner=3; 
+		//corner=1; 
 		if(length > 12 && width > 12){	
 			if(corner == 0){
 				while(i <= length/2){
@@ -227,7 +227,7 @@ pub fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
 			
 		if(select == 5){
 		let mut corner: usize = rand::thread_rng().gen_range(0, 4);
-		//corner=3; 
+		//corner=1; 
 		if(length > 12 && width > 12){	
 			if(corner == 0){
 				while(i <= length/2){
@@ -320,7 +320,6 @@ pub fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
 	}
 		 i=0;
 		 a=0;
-		 
 			while(i <= length){
 				while(a <= width){
 					print!("{}", color::Fg(nes_palette::NES_LGT_GREY));
@@ -332,6 +331,9 @@ pub fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
 					}
 					if(input[i][a] == 3){
 						print!("{}◯ ", color::Fg(nes_palette::NES_DRK_GREY));
+					}
+					if(input[i][a] == 0){
+						print!("{}▦ ", color::Fg(nes_palette::NES_BLACK));
 					}
 					a+=1;
 				}
