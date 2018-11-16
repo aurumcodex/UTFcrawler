@@ -181,7 +181,6 @@ impl Player {
     }
 
     pub fn gain_exp(&mut self, add_exp: usize) {
-//        println!("gained {} EXP", add_exp);
         self.exp += add_exp;
         self.to_next_level -= 1;
         self.check_level_up();
