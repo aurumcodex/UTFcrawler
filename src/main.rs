@@ -36,18 +36,18 @@ fn main() {
     // TODO: create all the functions and data types that we'll need to use.
     // that comes later, though.
 
-   let stdin = stdin();
-   // let mut stdin = stdin.lock();
-   let stdout = stdout();
-   let mut stdout = stdout.lock();
-   // stdout = stdout.lock();
+    let stdin = stdin();
+    // let mut stdin = stdin.lock();
+    let stdout = stdout();
+    let mut stdout = stdout.lock();
+    // stdout = stdout.lock();
 
     let norm = color::Rgb(104, 68, 252);
     
-    println!("yaay testing stuff\r");
+    writeln!(stdout, "{} {} {}", color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
 
     println!("enter player's name: \r");
-     let mut plyr_name: String = String::new();
+    let mut plyr_name: String = String::new();
     // io::stdin().read_line(&mut plyr_name).expect("failed to read line");
     let plyr_name = stdin.read_line(&mut plyr_name);
 
@@ -82,10 +82,14 @@ fn main() {
 //        else { println!("please reenter your choice:: "); }
     }
 
-    
+    // let plyr_arch = Archetype::Gunner;
+
     let mut test_player: Player = Player::new(String::from("bacon"), plyr_arch);
 
-    println!("{}{}greetings, {}{}{}", style::Bold, color::Fg(norm), test_player.player_name, color::Fg(color::Reset), style::Reset);
+    // let mut test_player: Player = Player::new(plyr_name, plyr_arch);
+
+    println!("{}{}greetings, {}{}{}", style::Bold, color::Fg(norm), test_player.player_name,
+                        color::Fg(color::Reset), style::Reset);
 
     test_player.print_stats();
     test_player.gain_exp(rand::thread_rng().gen_range(5, 10));
@@ -134,24 +138,24 @@ fn main() {
 
     println!();
 
-    let c64_msg = "this is a string to print out in many a colour using the C64 palette!";
-    println!("{}{}{}{}{}", color::Fg(c64_palette::C64_BLACK), color::Bg(c64_palette::C64_WHITE),
-             c64_msg, color::Bg(color::Reset), color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_WHITE), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_RED), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_CYAN), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_PURPLE), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_GREEN), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_BLUE), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_YELLOW), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_BROWN), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_LGT_RED), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_DRK_GREY), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_ORANGE), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_MED_GREY), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_LGT_GREEN), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_LGT_BLUE), c64_msg, color::Fg(color::Reset));
-    println!("{}{}{}", color::Fg(c64_palette::C64_LGT_GREY), c64_msg, color::Fg(color::Reset));
+    // let c64_msg = "this is a string to print out in many a colour using the C64 palette!";
+    // println!("{}{}{}{}{}", color::Fg(c64_palette::C64_BLACK), color::Bg(c64_palette::C64_WHITE),
+    //          c64_msg, color::Bg(color::Reset), color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_WHITE), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_RED), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_CYAN), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_PURPLE), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_GREEN), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_BLUE), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_YELLOW), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_BROWN), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_LGT_RED), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_DRK_GREY), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_ORANGE), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_MED_GREY), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_LGT_GREEN), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_LGT_BLUE), c64_msg, color::Fg(color::Reset));
+    // println!("{}{}{}", color::Fg(c64_palette::C64_LGT_GREY), c64_msg, color::Fg(color::Reset));
 
     println!();
 
@@ -183,10 +187,10 @@ fn main() {
     println!();
 
 
-    while test_player.level < 13 {
-        test_player.gain_exp(20);
-        if test_player.level == 10 { break; }
-    }
+    // while test_player.level < 13 {
+    //     test_player.gain_exp(20);
+    //     if test_player.level == 10 { break; }
+    // }
 
 
     game_state::check_colors();
@@ -206,4 +210,10 @@ fn main() {
     writeln!(stdout, "{} {} {}", color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
 //    println!("{} {} {}", color::Fg(default_palette::DFLT_LGT_GREEN), TITLE, color::Fg(color::Reset));
     println!();
+
+    let mut test_enemy_2 = Enemy::new(EnemyType::Common, rand::thread_rng().gen_range(3, 15) * test_player.level);
+
+    println!();
+
+    combat::combat(&mut test_player, &mut test_enemy_2);
 }
