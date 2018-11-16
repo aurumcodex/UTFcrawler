@@ -1,12 +1,6 @@
 [package]
 name = "utf-crawler"
 version = "0.0.1"
-<<<<<<< HEAD
-authors = ["Nathan Adams <nadams2@unca.edu>",
-           "Reid Marsh <rmarsh@unca.edu>",
-           "Nicholas Sanderson <nsanders@unca.edu>",
-           "Pressy Muraguri <pmuragur@unca.edu>"]
-=======
 authors = ["Nathan Adams <nadams2@unca.edu>", "Reid Marsh <rmarsh@unca.edu>", "Nicholas Sanderson <nsanders@unca.edu>", "Pressy Muraguri <pmuragur@unca.edu>"]
 description = "An ASCII art themed dungeon crawler with roguelike elements written in Rust."
 repository = "https://gitlab.com/utf-crawler/utf-crawler"
@@ -15,7 +9,6 @@ keywords = ["ascii", "rpg", "tui", "games"]
 
 [badges]
 gitlab = {repository = "https://gitlab.com/utf-crawler/utf-crawler"}
->>>>>>> 6674fbfab0288b0d71f3c0d6cb17f805d619c002
 
 [dependencies]
 rand = "0.5.5"
