@@ -45,15 +45,15 @@ fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
 	if(select == 1){
 	while(i <= length){
 		while(a <= width){
-			print!("{}", color::Fg(NES_LGT_GREY));
+			print!("{}", color::Fg(nes_palette::NES_LGT_GREY));
 			if(input[i][a] == 1){
 				print!("▦ " );
 			}
 			if(input[i][a] == 2){
-				print!("{}▢ ", color::Fg(NES_MED_GREY));
+				print!("{}▢ ", color::Fg(nes_palette::NES_MED_GREY));
 			}
 			if(input[i][a] == 3){
-				print!("{}◯ ", color::Fg(NES_DRK_GREY));
+				print!("{}◯ ", color::Fg(nes_palette::NES_DRK_GREY));
 			}
 			a+=1;
 		}
@@ -66,15 +66,15 @@ fn drawMap(mut input: [[usize; 32]; 32], length: usize, width: usize) {
     if(select == 2){
 	while(i <= length){
 		while(a <= width){
-			print!("{}", color::Fg(NES_BLUE));
+			print!("{}", color::Fg(nes_palette::NES_BLUE));
 			if(input[i][a] == 1){
 				print!("▦ " );
 			}
 			if(input[i][a] == 2){
-				print!("{}▧ ", color::Fg(NES_WHITE));
+				print!("{}▧ ", color::Fg(nes_palette::NES_WHITE));
 			}
 			if(input[i][a] == 3){
-				print!("{}▨ ", color::Fg(NES_LGT_GREY));
+				print!("{}▨ ", color::Fg(nes_palette::NES_LGT_GREY));
 			}
 			a+=1;
 		}
