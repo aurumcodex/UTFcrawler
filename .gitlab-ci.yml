@@ -13,8 +13,6 @@ rust-nightly:
     script:
         - cargo build --verbose
     allow_failure: true
-=======
-  - build
 
 rust-latest:
   stage: build
