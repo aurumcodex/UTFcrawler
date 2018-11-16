@@ -1,5 +1,4 @@
 stages:
-<<<<<<< HEAD
     - build
     
 rust-latest:
@@ -29,4 +28,3 @@ rust-nightly:
   script:
     - cargo build --verbose
   allow_failure: true
->>>>>>> 6674fbfab0288b0d71f3c0d6cb17f805d619c002
