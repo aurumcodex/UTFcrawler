@@ -25,7 +25,7 @@ pub fn createMap(length: usize, width: usize) -> map{
 	let mut input: [[usize; 32]; 32]  = [[0; 32]; 32];
 	
 	
-	select = 5;
+ //select = 1;
 	
 	let mut a: usize = 0;
     let mut i: usize = 0;
@@ -55,10 +55,12 @@ pub fn createMap(length: usize, width: usize) -> map{
     a=0;
     
     
-     if(select == 4){
+    
+    
+    if(select == 4){
 		let mut corner: usize = rand::thread_rng().gen_range(0, 4);
 		//corner=1; 
-		if(length > 12 && width > 12){	
+		if(length > 12 && width > 12){		
 			if(corner == 0){
 				while(i <= length/2){
 					while(a <= width/2){
@@ -78,8 +80,9 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i+=1;
 					a=0;
 				}
-			}
-			
+			input[1][width/2+width/4] = 4;
+			input[1][width/2+width/4+1] = 4;
+			}						
 		i = length;
 		if(corner == 1){
 				while(i >= length/2){
@@ -100,6 +103,8 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i-=1;
 					a=0;
 				}
+		input[length/4][1] = 4;
+		input[length/4+1][1] = 4;
 			}
 			
 		a = width;
@@ -123,8 +128,9 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i-=1;
 					a=width;
 				}
-			}
-			
+		input[length/4][width-1] = 4;
+		input[length/4+1][width-1] = 4;
+			}			
 		a = width;
 		i=0;
 		if(corner == 3){
@@ -146,8 +152,11 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i+=1;
 					a=width;
 				}
+				
+				input[1][width/4] = 4;
+				input[1][width/4+1] = 4;
 			}
-	}
+		}
 
 	}
 			
@@ -253,7 +262,36 @@ pub fn createMap(length: usize, width: usize) -> map{
 		}
 	}
 	
-	
+	if(select == 1){
+		input[1][width/2] = 4;
+		input[1][width/2+1] = 4;
+			
+		input[length/2][1] = 4;
+		input[length/2+1][1] = 4;
+			
+		input[length/2][width-1] = 4;
+		input[length/2+1][width-1] = 4;
+	}
+	 if(select == 2){
+		input[1][width/2] = 4;
+		input[1][width/2+1] = 4;
+			
+		input[length/2][1] = 4;
+		input[length/2+1][1] = 4;
+			
+		input[length/2][width-1] = 4;
+		input[length/2+1][width-1] = 4;
+	}
+	 if(select == 3){
+		input[1][width/2] = 4;
+		input[1][width/2+1] = 4;
+			
+		input[length/2][1] = 4;
+		input[length/2+1][1] = 4;
+			
+		input[length/2][width-1] = 4;
+		input[length/2+1][width-1] = 4;
+	}
 	
 	let output = input;
 	let mapType = select; 		
