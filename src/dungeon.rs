@@ -54,9 +54,6 @@ pub fn createMap(length: usize, width: usize) -> map{
     i=0;
     a=0;
     
-    
-    
-    
     if(select == 4){
 		let mut corner: usize = rand::thread_rng().gen_range(0, 4);
 		//corner=1; 
