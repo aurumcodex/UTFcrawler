@@ -163,6 +163,8 @@ pub fn createMap(length: usize, width: usize) -> map{
 				
 			input[length/2][width-1] = 4;
 			input[length/2+1][width-1] = 4;
+			
+			input[length-2][width/2] = 5;
 		}
 
 	}
@@ -176,6 +178,8 @@ pub fn createMap(length: usize, width: usize) -> map{
 			
 		input[length/2][width-1] = 4;
 		input[length/2+1][width-1] = 4;
+		
+		input[length-2][width/2] = 5;
 	}
 	 if(select == 2){
 		input[1][width/2] = 4;
@@ -186,6 +190,8 @@ pub fn createMap(length: usize, width: usize) -> map{
 			
 		input[length/2][width-1] = 4;
 		input[length/2+1][width-1] = 4;
+		
+		input[length-2][width/2] = 5;
 	}
 	 if(select == 3){
 		input[1][width/2] = 4;
@@ -196,8 +202,10 @@ pub fn createMap(length: usize, width: usize) -> map{
 			
 		input[length/2][width-1] = 4;
 		input[length/2+1][width-1] = 4;
+		
+		input[length-2][width/2] = 5;
 	}
-	println!("{}", select);
+	//println!("{}", select);
 	let output = input;
 	let mapType = select; 		
 	let mapOut = map{output, mapType}; 
@@ -232,6 +240,9 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 4){
 						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));
 					}
+					if(output[i][a] == 5){
+						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
+					}
 					a+=1;
 				}
 				println!("");
@@ -258,6 +269,9 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 4){
 						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));
 					}
+					if(output[i][a] == 5){
+						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
+					}
 					a+=1;
 				}
 				println!("");
@@ -273,14 +287,17 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 1){
 						print!("▦ " );
 					}
-					if(output [i][a] != 1 && output [i][a] != 4 && choose == 1){
+					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] != 5 && choose == 1){
 						print!("{}▤ ", color::Fg(nes_palette::NES_BROWN));
 					}
-					if(output [i][a] != 1 && output [i][a] != 4 && choose == 0){
+					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] != 5 && choose == 0){
 						print!("{}▥ ", color::Fg(nes_palette::NES_RED));
 					}
 					if(output[i][a] == 4){
 						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));
+					}
+					if(output[i][a] == 5){
+						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
 					}
 					a+=1;
 				}
