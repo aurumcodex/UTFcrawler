@@ -12,6 +12,7 @@ use crate::combat::*;
 use rand::Rng;
 use termion::{color, cursor};
 
+#[derive(Copy, Clone)]
 pub struct map {
 		output: [[usize; 32]; 32],	
 		mapType: usize,
@@ -165,109 +166,7 @@ pub fn createMap(length: usize, width: usize) -> map{
 		}
 
 	}
-			
-	/*	if(select == 5 || select == 4){
-		let mut corner: usize = rand::thread_rng().gen_range(0, 4);
-		//corner=1; 
-		if(length > 12 && width > 12){	
-			if(corner == 0){
-				while(i <= length/2){
-					while(a <= width/2){
-						input[i][a] = 1;
-						a+=1;
-					}
-					i+=1;
-					a=0;
-				}
-				i=0;
-		        a=0;
-				while(i <= length/2-2){
-					while(a <= width/2-2){
-						input[i][a] = 0;
-						a+=1;
-					}
-					i+=1;
-					a=0;
-				}
-			input[1][width/2+width/4] = 4;
-			input[1][width/2+width/4+1] = 4;
-			}						
-		i = length;
-		if(corner == 1){
-				while(i >= length/2){
-					while(a <= width/2){
-						input[i][a] = 1;
-						a+=1;
-					}
-					i-=1;
-					a=0;
-				}
-				i=length;
-		        a=0;
-				while(i >= length/2+2){
-					while(a <= width/2-2){
-						input[i][a] = 0;
-						a+=1;
-					}
-					i-=1;
-					a=0;
-				}
-		input[length/4][1] = 4;
-		input[length/4+1][1] = 4;
-			}
-			
-		a = width;
-		i = length;
-		if(corner == 2){
-				while(i >= length/2){
-					while(a >= width/2){
-						input[i][a] = 1;
-						a-=1;
-					}
-					i-=1;
-					a=width;
-				}
-				a=width;
-		        i=length;
-				while(i >= length/2+2){
-					while(a >= width/2+2){
-						input[i][a] = 0;
-						a-=1;
-					}
-					i-=1;
-					a=width;
-				}
-		input[length/4][width-1] = 4;
-		input[length/4+1][width-1] = 4;
-			}			
-		a = width;
-		i=0;
-		if(corner == 3){
-				while(i <= length/2){
-					while(a >= width/2){
-						input[i][a] = 1;
-						a-=1;
-					}
-					i+=1;
-					a=width;
-				}
-				a=width;
-		        i=0;
-				while(i <= length/2-2){
-					while(a >= width/2+2){
-						input[i][a] = 0;
-						a-=1;
-					}
-					i+=1;
-					a=width;
-				}
 				
-				input[1][width/4] = 4;
-				input[1][width/4+1] = 4;
-			}
-		}
-	}*/
-	
 	if(select == 1){
 		input[1][width/2] = 4;
 		input[1][width/2+1] = 4;

@@ -37,9 +37,11 @@ use termion::input::TermRead;
 
     let mut length: usize = rand::thread_rng().gen_range(5, 26);
     let mut width: usize = rand::thread_rng().gen_range(5, 26);
-    
+    let mut i: usize = 2;
  
 	let mainMap = createMap(length, width);
+	printMap(mainMap, length, width);
+	println!("");
 	printMap(mainMap, length, width);
 	
 }
