@@ -54,7 +54,7 @@ pub fn createMap(length: usize, width: usize) -> map{
     i=0;
     a=0;
     
-    if(select == 4){
+    if(select == 4 || select == 5){
 		let mut corner: usize = rand::thread_rng().gen_range(0, 4);
 		//corner=1; 
 		if(length > 12 && width > 12){		
@@ -153,11 +153,20 @@ pub fn createMap(length: usize, width: usize) -> map{
 				input[1][width/4] = 4;
 				input[1][width/4+1] = 4;
 			}
+		}else{
+			input[1][width/2] = 4;
+			input[1][width/2+1] = 4;
+				
+			input[length/2][1] = 4;
+			input[length/2+1][1] = 4;
+				
+			input[length/2][width-1] = 4;
+			input[length/2+1][width-1] = 4;
 		}
 
 	}
 			
-		if(select == 5){
+	/*	if(select == 5 || select == 4){
 		let mut corner: usize = rand::thread_rng().gen_range(0, 4);
 		//corner=1; 
 		if(length > 12 && width > 12){	
@@ -257,7 +266,7 @@ pub fn createMap(length: usize, width: usize) -> map{
 				input[1][width/4+1] = 4;
 			}
 		}
-	}
+	}*/
 	
 	if(select == 1){
 		input[1][width/2] = 4;
@@ -289,7 +298,7 @@ pub fn createMap(length: usize, width: usize) -> map{
 		input[length/2][width-1] = 4;
 		input[length/2+1][width-1] = 4;
 	}
-	
+	println!("{}", select);
 	let output = input;
 	let mapType = select; 		
 	let mapOut = map{output, mapType}; 
@@ -365,10 +374,10 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 1){
 						print!("▦ " );
 					}
-					if(output [i][a] != 1 && choose == 1){
+					if(output [i][a] != 1 && output [i][a] != 4 && choose == 1){
 						print!("{}▤ ", color::Fg(nes_palette::NES_BROWN));
 					}
-					if(output [i][a] != 1 && choose == 0){
+					if(output [i][a] != 1 && output [i][a] != 4 && choose == 0){
 						print!("{}▥ ", color::Fg(nes_palette::NES_RED));
 					}
 					if(output[i][a] == 4){
