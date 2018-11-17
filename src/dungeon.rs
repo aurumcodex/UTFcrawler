@@ -25,7 +25,7 @@ pub fn createMap(length: usize, width: usize) -> map{
 	let mut input: [[usize; 32]; 32]  = [[0; 32]; 32];
 	
 	
-	//select = 5;
+	select = 5;
 	
 	let mut a: usize = 0;
     let mut i: usize = 0;
@@ -174,8 +174,9 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i+=1;
 					a=0;
 				}
-			}
-			
+			input[1][width/2+width/4] = 4;
+			input[1][width/2+width/4+1] = 4;
+			}						
 		i = length;
 		if(corner == 1){
 				while(i >= length/2){
@@ -196,6 +197,8 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i-=1;
 					a=0;
 				}
+		input[length/4][1] = 4;
+		input[length/4+1][1] = 4;
 			}
 			
 		a = width;
@@ -219,8 +222,9 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i-=1;
 					a=width;
 				}
-			}
-			
+		input[length/4][width-1] = 4;
+		input[length/4+1][width-1] = 4;
+			}			
 		a = width;
 		i=0;
 		if(corner == 3){
@@ -242,10 +246,15 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i+=1;
 					a=width;
 				}
+				
+				input[1][width/4] = 4;
+				input[1][width/4+1] = 4;
 			}
+		}
 	}
 	
-	}
+	
+	
 	let output = input;
 	let mapType = select; 		
 	let mapOut = map{output, mapType}; 
@@ -277,6 +286,9 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 0){
 						print!("{}▦ ", color::Fg(nes_palette::NES_BLACK));
 					}
+					if(output[i][a] == 4){
+						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));
+					}
 					a+=1;
 				}
 				println!("");
@@ -300,6 +312,9 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 0){
 						print!("{}▦ ", color::Fg(nes_palette::NES_BLACK));
 					}
+					if(output[i][a] == 4){
+						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));
+					}
 					a+=1;
 				}
 				println!("");
@@ -320,6 +335,9 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					}
 					if(output [i][a] != 1 && choose == 0){
 						print!("{}▥ ", color::Fg(nes_palette::NES_RED));
+					}
+					if(output[i][a] == 4){
+						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));
 					}
 					a+=1;
 				}

@@ -35,9 +35,6 @@ use termion::input::TermRead;
 
  fn main() {
 
-    let mut a: usize = 0;
-    let mut i: usize = 0;
-    
     let mut length: usize = rand::thread_rng().gen_range(5, 26);
     let mut width: usize = rand::thread_rng().gen_range(5, 26);
     
