@@ -37,12 +37,32 @@ use termion::input::TermRead;
 
     let mut length: usize = rand::thread_rng().gen_range(5, 26);
     let mut width: usize = rand::thread_rng().gen_range(5, 26);
-    let mut i: usize = 2;
+    let mut run: usize = 1;
+    
+    let stdin = stdin();
+    // let mut stdin = stdin.lock();
+    let stdout = stdout();
+    let mut stdout = stdout.lock();
+    
+	let mut input: String = String::new();
  
 	let mainMap = createMap(length, width);
 	printMap(mainMap, length, width);
 	println!("");
 	printMap(mainMap, length, width);
+	
+	while(run == 1){
+		//let mut input = stdin.read_line(&mut input);
+		io::stdin().read_line(&mut input).expect("failed to read line");
+		//run = 0;
+		if(input.eq(&String::from("close\n"))){
+			run = 0;
+		}
+		printMap(mainMap, length, width);
+		println!("{}", input);
+		input = "".to_string();
+		
+	}
 	
 }
 
