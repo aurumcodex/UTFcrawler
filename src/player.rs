@@ -6,9 +6,9 @@
 
 extern crate rand;
 
-// use std::io;
-use crate::status::{Ailment, Psyche};
 use rand::Rng;
+// use std::io;
+use status::{Ailment, Psyche};
 
 #[derive(Debug, Eq, PartialEq)]
 pub enum Archetype {
@@ -38,7 +38,7 @@ pub struct Player {
 }
 
 impl Player {
-    pub fn new(name: String, arch: Archetype) -> Player {
+    pub fn new(arch: Archetype) -> Player {
         let gen_normal_max_hp = rand::thread_rng().gen_range(40, 56);
         let gen_normal_max_ap = rand::thread_rng().gen_range(40, 56);
         let gen_heavy_max_hp = rand::thread_rng().gen_range(50, 66);
@@ -48,7 +48,7 @@ impl Player {
 
         match arch {
             Archetype::Alchemist => Player {
-                player_name: name,
+                player_name: String::from("Player"),
                 level: 1,
                 exp: 0,
                 to_next_level: 1,
@@ -69,7 +69,7 @@ impl Player {
                 is_dead: false,
             },
             Archetype::Blackguard => Player {
-                player_name: name,
+                player_name: String::from("Player"),
                 level: 1,
                 exp: 0,
                 to_next_level: 1,
@@ -90,7 +90,7 @@ impl Player {
                 is_dead: false,
             },
             Archetype::Generalist => Player {
-                player_name: name,
+                player_name: String::from("Player"),
                 level: 1,
                 exp: 0,
                 to_next_level: 1,
@@ -111,7 +111,7 @@ impl Player {
                 is_dead: false,
             },
             Archetype::Gunner => Player {
-                player_name: name,
+                player_name: String::from("Player"),
                 level: 1,
                 exp: 0,
                 to_next_level: 1,
@@ -132,7 +132,7 @@ impl Player {
                 is_dead: false,
             },
             Archetype::Mercenary => Player {
-                player_name: name,
+                player_name: String::from("Player"),
                 level: 1,
                 exp: 0,
                 to_next_level: 1,

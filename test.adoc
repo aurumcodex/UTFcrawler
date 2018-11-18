@@ -2,17 +2,92 @@
 
 image::utf-crawler.png[align="center"]
 
-[.align="center", cols="4*^.^"]
+[.align="center", cols="7*^.^"]
 |=============================
-image:https://img.shields.io/badge/rust-1.30.0-654321.svg?logo=rust&logoColor=rgb(225,225,225)&style=flat-square[Rust Version]
-| image:https://img.shields.io/badge/version-0.0.1-519331.svg?style=flat-square[Current Version]
-| image:https://img.shields.io/crates/l/rustc-serialize.svg?style=popout-square&colorB=1a5c86[License]
-| `master:` image:https://gitlab.com/utf-crawler/utf-crawler/badges/master/pipeline.svg[Master Pipeline]
-|=============================
+|Language |Version |License |Platform 3+|Pipelines
 
+//| image:https://img.shields.io/badge/rust-1.30.0-654321.svg?logo=rust&logoColor=rgb(215,200,195)&style=popout-square["Rust Version", link:https://blog.rust-lang.org/2018/10/25/Rust-1.30.0.html]
+| image:https://img.shields.io/badge/rust-1.30.0-3b231b.svg?logo=rust&logoColor=rgb(167,129,107)&style=popout-square["Rust Version", link:https://blog.rust-lang.org/2018/10/25/Rust-1.30.0.html]
+//| image:https://img.shields.io/badge/version-0.0.2-519331.svg?style=flat-square[Current Version]
+| image:https://img.shields.io/badge/version-0.0.2-222b0d.svg?style=flat-square[Current Version]
+| image:https://img.shields.io/badge/license-ISC-1e272d.svg?style=flat-square["License", LICENSE-MIT]
+| image:https://img.shields.io/badge/platform-shell-606060.svg?style=popout-square[]
+| `master:` image:https://gitlab.com/utf-crawler/utf-crawler/badges/master/pipeline.svg[Master Pipeline]
+| `combat:` image:https://gitlab.com/utf-crawler/utf-crawler/badges/combat/pipeline.svg[Combat Pipeline]
+| `dungeon:` image:https://gitlab.com/utf-crawler/utf-crawler/badges/dungeon/pipeline.svg[Dungeon Pipeline]
+|=============================
 
 '''
-
 == About
 '''
-This is a project that is designed to create an RPG game using Unicode characters as ASCII art, instead of using raw ASCII. This effectively makes the display ANSI art, rather than ASCII art.
+This is a project that is designed to create an RPG game using Unicode characters as ASCII art, instead of using raw ASCII.
+This effectively makes the display ANSI art, rather than ASCII art.
+
+Support for RGB colors is required for the best experience, but a plain terminal should do fine.
+//A QWERTY layout or similar keyboard is highly recommended for a proper experience
+
+== Dependencies
+'''
+For installation, the following dependencies are required:
+
+* A working installation of `rust`, `rustc`, and `cargo`.
+** This is supplied either via the `rustup` script available link:https://rustup.rs/[here].
+*** Or it's supplied by your package managers for your Linux distro of choice.
+* `git` to fetch this repository
+
+== Installation
+'''
+==== Compiling from Source
+Simple enough:
+
+* Clone the repository: `git clone \https://gitlab.com/utf-crawler/utf-crawler.git`
+* Move into cloned folder: `cd utf-crawler`
+* Build: `cargo install`
+** Or for a more manual approach:
+*** `cargo build --release`
+*** and move/copy `./target/release` to your `$PATH`.
+
+== Licensing
+'''
+This software is released under the link:LICENSE-MIT[ISC License]
+
+== TODO List
+'''
+A remainder of what is needed to be completed before submittal:
+
+===== main.rs
+- [ ] initialize game
+
+===== combat.rs
+- [x] implement battle flow of the game
+- [ ] implement combat turn orders
+- [ ] implement random encounters (in conjunction with `dungeon.rs`)
+- [x] implement damage calculations (partialy done)
+- [ ] implement user input for attacks and skill usage, as well as guarding
+
+===== dungeon.rs
+- [ ] implement the layouts and generation of the dungeon rooms
+- [ ] implement traversal of the dungeon
+
+===== enemy.rs
+- [ ] define Enemy struct and enums for enemy creation
+- [ ] implement common enemies and the "final" boss
+- [ ] (optional) implement potential elemental weaknesses/resistances
+
+===== game_state.rs
+- [x] declare a color palette to be used for the display of the game
+- [x] create enums to act as a state of current game state (more might be added as needed)
+
+===== inventory.rs
+- [x] implement a manner to store items
+- [ ] implement functions to add/use items
+- [ ] implement functions to reset items
+
+===== player.rs [95% done]
+- [x] implement a struct to hold the necessary data for a player entity.
+- [x] implement experience point functions and level up functions
+- [x] declare archetypes for the player
+
+===== status.rs [99% done]
+- [x] declare enums that represent various states of being for player and enemy alike.
+

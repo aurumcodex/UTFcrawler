@@ -1,6 +1,10 @@
 stages:
   - build
 
+before_script:
+  - rustc --version
+  - cargo --version
+
 rust-latest:
   stage: build
   image: rust:latest

@@ -7,8 +7,9 @@
 
 extern crate rand;
 
-use crate::status::{EnemyAilment, EnemyPsyche};
 use rand::Rng;
+
+use status::{EnemyAilment, EnemyPsyche};
 
 #[derive(Debug)]
 pub enum EnemyType {
