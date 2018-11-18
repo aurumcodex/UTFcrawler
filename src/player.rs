@@ -265,7 +265,7 @@ impl Player {
                 },
                 _ => {},
             }
-            self.print_stats();
+//            self.print_stats();
         }
     }
 
@@ -286,23 +286,23 @@ impl Player {
     pub fn check_status(&self) -> bool { self.is_dead }
 
     pub fn print_stats(&self) {
-        println!("Player Name: {}\n\r", self.player_name);
-        println!("Player Level: {}\n\r", self.level);
-        println!("Player EXP: {}\n\r", self.exp);
-        println!("Player To Next Level: {}\n\r", self.to_next_level);
-        println!("Player Archetype: {:?}\n\r", self.archetype);
-        println!("Player Max HP: {}\n\r", self.max_hp);
-        println!("Player HP: {}\n\r", self.hp);
-        println!("Player Max AP: {}\n\r", self.max_ap);
-        println!("Player AP: {}\n\r", self.ap);
-        println!("Player Strength: {}\n\r", self.strength);
-        println!("Player Magic: {}\n\r", self.alchemy);
-        println!("Player Vitality: {}\n\r", self.vitality);
-        println!("Player Dexterity: {}\n\r", self.dexterity);
-        println!("Player Agility: {}\n\r", self.agility);
-        println!("Player Luck: {}\n\r", self.luck);
-        println!("Player Status: {:?}\n\r", self.status);
-        println!("Player Psyche: {:?}\n\r", self.psyche);
-        println!("Is Player Dead? :: {}\n\r", self.is_dead);
+        println!("Player Name: {}\r", self.player_name);
+        println!("Player Level: {}\r", self.level);
+        println!("Player EXP: {}\r", self.exp);
+        println!("Player To Next Level: {}\r", self.to_next_level);
+        println!("Player Archetype: {:?}\r", self.archetype);
+        println!("Player Max HP: {}\r", self.max_hp);
+        println!("Player HP: {}\r", self.hp);
+        println!("Player Max AP: {}\r", self.max_ap);
+        println!("Player AP: {}\r", self.ap);
+        println!("Player Strength: {}\r", self.strength);
+        println!("Player Magic: {}\r", self.alchemy);
+        println!("Player Vitality: {}\r", self.vitality);
+        println!("Player Dexterity: {}\r", self.dexterity);
+        println!("Player Agility: {}\r", self.agility);
+        println!("Player Luck: {}\r", self.luck);
+        println!("Player Status: {:?}\r", self.status);
+        println!("Player Psyche: {:?}\r", self.psyche);
+        println!("Is Player Dead? :: {}\r", self.is_dead);
     }
 }

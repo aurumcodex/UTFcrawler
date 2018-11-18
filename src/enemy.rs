@@ -224,6 +224,7 @@ impl Enemy {
             self.status = EnemyAilment::Dead;
             self.is_dead = true;
         }
+        print!("Enemy has taken {} points of hefty damage!\n\r", damage);
     }// decr_hp
 
     pub fn check_status(&self) -> bool { self.is_dead }

@@ -22,12 +22,15 @@ use std::process;
 
 pub fn combat(player: &mut Player, enemy: &mut Enemy) {
     let stdin = stdin();
-    let mut stdout = stdout().into_raw_mode().unwrap();
+//    let mut stdout = stdout().into_raw_mode().unwrap();
+    let stdout = stdout();
+    let mut stdout = stdout.lock();
 
-    write!(stdout, "{}{}{}=== combat mode initiated ==={}{}\n\
-                    player has encountered a {} \r\n",
-                    clear::All, cursor::Goto(8, 7), style::Bold,
-                    style::Reset, cursor::Goto(0, 8), enemy.enemy_name).unwrap();
+    write!(stdout, r"
+        {}{}{}=== combat mode initiated ==={}{}
+        player has encountered a {}",
+         clear::All, cursor::Goto(8, 7), style::Bold,
+         style::Reset, cursor::Goto(0, 8), enemy.enemy_name).unwrap();
     stdout.flush().unwrap();
 
     let mut in_bytes = stdin.bytes();
@@ -37,22 +40,26 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
             b'a' => {
                 let attack_dmg: i16 = rand::thread_rng().gen_range((player.strength - 3) as i16, player.strength as i16);
                 enemy.decr_hp(attack_dmg);
-                write!(stdout, "Enemy has taken {} points of  damage!\n\r", attack_dmg);
+//                write!(stdout, "Enemy has taken {} points of damage!\n\r", attack_dmg);
             },
             b's' => {
                 if player.level < 3 {
-                    write!(stdout, "player is unable to use this skill; not high enough level");
+                    write!(stdout, "player is unable to use this skill; not high enough level\n\r");
                     stdout.flush().unwrap();
                     continue;
                 } else {
-                    let attack_dmg: i16 = rand::thread_rng().gen_range(5, 10);
-                    enemy.decr_hp(attack_dmg);
-                    write!(stdout, "Enemy has taken {} points of hefty damage!\n\r", attack_dmg);
+                    let damage_calc = |stat, range| {
+                        println!("{} damage", range + stat);
+                        range + stat
+                    };
+//                    let attack_dmg: i16 = rand::thread_rng().gen_range(5, 10);
+                    enemy.decr_hp(damage_calc(player.strength as i16, rand::thread_rng().gen_range(5, 10)));
+//                    write!(stdout, "Enemy has taken {} points of hefty damage!\n\r", attack_dmg);
                 }
             },
             b'd' => {
                 if player.level < 6 {
-                    write!(stdout, "player is unable to use this skill; not high enough level");
+                    write!(stdout, "player is unable to use this skill; not high enough level\n\r");
                     stdout.flush().unwrap();
                     continue;
                 } else {
@@ -63,7 +70,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
             },
             b'f' => {
                 if player.level < 9 {
-                    write!(stdout, "player is unable to use this skill; not high enough level");
+                    write!(stdout, "player is unable to use this skill; not high enough level\n\r");
                     stdout.flush().unwrap();
                     continue;
                 } else {
@@ -79,19 +86,21 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                 write!(stdout, "Player has taken {} points of reduced damage.\n\r", attack_dmg);
             }
             _a => {
-                write!(stdout, "please input a proper input.\n\r {}", cursor::Goto(0, 1));
+                write!(stdout, "{} please input a proper input.\n\r {}{}",
+                       color::Fg(nes_palette::NES_BRT_RED), cursor::Goto(2, 1), color::Fg(color::Reset));
             }
         }
     }//main while loop
     if player.is_dead == true {
-        println!("{}you have died{}", color::Fg(nes_palette::NES_RED), color::Fg(color::Reset));
+        println!("{}you have died{}{}", color::Fg(nes_palette::NES_RED), color::Fg(color::Reset), clear::All);
         stdout.flush().unwrap();
         return;
 //        process::exit(45);
     }//if player becomes dead
     if enemy.is_dead == true {
         println!("enemy status is  now: {:?}", enemy.status);
-        write!(stdout, "{}{}player has gained {} exp. {}\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r", cursor::Goto(8, 7), color::Fg(nes_palette::NES_BRT_GREEN), enemy.given_exp, color::Fg(color::Reset));
+        write!(stdout, "{}{}player has gained {} exp. {}{}", cursor::Goto(8, 7), color::Fg(nes_palette::NES_BRT_GREEN),
+               enemy.given_exp, color::Fg(color::Reset), clear::All);
         player.gain_exp(enemy.given_exp);
         player.check_level_up();
     }// on victory

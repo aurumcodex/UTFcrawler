@@ -7,7 +7,7 @@ image::utf-crawler.png[align="center"]
 |Language |Version |License |Platform 3+|Pipelines
 
 //| image:https://img.shields.io/badge/rust-1.30.0-654321.svg?logo=rust&logoColor=rgb(215,200,195)&style=popout-square["Rust Version", link:https://blog.rust-lang.org/2018/10/25/Rust-1.30.0.html]
-| image:https://img.shields.io/badge/rust-1.30.0-3b231b.svg?logo=rust&logoColor=rgb(167,129,107)&style=popout-square["Rust Version", link:https://blog.rust-lang.org/2018/10/25/Rust-1.30.0.html]
+| image:https://img.shields.io/badge/rust-1.30.0-3b231b.svg?logo=rust&logoColor=rgb(247,209,187)&style=flat-square["Rust Version", link:https://blog.rust-lang.org/2018/10/25/Rust-1.30.0.html]
 //| image:https://img.shields.io/badge/version-0.0.2-519331.svg?style=flat-square[Current Version]
 | image:https://img.shields.io/badge/version-0.0.2-222b0d.svg?style=flat-square[Current Version]
 | image:https://img.shields.io/badge/license-ISC-1e272d.svg?style=flat-square["License", LICENSE-MIT]
@@ -26,6 +26,8 @@ This effectively makes the display ANSI art, rather than ASCII art.
 Support for RGB colors is required for the best experience, but a plain terminal should do fine.
 //A QWERTY layout or similar keyboard is highly recommended for a proper experience
 
+'''
+
 == Dependencies
 '''
 For installation, the following dependencies are required:
@@ -34,6 +36,8 @@ For installation, the following dependencies are required:
 ** This is supplied either via the `rustup` script available link:https://rustup.rs/[here].
 *** Or it's supplied by your package managers for your Linux distro of choice.
 * `git` to fetch this repository
+
+'''
 
 == Installation
 '''
@@ -47,47 +51,52 @@ Simple enough:
 *** `cargo build --release`
 *** and move/copy `./target/release` to your `$PATH`.
 
+'''
+
 == Licensing
 '''
-This software is released under the link:LICENSE-MIT[ISC License]
+This software is released under the link:LICENSE-ISC[ISC License]
+
+'''
 
 == TODO List
 '''
 A remainder of what is needed to be completed before submittal:
 
 ===== main.rs
-- [ ] initialize game
+* [ ] ☐ initialize game
 
 ===== combat.rs
-- [x] implement battle flow of the game
-- [ ] implement combat turn orders
-- [ ] implement random encounters (in conjunction with `dungeon.rs`)
-- [x] implement damage calculations (partialy done)
-- [ ] implement user input for attacks and skill usage, as well as guarding
+* [x] ☑ implement battle flow of the game
+* [ ] ☐ implement combat turn orders
+* [ ] ☐ implement random encounters (in conjunction with `dungeon.rs`)
+* [x] ☑ implement damage calculations (partially done)
+* [x] ☑ implement user input for attacks and skill usage, as well as guarding
 
 ===== dungeon.rs
-- [ ] implement the layouts and generation of the dungeon rooms
-- [ ] implement traversal of the dungeon
+* [ ] ☐ implement the layouts and generation of the dungeon rooms
+* [ ] ☐ implement traversal of the dungeon
 
 ===== enemy.rs
-- [ ] define Enemy struct and enums for enemy creation
-- [ ] implement common enemies and the "final" boss
-- [ ] (optional) implement potential elemental weaknesses/resistances
+* [ ] ☐ define Enemy struct and enums for enemy creation
+* [ ] ☐ implement common enemies and the "final" boss
+* [ ] ☐ (optional) implement potential elemental weaknesses/resistances
 
 ===== game_state.rs
-- [x] declare a color palette to be used for the display of the game
-- [x] create enums to act as a state of current game state (more might be added as needed)
+* [x] ☑ declare a color palette to be used for the display of the game
+* [x] ☑ create enums to act as a state of current game state (more might be added as needed)
+* [ ] ☐ implement functions to change between the various states
 
 ===== inventory.rs
-- [x] implement a manner to store items
-- [ ] implement functions to add/use items
-- [ ] implement functions to reset items
+* [x] ☑ implement a manner to store items
+* [ ] ☐ implement functions to add/use items
+* [ ] ☐ implement functions to reset items
 
 ===== player.rs [95% done]
-- [x] implement a struct to hold the necessary data for a player entity.
-- [x] implement experience point functions and level up functions
-- [x] declare archetypes for the player
+* [x] ☑ implement a struct to hold the necessary data for a player entity.
+* [x] ☑ implement experience point functions and level up functions
+* [x] ☑ declare archetypes for the player
 
 ===== status.rs [99% done]
-- [x] declare enums that represent various states of being for player and enemy alike.
+* [x] ☑ declare enums that represent various states of being for player and enemy alike.
 
