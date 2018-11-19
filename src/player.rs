@@ -196,7 +196,7 @@ impl Player {
             println!("player needs {} more enemies to level up\r", self.to_next_level);
 
             if self.level == 3 || self.level == 6 || self.level == 9 {
-                println!("player has gained a new skill!");
+                println!("player has gained a new skill!\r");
             }
 
             self.level += 1;
