@@ -28,9 +28,9 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
 
     write!(stdout, r"
         {}{}{}=== combat mode initiated ==={}{}
-        player has encountered a {}",
+        player has encountered a {}{}",
          clear::All, cursor::Goto(8, 7), style::Bold,
-         style::Reset, cursor::Goto(0, 8), enemy.enemy_name).unwrap();
+         style::Reset, cursor::Goto(0, 8), enemy.enemy_name, cursor::Goto(0, 10)).unwrap();
     stdout.flush().unwrap();
 
     let mut in_bytes = stdin.bytes();
@@ -98,7 +98,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
 //        process::exit(45);
     }//if player becomes dead
     if enemy.is_dead == true {
-        println!("enemy status is  now: {:?}", enemy.status);
+        println!("enemy status is now: {:?}", enemy.status);
         write!(stdout, "{}{}player has gained {} exp. {}{}", cursor::Goto(8, 7), color::Fg(nes_palette::NES_BRT_GREEN),
                enemy.given_exp, color::Fg(color::Reset), clear::All);
         player.gain_exp(enemy.given_exp);

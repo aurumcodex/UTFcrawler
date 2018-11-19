@@ -189,11 +189,11 @@ impl Player {
     pub fn level_up(&mut self) {
         // FIXME: exp gain formula
         if self.level < 17_u8 {
-            println!("player has gained a level!");
+            println!("player has gained a level!\r");
             self.prev_next_level = (self.prev_next_level + 2) / 2 << 1;
             self.to_next_level = self.prev_next_level;
 
-            println!("player needs {} more enemies to level up", self.to_next_level);
+            println!("player needs {} more enemies to level up\r", self.to_next_level);
 
             self.level += 1;
 

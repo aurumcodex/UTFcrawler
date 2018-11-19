@@ -40,9 +40,9 @@ use std::process;
 fn main() {
     let stdin = stdin();
 //    let mut stdin = stdin.lock();
-//    let mut stdout = stdout.lock().into_raw_mode().unwrap();
-    let stdout = stdout();
-    let mut stdout = stdout.lock();
+    let mut stdout = stdout().into_raw_mode().unwrap();
+//    let stdout = stdout();
+//    let mut stdout = stdout.lock();
 
     let mut player = Player::new(Archetype::Generalist);
 
@@ -50,7 +50,7 @@ fn main() {
 
     let norm = color::Rgb(104, 68, 252);
     
-    writeln!(stdout, "{} {} {}", color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
+    writeln!(stdout, "{} {} {}\r", color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
 
     let mut args = env::args().skip(1);
     loop {
@@ -104,9 +104,9 @@ fn main() {
 //    combat::combat(&mut player, &mut test_enemy);
 //    if player.is_dead == true {return;}
 
-    println!();
+//    println!();
 
-    println!("player exp is now: {}\r", player.exp);
+//    println!("player exp is now: {}\r", player.exp);
 //    println!("check enemy status:: is_dead? -> {}", test_enemy.is_dead);
 
     println!("player is currently dead? :: {}\r", player.check_status());
@@ -116,29 +116,31 @@ fn main() {
     println!();
     println!();
 
-//    let mut in_bytes = stdin.bytes();
-//    loop {
-//        let input = in_bytes.next().unwrap().unwrap();
-//        match input {
-//            b'c' => {
-//                let mut enemy = Enemy::new(EnemyType::Common, rand::thread_rng().gen_range(3, 15) * player.level);
-//                combat::combat(&mut player, &mut enemy);
-//            },
-//            b'q' => return,
-//            _a => {},
-//        }
-//    }// testing loop for combat shenanigans, byte styled inputs
-    write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence{}\n\r", color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
+    write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence){}\r\n\r", color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
 
-    for c in stdin.keys() {
-        write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence{}\n\r", color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
-        match c.unwrap() {
-            Key::Char('q') => return,
-            Key::Char('c') => {
+    let mut in_bytes = stdin.bytes();
+    loop {
+        if player.is_dead == true {return}
+        let input = in_bytes.next().unwrap().unwrap();
+        match input {
+            b'c' => {
                 let mut enemy = Enemy::new(EnemyType::Common, rand::thread_rng().gen_range(3, 15) * player.level);
                 combat::combat(&mut player, &mut enemy);
             },
-            _ => {},
+            b'q' => return,
+            _a => {},
         }
-    }// for loop version of above loop
+    }// testing loop for combat shenanigans, byte styled inputs
+
+//    for c in stdin.keys() {
+//        write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence{}\n\r", color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
+//        match c.unwrap() {
+//            Key::Char('q') => return,
+//            Key::Char('c') => {
+//                let mut enemy = Enemy::new(EnemyType::Common, rand::thread_rng().gen_range(3, 15) * player.level);
+//                combat::combat(&mut player, &mut enemy);
+//            },
+//            _ => {},
+//        }
+//    }// for loop version of above loop
 }
