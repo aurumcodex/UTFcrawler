@@ -195,6 +195,10 @@ impl Player {
 
             println!("player needs {} more enemies to level up\r", self.to_next_level);
 
+            if self.level == 3 || self.level == 6 || self.level == 9 {
+                println!("player has gained a new skill!");
+            }
+
             self.level += 1;
 
             match self.archetype {
@@ -281,6 +285,7 @@ impl Player {
             self.status = Ailment::Unconscious;
             self.is_dead = true;
         }
+        print!("Player has taken {} points of damage!\n\r", damage);
     }
 
     pub fn check_status(&self) -> bool { self.is_dead }

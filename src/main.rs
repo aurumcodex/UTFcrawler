@@ -46,8 +46,6 @@ fn main() {
 
     let mut player = Player::new(Archetype::Generalist);
 
-//    let rand_stat = Player
-
     let norm = color::Rgb(104, 68, 252);
     
     writeln!(stdout, "{} {} {}\r", color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
@@ -116,17 +114,22 @@ fn main() {
     println!();
     println!();
 
-    write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence){}\r\n\r", color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
+//    write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence){}\r\n\r", color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
 
     let mut in_bytes = stdin.bytes();
     loop {
         if player.is_dead == true {return}
+
+        write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence, s for player stats){}\r\n\r",
+               color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
+
         let input = in_bytes.next().unwrap().unwrap();
         match input {
             b'c' => {
                 let mut enemy = Enemy::new(EnemyType::Common, rand::thread_rng().gen_range(3, 15) * player.level);
                 combat::combat(&mut player, &mut enemy);
             },
+            b's' => player.print_stats(),
             b'q' => return,
             _a => {},
         }

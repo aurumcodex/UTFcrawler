@@ -23,7 +23,8 @@ image::utf-crawler.png[align="center"]
 This is a project that is designed to create an RPG game using Unicode characters as ASCII art, instead of using raw ASCII.
 This effectively makes the display ANSI art, rather than ASCII art.
 
-Support for RGB colors is required for the best experience, but a plain terminal should do fine.
+Support for RGB colors is required for the best experience, but a plain terminal should do fine. +
+A monospaced font supporting lots of Unicode characters is *highly* recommended, as that will render the maps properly.
 //A QWERTY layout or similar keyboard is highly recommended for a proper experience
 
 '''

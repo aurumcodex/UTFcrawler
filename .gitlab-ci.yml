@@ -2,8 +2,7 @@ stages:
   - build
 
 before_script:
-  - rustc --version
-  - cargo --version
+  - rustc --version && cargo --version
 
 rust-latest:
   stage: build

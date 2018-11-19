@@ -38,8 +38,10 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
         let input = in_bytes.next().unwrap().unwrap();
         match input {
             b'a' => {
-                let attack_dmg: i16 = rand::thread_rng().gen_range((player.strength - 3) as i16, player.strength as i16);
-                enemy.decr_hp(attack_dmg);
+                let plyr_atk_dmg: i16 = rand::thread_rng().gen_range((player.strength - 3) as i16, player.strength as i16);
+                let enemy_atk_dmg: i16 = rand::thread_rng().gen_range((enemy.strength - 3) as i16, enemy.strength as i16);
+                enemy.decr_hp(plyr_atk_dmg);
+                player.take_dmg(enemy_atk_dmg);
 //                write!(stdout, "Enemy has taken {} points of damage!\n\r", attack_dmg);
             },
             b's' => {
@@ -48,13 +50,50 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                     stdout.flush().unwrap();
                     continue;
                 } else {
-                    let damage_calc = |stat, range| {
+                    let damage_range = rand::thread_rng().gen_range(5, 16);
+                    let player_damage_calc = |stat, range, defense| {
+                        println!("{} damage", range + stat - defense);
+                        range + stat - defense
+                    };
+                    let enemy_damage_calc = |stat, range| {
                         println!("{} damage", range + stat);
                         range + stat
                     };
-//                    let attack_dmg: i16 = rand::thread_rng().gen_range(5, 10);
-                    enemy.decr_hp(damage_calc(player.strength as i16, rand::thread_rng().gen_range(5, 10)));
-//                    write!(stdout, "Enemy has taken {} points of hefty damage!\n\r", attack_dmg);
+//                    enemy.decr_hp(damage_calc(player.strength as i16, rand::thread_rng().gen_range(5, 10)));
+                    match player.archetype {
+                        Archetype::Alchemist => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a fiery formula on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                            player.take_dmg(enemy_damage_calc(enemy.strength as i16, damage_range - 5));
+                        },
+                        Archetype::Blackguard => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a crossbow bolt on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc((player.dexterity - 2) as i16, damage_range, defense));
+                            player.take_dmg(enemy_damage_calc(enemy.strength as i16, damage_range - 5));
+                        },
+                        Archetype::Generalist => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a slightly stronger general attack on the {}!\n\r",
+                                   enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.strength as i16, damage_range, defense));
+                            player.take_dmg(enemy_damage_calc(enemy.strength as i16, damage_range - 5));
+                        },
+                        Archetype::Gunner => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a shotgun on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                            player.take_dmg(enemy_damage_calc(enemy.strength as i16, damage_range - 5));
+                        },
+                        Archetype::Mercenary => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a metal pipe on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                            player.take_dmg(enemy_damage_calc(enemy.strength as i16, damage_range - 5));
+                        },
+                        _ => {},
+                    }
                 }
             },
             b'd' => {
@@ -63,9 +102,45 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                     stdout.flush().unwrap();
                     continue;
                 } else {
-                    let attack_dmg: i16 = rand::thread_rng().gen_range(10, 15);
-                    enemy.decr_hp(attack_dmg);
-                    write!(stdout, "Enemy has taken {} points of massive damage!\n\r", attack_dmg);
+                    let damage_range = rand::thread_rng().gen_range(5, 16);
+                    let player_damage_calc = |stat, range, defense| {
+                        println!("{} damage", range + stat - defense);
+                        range + stat - defense
+                    };
+//                    let enemy_damage_calc = |stat, range| {
+//                        println!("{} damage", range + stat);
+//                        range + stat
+//                    };
+//                    enemy.decr_hp(damage_calc(player.strength as i16, rand::thread_rng().gen_range(5, 10)));
+                    match player.archetype {
+                        Archetype::Alchemist => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a fiery formula on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        Archetype::Blackguard => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a crossbow bolt on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        Archetype::Generalist => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a slightly stronger general attack on the {}!\n\r",
+                                   enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        Archetype::Gunner => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a shotgun on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        Archetype::Mercenary => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a metal pipe on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        _ => {},
+                    }
                 }
             },
             b'f' => {
@@ -74,9 +149,45 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                     stdout.flush().unwrap();
                     continue;
                 } else {
-                    let attack_dmg: i16 = rand::thread_rng().gen_range(20, 25);
-                    enemy.decr_hp(attack_dmg);
-                    write!(stdout, "Enemy has taken {} points of ridiculous damage!\n\r", attack_dmg);
+                    let damage_range = rand::thread_rng().gen_range(5, 16);
+                    let player_damage_calc = |stat, range, defense| {
+                        println!("{} damage", range + stat - defense);
+                        range + stat - defense
+                    };
+//                    let enemy_damage_calc = |stat, range| {
+//                        println!("{} damage", range + stat);
+//                        range + stat
+//                    };
+//                    enemy.decr_hp(damage_calc(player.strength as i16, rand::thread_rng().gen_range(5, 10)));
+                    match player.archetype {
+                        Archetype::Alchemist => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a fiery formula on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        Archetype::Blackguard => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a crossbow bolt on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        Archetype::Generalist => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a slightly stronger general attack on the {}!\n\r",
+                                   enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        Archetype::Gunner => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a shotgun on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        Archetype::Mercenary => {
+                            let defense = enemy.vitality as i16;
+                            write!(stdout, "Player used a metal pipe on the {}!\n\r", enemy.enemy_name);
+                            enemy.decr_hp(player_damage_calc(player.alchemy as i16, damage_range, defense));
+                        },
+                        _ => {},
+                    }
                 }
             },
             b'g' => {
