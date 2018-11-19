@@ -36,8 +36,12 @@ use termion::input::TermRead;
  fn main() {
 
     let mut length: usize = rand::thread_rng().gen_range(5, 26);
+    //let mut length: usize = 5;
     let mut width: usize = rand::thread_rng().gen_range(5, 26);
     let mut run: usize = 1;
+    
+    let mut playerX: usize = 0;
+	let mut playerY: usize = 0;
     
     let stdin = stdin();
     // let mut stdin = stdin.lock();
@@ -45,24 +49,187 @@ use termion::input::TermRead;
     let mut stdout = stdout.lock();
     
 	let mut input: String = String::new();
- 
-	let mainMap = createMap(length, width);
-	printMap(mainMap, length, width);
-	println!("");
-	printMap(mainMap, length, width);
+	
+	let mut mainMap = createMap(length, width);
+	
+	
+	
+	let mut i: usize = 0;
+	let mut j: usize = 0;
+	while(i < 32){
+		while(j < 32){
+			//print!("{}",mainMap.output[i][j]);
+			if(mainMap.output[i][j]	== 5){
+				playerX = i;
+				playerY = j;				
+			}
+			j += 1;
+		}
+		i+=1;
+		j = 0;
+		//println!("");
+	}
+	println!("{}",playerX);
+	println!("{}",playerY);
+	let mut player = Player::new(String::from("butch"),Archetype::Generalist);
+	
+	
+	
+	
 	
 	while(run == 1){
 		//let mut input = stdin.read_line(&mut input);
 		io::stdin().read_line(&mut input).expect("failed to read line");
 		//run = 0;
-		if(input.eq(&String::from("close\n"))){
+		//println!("{}", player.xPos);
+		if(input.eq(&String::from("q\n"))){
 			run = 0;
+		}
+		
+		if(input.eq(&String::from("a\n"))){
+			if(mainMap.output[playerX][playerY-1] == 2){
+				mainMap.output[playerX][playerY] = 3;
+			}
+			if(mainMap.output[playerX][playerY-1] == 3){
+				mainMap.output[playerX][playerY] = 2;
+			}
+			if(mainMap.output[playerX][playerY-1]!=1){
+			playerY -=1;
+			}
+			if(mainMap.output[playerX][playerY] == 4){
+				length = rand::thread_rng().gen_range(5, 26);
+				width = rand::thread_rng().gen_range(5, 26);
+				mainMap.output[playerX][playerY] = 2;
+				mainMap = createMap(length, width);
+				i=0;
+				while(i < 32){
+				while(j < 32){
+					//print!("{}",mainMap.output[i][j]);
+					if(mainMap.output[i][j]	== 5){
+						playerX = i;
+						playerY = j;				
+					}
+					j += 1;
+				}
+				i+=1;
+				j = 0;
+				//println!("");
+				}
+			}
+			//println!("{}",playerX);
+			//println!("{}",playerY);
+			mainMap.output[playerX][playerY] = 5; 
+			
+		}
+		if(input.eq(&String::from("w\n"))){
+			if(mainMap.output[playerX-1][playerY] == 2){
+				mainMap.output[playerX][playerY] = 3;
+			}
+			if(mainMap.output[playerX-1][playerY] == 3){
+				mainMap.output[playerX][playerY] = 2;
+			}
+			if(mainMap.output[playerX-1][playerY]!=1){
+			playerX -=1;
+			}
+			if(mainMap.output[playerX][playerY] == 4){
+				length = rand::thread_rng().gen_range(5, 26);
+				width = rand::thread_rng().gen_range(5, 26);
+				mainMap.output[playerX][playerY] = 2;
+				mainMap = createMap(length, width);
+				i=0;
+				while(i < 32){
+				while(j < 32){
+					//print!("{}",mainMap.output[i][j]);
+					if(mainMap.output[i][j]	== 5){
+						playerX = i;
+						playerY = j;				
+					}
+					j += 1;
+				}
+				i+=1;
+				j = 0;
+				//println!("");
+				}
+			}
+			//println!("{}",playerX);
+			//println!("{}",playerY);
+			mainMap.output[playerX][playerY] = 5; 
+		}
+		if(input.eq(&String::from("s\n"))){
+			if(mainMap.output[playerX+1][playerY] == 2){
+				mainMap.output[playerX][playerY] = 3;
+			}
+			if(mainMap.output[playerX+1][playerY] == 3){
+				mainMap.output[playerX][playerY] = 2;
+			}
+			if(mainMap.output[playerX+1][playerY]!=1){
+			playerX +=1;
+			}
+			if(mainMap.output[playerX][playerY] == 4){
+				length = rand::thread_rng().gen_range(5, 26);
+				width = rand::thread_rng().gen_range(5, 26);
+				mainMap.output[playerX][playerY] = 2;
+				mainMap = createMap(length, width);
+				i=0;
+				while(i < 32){
+				while(j < 32){
+					//print!("{}",mainMap.output[i][j]);
+					if(mainMap.output[i][j]	== 5){
+						playerX = i;
+						playerY = j;				
+					}
+					j += 1;
+				}
+				i+=1;
+				j = 0;
+				//println!("");
+				}
+			}
+			//println!("{}",playerX);
+			//println!("{}",playerY);
+			mainMap.output[playerX][playerY] = 5; 
+		}
+		if(input.eq(&String::from("d\n"))){
+			if(mainMap.output[playerX][playerY+1] == 2){
+				mainMap.output[playerX][playerY] = 3;
+			}
+			if(mainMap.output[playerX][playerY+1] == 3){
+				mainMap.output[playerX][playerY] = 2;
+			}
+			if(mainMap.output[playerX][playerY+1]!=1){
+			playerY +=1;
+			}
+			if(mainMap.output[playerX][playerY] == 4){
+				length = rand::thread_rng().gen_range(5, 26);
+				width = rand::thread_rng().gen_range(5, 26);
+				mainMap.output[playerX][playerY] = 2;
+				mainMap = createMap(length, width);
+				i=0;
+				while(i < 32){
+				while(j < 32){
+					//print!("{}",mainMap.output[i][j]);
+					if(mainMap.output[i][j]	== 5){
+						playerX = i;
+						playerY = j;				
+					}
+					j += 1;
+				}
+				i+=1;
+				j = 0;
+				//println!("");
+				}
+			}
+			//println!("{}",playerX);
+			//println!("{}",playerY);
+			mainMap.output[playerX][playerY] = 5; 
 		}
 		printMap(mainMap, length, width);
 		println!("{}", input);
 		input = "".to_string();
 		
 	}
+	
+	printMap(mainMap, length, width);
 	
 }
 

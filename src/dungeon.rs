@@ -9,15 +9,19 @@ extern crate termion;
 
 use crate::game_state::palettes::*;
 use crate::combat::*;
+use crate::player::*;
 use rand::Rng;
 use termion::{color, cursor};
 
 #[derive(Copy, Clone)]
 pub struct map {
-		output: [[usize; 32]; 32],	
-		mapType: usize,
+		pub output: [[usize; 32]; 32],	
+		pub mapType: usize,
 	}
-
+pub struct pPos{
+	pub X: usize,
+	pub Y: usize,
+}
 // TODO: do dungeon crafting things
 
 pub fn createMap(length: usize, width: usize) -> map{
@@ -25,8 +29,7 @@ pub fn createMap(length: usize, width: usize) -> map{
 	let mut select: usize = rand::thread_rng().gen_range(1, 6);
 	let mut input: [[usize; 32]; 32]  = [[0; 32]; 32];
 	
-	
- //select = 1;
+ //select = 4;
 	
 	let mut a: usize = 0;
     let mut i: usize = 0;
@@ -57,7 +60,7 @@ pub fn createMap(length: usize, width: usize) -> map{
     
     if(select == 4 || select == 5){
 		let mut corner: usize = rand::thread_rng().gen_range(0, 4);
-		//corner=1; 
+		//corner=0; 
 		if(length > 12 && width > 12){		
 			if(corner == 0){
 				while(i <= length/2){
@@ -78,8 +81,14 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i+=1;
 					a=0;
 				}
-			input[1][width/2+width/4] = 4;
-			input[1][width/2+width/4+1] = 4;
+				input[1][width/2+width/4] = 4;
+				input[1][width/2+width/4+1] = 4;
+				
+				input[length/2+length/4][2] = 5;
+				
+				let X: usize = width/4;
+				let Y: usize = length/2+length/4;
+				let pOut = pPos{X,Y};
 			}						
 		i = length;
 		if(corner == 1){
@@ -101,8 +110,14 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i-=1;
 					a=0;
 				}
-		input[length/4][1] = 4;
-		input[length/4+1][1] = 4;
+				input[length/4][1] = 4;
+				input[length/4+1][1] = 4;
+				
+				input[length-2][width/2+width/4] = 5;
+				
+				let X: usize = width/2+width/4;
+				let Y: usize = length-2;
+				let pOut = pPos{X,Y};
 			}
 			
 		a = width;
@@ -126,8 +141,15 @@ pub fn createMap(length: usize, width: usize) -> map{
 					i-=1;
 					a=width;
 				}
-		input[length/4][width-1] = 4;
-		input[length/4+1][width-1] = 4;
+				input[length/4][width-1] = 4;
+				input[length/4+1][width-1] = 4;
+				
+				input[length-2][width/4] = 5;
+				
+				let X: usize = width/4;
+				let Y: usize = length-2;
+				let pOut = pPos{X,Y};
+		
 			}			
 		a = width;
 		i=0;
@@ -153,6 +175,12 @@ pub fn createMap(length: usize, width: usize) -> map{
 				
 				input[1][width/4] = 4;
 				input[1][width/4+1] = 4;
+				
+				input[length/2+length/4][width-2] = 5;
+				
+				let X: usize = width-2;
+				let Y: usize = length/2+length/4;
+				let pOut = pPos{X,Y};
 			}
 		}else{
 			input[1][width/2] = 4;
@@ -165,11 +193,15 @@ pub fn createMap(length: usize, width: usize) -> map{
 			input[length/2+1][width-1] = 4;
 			
 			input[length-2][width/2] = 5;
+			
+			let X: usize = width/2;
+			let Y: usize = length-2;
+			let pOut = pPos{X,Y};
 		}
 
 	}
-				
-	if(select == 1){
+	
+	 if(select == 3 || select == 2 || select == 1){
 		input[1][width/2] = 4;
 		input[1][width/2+1] = 4;
 			
@@ -180,30 +212,10 @@ pub fn createMap(length: usize, width: usize) -> map{
 		input[length/2+1][width-1] = 4;
 		
 		input[length-2][width/2] = 5;
-	}
-	 if(select == 2){
-		input[1][width/2] = 4;
-		input[1][width/2+1] = 4;
-			
-		input[length/2][1] = 4;
-		input[length/2+1][1] = 4;
-			
-		input[length/2][width-1] = 4;
-		input[length/2+1][width-1] = 4;
 		
-		input[length-2][width/2] = 5;
-	}
-	 if(select == 3){
-		input[1][width/2] = 4;
-		input[1][width/2+1] = 4;
-			
-		input[length/2][1] = 4;
-		input[length/2+1][1] = 4;
-			
-		input[length/2][width-1] = 4;
-		input[length/2+1][width-1] = 4;
-		
-		input[length-2][width/2] = 5;
+		let X: usize = width/2;
+		let Y: usize = length-2;
+		let pOut = pPos{X,Y};
 	}
 	//println!("{}", select);
 	let output = input;
@@ -258,10 +270,10 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 						print!("▦ " );
 					}
 					if(output[i][a] == 2){
-						print!("{}▧ ", color::Fg(nes_palette::NES_WHITE));
+						print!("{}▧ ", color::Fg(nes_palette::NES_LGT_GREY));
 					}
 					if(output[i][a] == 3){
-						print!("{}▨ ", color::Fg(nes_palette::NES_LGT_GREY));
+						print!("{}▨ ", color::Fg(nes_palette::NES_MED_GREY));
 					}
 					if(output[i][a] == 0){
 						print!("{}▦ ", color::Fg(nes_palette::NES_BLACK));

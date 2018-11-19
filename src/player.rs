@@ -8,6 +8,7 @@ extern crate rand;
 
 // use std::io;
 use crate::status::{Ailment, Psyche};
+use crate::dungeon::*;
 use rand::Rng;
 
 #[derive(Debug, Eq, PartialEq)]
@@ -45,7 +46,7 @@ impl Player {
         let gen_heavy_max_ap = rand::thread_rng().gen_range(50, 66);
         let gen_weak_max_hp = rand::thread_rng().gen_range(35, 51);
         let gen_weak_max_ap = rand::thread_rng().gen_range(35, 51);
-
+        
         match arch {
             Archetype::Alchemist => Player {
                 player_name: name,
@@ -67,6 +68,7 @@ impl Player {
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
+ 
             },
             Archetype::Blackguard => Player {
                 player_name: name,
@@ -88,6 +90,8 @@ impl Player {
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
+     
+                
             },
             Archetype::Generalist => Player {
                 player_name: name,
@@ -109,6 +113,8 @@ impl Player {
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
+            
+                
             },
             Archetype::Gunner => Player {
                 player_name: name,
@@ -130,6 +136,8 @@ impl Player {
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
+               
+                
             },
             Archetype::Mercenary => Player {
                 player_name: name,
@@ -151,12 +159,15 @@ impl Player {
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
                 is_dead: false,
+               
+                
             },
             _ => { Player::default() }
         }// match statement
     }
     
     pub fn default() -> Player {
+		
         Player {
             player_name: String::from("unknown player entity"),
             level: 0,
@@ -177,6 +188,8 @@ impl Player {
             status: Ailment::Blind,
             psyche: Psyche::Normal,
             is_dead: false,
+       
+            
         }
     }
 
