@@ -14,6 +14,9 @@ rust-nightly:
         - cargo build --verbose
     allow_failure: true
 
+before_script:
+  - rustc --version && cargo --version
+
 rust-latest:
   stage: build
   image: rust:latest

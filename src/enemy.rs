@@ -7,8 +7,9 @@
 
 extern crate rand;
 
-use crate::status::{EnemyAilment, EnemyPsyche};
 use rand::Rng;
+
+use status::{EnemyAilment, EnemyPsyche};
 
 #[derive(Debug)]
 pub enum EnemyType {
@@ -223,6 +224,7 @@ impl Enemy {
             self.status = EnemyAilment::Dead;
             self.is_dead = true;
         }
+        print!("Enemy has taken {} points of damage!\n\r", damage);
     }// decr_hp
 
     pub fn check_status(&self) -> bool { self.is_dead }
