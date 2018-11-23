@@ -17,6 +17,7 @@ mod dungeon;
 mod inventory;
 mod game_state;
 
+use termion::clear;
 use std::io;
 use std::io::{Read, Write, stdout, stdin};
 use self::player::*;
@@ -36,21 +37,24 @@ use termion::input::TermRead;
  fn main() {
 
     let mut length: usize = rand::thread_rng().gen_range(5, 26);
-    //let mut length: usize = 5;
     let mut width: usize = rand::thread_rng().gen_range(5, 26);
+    let mut Type: usize = rand::thread_rng().gen_range(1, 6);
     let mut run: usize = 1;
+    
+    let mut encounter: usize = 0;
+    let mut boss = 0;
+    let mut count = 0;
     
     let mut playerX: usize = 0;
 	let mut playerY: usize = 0;
     
     let stdin = stdin();
-    // let mut stdin = stdin.lock();
     let stdout = stdout();
     let mut stdout = stdout.lock();
     
 	let mut input: String = String::new();
 	
-	let mut mainMap = createMap(length, width);
+	let mut mainMap = createMap(length, width, Type);
 	
 	
 	
@@ -69,19 +73,33 @@ use termion::input::TermRead;
 		j = 0;
 		//println!("");
 	}
-	println!("{}",playerX);
-	println!("{}",playerY);
+	//println!("{}",playerX);
+	//println!("{}",playerY);
 	let mut player = Player::new(String::from("butch"),Archetype::Generalist);
 	
+	println!("press any key to start");
 	
-	
-	
+	//boss = 1;
 	
 	while(run == 1){
-		//let mut input = stdin.read_line(&mut input);
+		
+		if(count > 9){
+			boss = 1;	
+		}
+			
 		io::stdin().read_line(&mut input).expect("failed to read line");
 		//run = 0;
-		//println!("{}", player.xPos);
+		
+		encounter = rand::thread_rng().gen_range(0, 7);
+		println!("{}", clear::All);
+		if(encounter == 10){
+			Type = 6;
+			mainMap = createMap(length, width, Type);
+			println!("{}", clear::All);
+				println!("found a monster");
+				run = 0;
+		}
+		
 		if(input.eq(&String::from("q\n"))){
 			run = 0;
 		}
@@ -97,14 +115,21 @@ use termion::input::TermRead;
 			playerY -=1;
 			}
 			if(mainMap.output[playerX][playerY] == 4){
+				if(boss == 0){
+				Type = rand::thread_rng().gen_range(1, 6);
 				length = rand::thread_rng().gen_range(5, 26);
 				width = rand::thread_rng().gen_range(5, 26);
+				}else{
+					Type = 7;
+					length = 25;
+					width = 25;
+				}
 				mainMap.output[playerX][playerY] = 2;
-				mainMap = createMap(length, width);
+				mainMap = createMap(length, width, Type);
+				count += 1;
 				i=0;
 				while(i < 32){
 				while(j < 32){
-					//print!("{}",mainMap.output[i][j]);
 					if(mainMap.output[i][j]	== 5){
 						playerX = i;
 						playerY = j;				
@@ -113,11 +138,9 @@ use termion::input::TermRead;
 				}
 				i+=1;
 				j = 0;
-				//println!("");
+
 				}
 			}
-			//println!("{}",playerX);
-			//println!("{}",playerY);
 			mainMap.output[playerX][playerY] = 5; 
 			
 		}
@@ -132,14 +155,21 @@ use termion::input::TermRead;
 			playerX -=1;
 			}
 			if(mainMap.output[playerX][playerY] == 4){
+				if(boss == 0){
+				Type = rand::thread_rng().gen_range(1, 6);
 				length = rand::thread_rng().gen_range(5, 26);
 				width = rand::thread_rng().gen_range(5, 26);
+				}else{
+					Type = 7;
+					length = 25;
+					width = 25;
+				}
 				mainMap.output[playerX][playerY] = 2;
-				mainMap = createMap(length, width);
+				mainMap = createMap(length, width, Type);
+				count += 1;
 				i=0;
 				while(i < 32){
 				while(j < 32){
-					//print!("{}",mainMap.output[i][j]);
 					if(mainMap.output[i][j]	== 5){
 						playerX = i;
 						playerY = j;				
@@ -148,11 +178,8 @@ use termion::input::TermRead;
 				}
 				i+=1;
 				j = 0;
-				//println!("");
 				}
 			}
-			//println!("{}",playerX);
-			//println!("{}",playerY);
 			mainMap.output[playerX][playerY] = 5; 
 		}
 		if(input.eq(&String::from("s\n"))){
@@ -166,14 +193,21 @@ use termion::input::TermRead;
 			playerX +=1;
 			}
 			if(mainMap.output[playerX][playerY] == 4){
+				if(boss == 0){
+				Type = rand::thread_rng().gen_range(1, 6);
 				length = rand::thread_rng().gen_range(5, 26);
 				width = rand::thread_rng().gen_range(5, 26);
+				}else{
+					Type = 7;
+					length = 25;
+					width = 25;
+				}
 				mainMap.output[playerX][playerY] = 2;
-				mainMap = createMap(length, width);
+				mainMap = createMap(length, width, Type);
+				count += 1;
 				i=0;
 				while(i < 32){
 				while(j < 32){
-					//print!("{}",mainMap.output[i][j]);
 					if(mainMap.output[i][j]	== 5){
 						playerX = i;
 						playerY = j;				
@@ -182,11 +216,8 @@ use termion::input::TermRead;
 				}
 				i+=1;
 				j = 0;
-				//println!("");
 				}
 			}
-			//println!("{}",playerX);
-			//println!("{}",playerY);
 			mainMap.output[playerX][playerY] = 5; 
 		}
 		if(input.eq(&String::from("d\n"))){
@@ -200,14 +231,21 @@ use termion::input::TermRead;
 			playerY +=1;
 			}
 			if(mainMap.output[playerX][playerY] == 4){
+				if(boss == 0){
+				Type = rand::thread_rng().gen_range(1, 6);
 				length = rand::thread_rng().gen_range(5, 26);
 				width = rand::thread_rng().gen_range(5, 26);
+				}else{
+					Type = 7;
+					length = 25;
+					width = 25;
+				}
 				mainMap.output[playerX][playerY] = 2;
-				mainMap = createMap(length, width);
+				mainMap = createMap(length, width, Type);
+				count += 1;
 				i=0;
 				while(i < 32){
 				while(j < 32){
-					//print!("{}",mainMap.output[i][j]);
 					if(mainMap.output[i][j]	== 5){
 						playerX = i;
 						playerY = j;				
@@ -216,21 +254,20 @@ use termion::input::TermRead;
 				}
 				i+=1;
 				j = 0;
-				//println!("");
 				}
-			}
-			//println!("{}",playerX);
-			//println!("{}",playerY);
+			};
 			mainMap.output[playerX][playerY] = 5; 
 		}
+		//println!("{}", Type);
+		//println!("{}", boss);
+		print!("room: ");
+		println!("{}", count+1);
 		printMap(mainMap, length, width);
 		println!("{}", input);
 		input = "".to_string();
 		
+		
 	}
-	
-	printMap(mainMap, length, width);
-	
 }
 
 

@@ -7,6 +7,8 @@
 extern crate rand;
 extern crate termion;
 
+use std::{thread, time};
+use termion::clear;
 use crate::game_state::palettes::*;
 use crate::combat::*;
 use crate::player::*;
@@ -24,12 +26,12 @@ pub struct pPos{
 }
 // TODO: do dungeon crafting things
 
-pub fn createMap(length: usize, width: usize) -> map{
+pub fn createMap(length: usize, width: usize, select: usize) -> map{
 
-	let mut select: usize = rand::thread_rng().gen_range(1, 6);
+	//let mut select: usize = rand::thread_rng().gen_range(1, 6);
 	let mut input: [[usize; 32]; 32]  = [[0; 32]; 32];
 	
- //select = 4;
+// select = 7;
 	
 	let mut a: usize = 0;
     let mut i: usize = 0;
@@ -217,6 +219,108 @@ pub fn createMap(length: usize, width: usize) -> map{
 		let Y: usize = length-2;
 		let pOut = pPos{X,Y};
 	}
+	
+	
+	 if(select == 7){
+		 a = 25;
+		 i = 0;
+		 while(i <= 8){
+					while(a >= 17){
+						input[i][a] = 1;
+						a-=1;
+					}
+					i+=1;
+					a=25;
+				}
+				a=25;
+		        i=0;
+				while(i <= 6){
+					while(a >= 19){
+						input[i][a] = 0;
+						a-=1;
+					}
+					i+=1;
+					a=25;
+				}
+				
+		 a = 0;
+		 i = 0;
+		 while(i <= 8){
+					while(a <= 8){
+						input[i][a] = 1;
+						a+=1;
+					}
+					i+=1;
+					a=0;
+				}
+				a=0;
+		        i=0;
+				while(i <= 6){
+					while(a <= 6){
+						input[i][a] = 0;
+						a+=1;
+					}
+					i+=1;
+					a=0;
+				}
+				
+		 a = 0;
+		 i = 25;
+		 while(i >= 17){
+					while(a <= 8){
+						input[i][a] = 1;
+						a+=1;
+					}
+					i-=1;
+					a=0;
+				}
+				a=0;
+		        i=25;
+				while(i >= 19){
+					while(a <= 6){
+						input[i][a] = 0;
+						a+=1;
+					}
+					i-=1;
+					a=0;
+				}
+		
+		 a = 25;
+		 i = 25;
+		 while(i >= 17){
+					while(a >= 17){
+						input[i][a] = 1;
+						a-=1;
+					}
+					i-=1;
+					a=25;
+				}
+				a=25;
+		        i=25;
+				while(i >= 19){
+					while(a >= 19){
+						input[i][a] = 0;
+						a-=1;
+					}
+					i-=1;
+					a=25;
+				}
+		 
+		input[1][width/2] = 4;
+		input[1][width/2+1] = 4;
+			
+		input[length/2][1] = 4;
+		input[length/2+1][1] = 4;
+			
+		input[length/2][width-1] = 4;
+		input[length/2+1][width-1] = 4;
+		
+		input[length-2][width/2] = 5;
+		
+		let X: usize = width/2;
+		let Y: usize = length-2;
+		let pOut = pPos{X,Y};
+	}
 	//println!("{}", select);
 	let output = input;
 	let mapType = select; 		
@@ -226,6 +330,7 @@ pub fn createMap(length: usize, width: usize) -> map{
 }
 
 pub fn printMap(mapIn: map, length: usize, width: usize){
+	let mut d: u8= 0;
 	let mut output: [[usize; 32]; 32] = [[0; 32]; 32];
 	output = mapIn.output;
 	let mapType: usize = mapIn.mapType;
@@ -318,6 +423,99 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 				a=0;
 			}
     }
-		
-		
+    
+    		if(mapType == 7){
+				//println!("{}", mapType);
+			while(i <= length){
+				while(a <= width){
+					print!("{}", color::Fg(nes_palette::NES_PURPLE));
+					if(output[i][a] == 1){
+						print!("▦ " );
+					}
+					if(output[i][a] == 2){
+						print!("{}◇ ", color::Fg(nes_palette::NES_BLUE));
+					}
+					if(output[i][a] == 3){
+						print!("{}◆ ", color::Fg(nes_palette::NES_RED));
+					}
+					if(output[i][a] == 0){
+						print!("{}▦ ", color::Fg(nes_palette::NES_BLACK));
+					}
+					if(output[i][a] == 4){
+						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));
+					}
+					if(output[i][a] == 5){
+						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
+					}
+					a+=1;
+				}
+				println!("");
+				i+=1;
+				a=0;
+			}
+		}
+    
+    if(mapType == 6){
+			/*while(i <= length){
+				while(a <= width){
+					let mut choose: usize = rand::thread_rng().gen_range(0, 2);
+					print!("{}", color::Fg(nes_palette::NES_BRT_RED));
+					if(output[i][a] == 1){
+						print!("▦ " );
+					}
+					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] != 5 && choose == 1){
+						print!("{}▤ ", color::Fg(nes_palette::NES_BROWN));
+					}
+					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] != 5 && choose == 0){
+						print!("{}▥ ", color::Fg(nes_palette::NES_RED));
+					}
+					if(output[i][a] == 4){
+						print!("{}▦ ", color::Fg(nes_palette::NES_RED));
+					}
+					if(output[i][a] == 5){
+						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
+					}
+					a+=1;
+				}
+				println!("");
+				i+=1;
+				a=0;
+			}
+			print!("{}", color::Fg(nes_palette::NES_RED));
+			pub const DEATH: &str = r"
+ __   __  _____   __  __      ____    ______   ____    ____      
+/\ \  /\ \/\  __`\/\ \/\ \    /\  _`\ /\__  _\ /\  _`\ /\  _`\    
+\ `\`\\/'/\ \ \/\ \ \ \ \ \   \ \ \/\ \/_/\ \/ \ \ \L\_\ \ \/\ \  
+ `\ `\ /'  \ \ \ \ \ \ \ \ \   \ \ \ \ \ \ \ \  \ \  _\L\ \ \ \ \ 
+   `\ \ \   \ \ \_\ \ \ \_\ \   \ \ \_\ \ \_\ \__\ \ \L\ \ \ \_\ \
+     \ \_\   \ \_____\ \_____\   \ \____/ /\_____\\ \____/\ \____/
+      \/_/    \/_____/\/_____/    \/___/  \/_____/ \/___/  \/___/ 
+                                                                   ";*/
+                                                                   
+            //println!("{}", color::Fg(color::Rgb(255,255,0)));
+    
+			pub const DEATH: &str = r"
+
+                                                                   
+@@@ @@@   @@@@@@   @@@  @@@     @@@@@@@   @@@  @@@@@@@@  @@@@@@@   
+@@@ @@@  @@@@@@@@  @@@  @@@     @@@@@@@@  @@@  @@@@@@@@  @@@@@@@@  
+@@! !@@  @@!  @@@  @@!  @@@     @@!  @@@  @@!  @@!       @@!  @@@  
+!@! @!!  !@!  @!@  !@!  @!@     !@!  @!@  !@!  !@!       !@!  @!@  
+ !@!@!   @!@  !@!  @!@  !@!     @!@  !@!  !!@  @!!!:!    @!@  !@!  
+  @!!!   !@!  !!!  !@!  !!!     !@!  !!!  !!!  !!!!!:    !@!  !!!  
+  !!:    !!:  !!!  !!:  !!!     !!:  !!!  !!:  !!:       !!:  !!!  
+  :!:    :!:  !:!  :!:  !:!     :!:  !:!  :!:  :!:       :!:  !:!  
+   ::    ::::: ::  ::::: ::      :::: ::   ::   :: ::::   :::: ::  
+   :      : :  :    : :  :      :: :  :   :    : :: ::   :: :  :   
+                                                                    
+                                                                   ";
+			while(d < 250){
+				println!("{}", clear::All);
+				//println!("{}", d);
+				println!("{}", color::Fg(color::Rgb(d,0,0)));
+				println!("{}",DEATH);
+				d+=2;
+				thread::sleep_ms(10);
+			}
+    }	
 }
