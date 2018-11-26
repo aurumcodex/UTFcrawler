@@ -3,6 +3,8 @@
 //!
 
 #![allow(dead_code)]
+#![allow(warnings)]
+
 
 extern crate rand;
 extern crate termion;
@@ -30,6 +32,8 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 
 	//let mut select: usize = rand::thread_rng().gen_range(1, 6);
 	let mut input: [[usize; 32]; 32]  = [[0; 32]; 32];
+	let mut lootX: usize = 0;
+	let mut lootY: usize = 0;
 	
 // select = 7;
 	
@@ -87,6 +91,9 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				input[1][width/2+width/4+1] = 4;
 				
 				input[length/2+length/4][2] = 5;
+				lootX = rand::thread_rng().gen_range(length/2, length-2);
+				lootY = rand::thread_rng().gen_range(length/2, width-2);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
 				
 				let X: usize = width/4;
 				let Y: usize = length/2+length/4;
@@ -116,6 +123,10 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				input[length/4+1][1] = 4;
 				
 				input[length-2][width/2+width/4] = 5;
+				
+				lootX = rand::thread_rng().gen_range(2, length/2);
+				lootY = rand::thread_rng().gen_range(2, width/2);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
 				
 				let X: usize = width/2+width/4;
 				let Y: usize = length-2;
@@ -148,6 +159,10 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				
 				input[length-2][width/4] = 5;
 				
+				lootX = rand::thread_rng().gen_range(length+2, length/2);
+				lootY = rand::thread_rng().gen_range(width+2, width/2);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
+				
 				let X: usize = width/4;
 				let Y: usize = length-2;
 				let pOut = pPos{X,Y};
@@ -179,6 +194,10 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				input[1][width/4+1] = 4;
 				
 				input[length/2+length/4][width-2] = 5;
+				
+				lootX = rand::thread_rng().gen_range(length/2, length+2);
+				lootY = rand::thread_rng().gen_range(width/2, width+2);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
 				
 				let X: usize = width-2;
 				let Y: usize = length/2+length/4;
@@ -214,6 +233,14 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 		input[length/2+1][width-1] = 4;
 		
 		input[length-2][width/2] = 5;
+		
+		if(width > 6){
+			if(length > 6){
+				lootX = rand::thread_rng().gen_range(2, length-2);
+				lootY = rand::thread_rng().gen_range(2, width-2);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
+			}
+		}
 		
 		let X: usize = width/2;
 		let Y: usize = length-2;
@@ -321,6 +348,13 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 		let Y: usize = length-2;
 		let pOut = pPos{X,Y};
 	}
+	
+	if(select == 3 || select == 2 || select == 1){
+		let X: usize = width/2;
+		let Y: usize = length-2;
+		let pOut = pPos{X,Y};
+	}
+	
 	//println!("{}", select);
 	let output = input;
 	let mapType = select; 		
@@ -360,8 +394,12 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 5){
 						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
 					}
+					if(output [i][a] > 5){
+						print!("{}▲ ", color::Fg(nes_palette::NES_CYAN));
+					}
 					a+=1;
 				}
+				print!("{}", color::Fg(nes_palette::NES_YELLOW));
 				println!("");
 				i+=1;
 				a=0;
@@ -389,8 +427,12 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 5){
 						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
 					}
+					if(output [i][a] > 5){
+						print!("{}▲ ", color::Fg(nes_palette::NES_CYAN));
+					}
 					a+=1;
 				}
+				print!("{}", color::Fg(nes_palette::NES_YELLOW));
 				println!("");
 				i+=1;
 				a=0;
@@ -404,10 +446,10 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 1){
 						print!("▦ " );
 					}
-					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] != 5 && choose == 1){
+					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] < 5 && choose == 1 ){
 						print!("{}▤ ", color::Fg(nes_palette::NES_BROWN));
 					}
-					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] != 5 && choose == 0){
+					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] < 5 && choose == 0){
 						print!("{}▥ ", color::Fg(nes_palette::NES_RED));
 					}
 					if(output[i][a] == 4){
@@ -416,15 +458,19 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 5){
 						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
 					}
+					if(output [i][a] > 5){
+						print!("{}▲ ", color::Fg(nes_palette::NES_CYAN));
+					}
 					a+=1;
 				}
+				print!("{}", color::Fg(nes_palette::NES_YELLOW));
 				println!("");
 				i+=1;
 				a=0;
 			}
     }
     
-    		if(mapType == 7){
+    		if(mapType == 7 || mapType == 8){
 				//println!("{}", mapType);
 			while(i <= length){
 				while(a <= width){
@@ -447,8 +493,12 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 5){
 						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
 					}
+					if(output [i][a] > 5){
+						print!("{}▲ ", color::Fg(nes_palette::NES_CYAN));
+					}
 					a+=1;
 				}
+				print!("{}", color::Fg(nes_palette::NES_YELLOW));
 				println!("");
 				i+=1;
 				a=0;
@@ -456,32 +506,7 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 		}
     
     if(mapType == 6){
-			/*while(i <= length){
-				while(a <= width){
-					let mut choose: usize = rand::thread_rng().gen_range(0, 2);
-					print!("{}", color::Fg(nes_palette::NES_BRT_RED));
-					if(output[i][a] == 1){
-						print!("▦ " );
-					}
-					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] != 5 && choose == 1){
-						print!("{}▤ ", color::Fg(nes_palette::NES_BROWN));
-					}
-					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] != 5 && choose == 0){
-						print!("{}▥ ", color::Fg(nes_palette::NES_RED));
-					}
-					if(output[i][a] == 4){
-						print!("{}▦ ", color::Fg(nes_palette::NES_RED));
-					}
-					if(output[i][a] == 5){
-						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
-					}
-					a+=1;
-				}
-				println!("");
-				i+=1;
-				a=0;
-			}
-			print!("{}", color::Fg(nes_palette::NES_RED));
+			/*print!("{}", color::Fg(nes_palette::NES_RED));
 			pub const DEATH: &str = r"
  __   __  _____   __  __      ____    ______   ____    ____      
 /\ \  /\ \/\  __`\/\ \/\ \    /\  _`\ /\__  _\ /\  _`\ /\  _`\    
