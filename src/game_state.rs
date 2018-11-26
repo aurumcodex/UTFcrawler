@@ -76,22 +76,22 @@ pub mod palettes {
 //    }
 }
 
-#[derive(Debug)]
-pub enum Palette {
-    NES, C64, DEFAULT,
-}
+//#[derive(Debug)]
+//pub enum Palette {
+//    NES, C64, DEFAULT,
+//}
 
-#[derive(Debug)]
-pub enum Floor {
-    GF, B1F, B2F, B3F, B4F,
-}
+//#[derive(Debug)]
+//pub enum Floor {
+//    GF, B1F, B2F, B3F, B4F,
+//}
 
 #[derive(Debug)]
 pub enum GameState {
     Title, InGame, Combat, Menu,
 }
 
-pub struct Completion {}
+//pub struct Completion {}
 
 //pub struct Score {
 //    pub score: u64,

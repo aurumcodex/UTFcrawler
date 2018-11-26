@@ -32,8 +32,8 @@ use self::inventory::*;
 
 use self::game_state::TITLE;
 use self::game_state::palettes::*;
+
 use std::env;
-//use std::io;
 use std::io::{Read, Write, stdout, stdin, stderr};
 use std::process;
 
@@ -94,27 +94,11 @@ fn main() {
     player.gain_exp(rand::thread_rng().gen_range(5, 10));
     println!("player EXP is now {}\r", &player.exp);
 
-
     println!();
-
-//    let mut test_enemy = Enemy::new(EnemyType::Common, rand::thread_rng().gen_range(3, 15) * player.level);
-//
-//    combat::combat(&mut player, &mut test_enemy);
-//    if player.is_dead == true {return;}
-
-//    println!();
-
-//    println!("player exp is now: {}\r", player.exp);
-//    println!("check enemy status:: is_dead? -> {}", test_enemy.is_dead);
 
     println!("player is currently dead? :: {}\r", player.check_status());
 
-    println!();
-    println!();
-    println!();
-    println!();
-
-//    write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence){}\r\n\r", color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
+    println!("\n\n\n\n");
 
     let mut in_bytes = stdin.bytes();
     loop {

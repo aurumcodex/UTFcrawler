@@ -24,8 +24,8 @@ This is a project that is designed to create an RPG game using Unicode character
 This effectively makes the display ANSI art, rather than ASCII art.
 
 Support for RGB colors is required for the best experience, but a plain terminal should do fine. +
-A monospaced font supporting lots of Unicode characters is *highly* recommended, as that will render the maps properly.
-//A QWERTY layout or similar keyboard is highly recommended for a proper experience
+A monospaced font supporting a high number of Unicode characters is *highly* recommended, as that will allow the maps to render properly.
+//A QWERTY layout or similar keyboard/keymap is highly recommended for a proper experience
 
 '''
 
@@ -35,7 +35,7 @@ For installation, the following dependencies are required:
 
 * A working installation of `rust`, `rustc`, and `cargo`.
 ** This is supplied either via the `rustup` script available link:https://rustup.rs/[here].
-*** Or it's supplied by your package managers for your Linux distro of choice.
+*** Or it's supplied by your package managers for your Linux/Unix distro of choice.
 * `git` to fetch this repository
 
 '''
@@ -65,22 +65,22 @@ This software is released under the link:LICENSE-ISC[ISC License]
 A remainder of what is needed to be completed before submittal:
 
 ===== main.rs
-* [ ] ☐ initialize game
+* [ ] ☐ initialize game (in progress)
 
 ===== combat.rs
 * [x] ☑ implement battle flow of the game
-* [ ] ☐ implement combat turn orders
+* [x] ☑ implement combat turn orders (good enough for now)
 * [ ] ☐ implement random encounters (in conjunction with `dungeon.rs`)
 * [x] ☑ implement damage calculations (partially done)
 * [x] ☑ implement user input for attacks and skill usage, as well as guarding
 
 ===== dungeon.rs
-* [ ] ☐ implement the layouts and generation of the dungeon rooms
-* [ ] ☐ implement traversal of the dungeon
+* [x] ☑ implement the layouts and generation of the dungeon rooms (in `dungeon` branch)
+* [x] ☑ implement traversal of the dungeon (in `dungeon` branch)
 
 ===== enemy.rs
-* [ ] ☐ define Enemy struct and enums for enemy creation
-* [ ] ☐ implement common enemies and the "final" boss
+* [x] ☑ define Enemy struct and enums for enemy creation
+* [x] ☑ implement common enemies and the "final" boss
 * [ ] ☐ (optional) implement potential elemental weaknesses/resistances
 
 ===== game_state.rs
@@ -89,7 +89,7 @@ A remainder of what is needed to be completed before submittal:
 * [ ] ☐ implement functions to change between the various states
 
 ===== inventory.rs
-* [x] ☑ implement a manner to store items
+* [ ] ☐ implement a manner to store items
 * [ ] ☐ implement functions to add/use items
 * [ ] ☐ implement functions to reset items
 
@@ -98,6 +98,6 @@ A remainder of what is needed to be completed before submittal:
 * [x] ☑ implement experience point functions and level up functions
 * [x] ☑ declare archetypes for the player
 
-===== status.rs [99% done]
+===== status.rs [done]
 * [x] ☑ declare enums that represent various states of being for player and enemy alike.
 

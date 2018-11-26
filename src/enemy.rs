@@ -42,8 +42,6 @@ pub struct Enemy {
 impl Enemy {
     pub fn new(foe_type: EnemyType, id: u8) -> Enemy {
         match foe_type {
-            // TODO: implement a default construction of enemies so that they can be properly created
-            // and set up.
             EnemyType::Common => {
                 match id as u8 {
                     0..=50 => Enemy {
@@ -136,12 +134,12 @@ impl Enemy {
                         max_ap: 0,
                         hp: 0,
                         ap: 0,
-                        strength: 0,
-                        alchemy: 0,
-                        vitality: 0,
-                        dexterity: 0,
-                        agility: 0,
-                        luck: 0,
+                        strength: 8,
+                        alchemy: 8,
+                        vitality: 10,
+                        dexterity: 12,
+                        agility: 4,
+                        luck: 5,
                         status: EnemyAilment::Normal,
                         psyche: EnemyPsyche::Normal,
                         is_dead: false,
@@ -151,20 +149,20 @@ impl Enemy {
             },
             EnemyType::Boss => Enemy {
                 enemy_type: EnemyType::Boss,
-                enemy_id: 0,
-                enemy_name: String::new(),
-                level: 0,
+                enemy_id: 101,
+                enemy_name: String::from("Lord Gundam"),
+                level: 20,
                 given_exp: 0,
-                max_hp: 0,
-                max_ap: 0,
-                hp: 0,
-                ap: 0,
-                strength: 0,
-                alchemy: 0,
-                vitality: 0,
-                dexterity: 0,
-                agility: 0,
-                luck: 0,
+                max_hp: 137,
+                max_ap: 137,
+                hp: 137,
+                ap: 137,
+                strength: 13,
+                alchemy: 13,
+                vitality: 13,
+                dexterity: 13,
+                agility: 13,
+                luck: 13,
                 status: EnemyAilment::Normal,
                 psyche: EnemyPsyche::Normal,
                 is_dead: false,
@@ -218,7 +216,6 @@ impl Enemy {
     }// default enemy
 
     pub fn decr_hp(&mut self, damage: i16) {
-//        println!("Enemy took {} damage", damage);
         self.hp -= damage;
         if self.hp <= 0 {
             self.status = EnemyAilment::Dead;
