@@ -22,18 +22,19 @@ use termion::{color, cursor, style};
 use termion::raw::IntoRawMode;
 use termion::input::TermRead;
 use termion::event::Key;
+use termion::clear;
 
 use self::player::*;
 use self::enemy::*;
 use self::status::*;
 // use self::combat::*;
 use self::dungeon::*;
-use self::inventory::*;
 
+use self::inventory::*;
 use self::game_state::TITLE;
+
 use self::game_state::palettes::*;
 use std::env;
-//use std::io;
 use std::io::{Read, Write, stdout, stdin, stderr};
 use std::process;
 
@@ -48,7 +49,7 @@ fn main() {
 
     let norm = color::Rgb(104, 68, 252);
     
-    writeln!(stdout, "{} {} {}\r", color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
+    writeln!(stdout, "{}{} {} {}\r\n\n", clear::All, color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
 
     let mut args = env::args().skip(1);
     loop {
@@ -94,27 +95,11 @@ fn main() {
     player.gain_exp(rand::thread_rng().gen_range(5, 10));
     println!("player EXP is now {}\r", &player.exp);
 
-
     println!();
-
-//    let mut test_enemy = Enemy::new(EnemyType::Common, rand::thread_rng().gen_range(3, 15) * player.level);
-//
-//    combat::combat(&mut player, &mut test_enemy);
-//    if player.is_dead == true {return;}
-
-//    println!();
-
-//    println!("player exp is now: {}\r", player.exp);
-//    println!("check enemy status:: is_dead? -> {}", test_enemy.is_dead);
 
     println!("player is currently dead? :: {}\r", player.check_status());
 
-    println!();
-    println!();
-    println!();
-    println!();
-
-//    write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence){}\r\n\r", color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
+    println!("\n\n\n\n");
 
     let mut in_bytes = stdin.bytes();
     loop {
