@@ -22,17 +22,18 @@ use termion::{color, cursor, style};
 use termion::raw::IntoRawMode;
 use termion::input::TermRead;
 use termion::event::Key;
+use termion::clear;
 
 use self::player::*;
 use self::enemy::*;
 use self::status::*;
 // use self::combat::*;
 use self::dungeon::*;
+
 use self::inventory::*;
-
 use self::game_state::TITLE;
-use self::game_state::palettes::*;
 
+use self::game_state::palettes::*;
 use std::env;
 use std::io::{Read, Write, stdout, stdin, stderr};
 use std::process;
@@ -48,7 +49,7 @@ fn main() {
 
     let norm = color::Rgb(104, 68, 252);
     
-    writeln!(stdout, "{} {} {}\r", color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
+    writeln!(stdout, "{}{} {} {}\r\n\n", clear::All, color::Fg(nes_palette::NES_BRT_GREEN), TITLE, color::Fg(color::Reset));
 
     let mut args = env::args().skip(1);
     loop {

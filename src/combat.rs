@@ -59,7 +59,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                     };
                     let enemy_damage_calc = |stat, range, defense| {
                         println!("{} damage", range + stat);
-                        range + stat
+                        range + stat - defense
                     };
                     match player.archetype {
                         Archetype::Alchemist => {
@@ -125,7 +125,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                     };
                     let enemy_damage_calc = |stat, range, defense| {
                         println!("{} damage", range + stat);
-                        range + stat
+                        range + stat - defense
                     };
                     match player.archetype {
                         Archetype::Alchemist => {
@@ -191,7 +191,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                     };
                     let enemy_damage_calc = |stat, range, defense| {
                         println!("{} damage", range + stat);
-                        range + stat
+                        range + stat - defense
                     };
                     match player.archetype {
                         Archetype::Alchemist => {
@@ -257,7 +257,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
         }
     }//main while loop
     if player.is_dead == true {
-        println!("{}you have died{}{}", color::Fg(nes_palette::NES_RED), color::Fg(color::Reset), clear::All);
+        println!("{}{}\n\n\nyou have died{}\r\n", clear::All, color::Fg(nes_palette::NES_RED), color::Fg(color::Reset));
         stdout.flush().unwrap();
         return;
     }//if player becomes dead
