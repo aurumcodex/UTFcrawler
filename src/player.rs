@@ -298,8 +298,8 @@ impl Player {
         println!("Player Archetype: {:?}\r", self.archetype);
         println!("Player Max HP: {}\r", self.max_hp);
         println!("Player HP: {}\r", self.hp);
-        println!("Player Max AP: {}\r", self.max_ap);
-        println!("Player AP: {}\r", self.ap);
+//        println!("Player Max AP: {}\r", self.max_ap);
+//        println!("Player AP: {}\r", self.ap);
         println!("Player Strength: {}\r", self.strength);
         println!("Player Magic: {}\r", self.alchemy);
         println!("Player Vitality: {}\r", self.vitality);
