@@ -159,8 +159,8 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				
 				input[length-2][width/4] = 5;
 				
-				lootX = rand::thread_rng().gen_range(length+2, length/2);
-				lootY = rand::thread_rng().gen_range(width+2, width/2);
+				lootX = rand::thread_rng().gen_range(length/4, length/2);
+				lootY = rand::thread_rng().gen_range(width/4, width/2);
 				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
 				
 				let X: usize = width/4;
