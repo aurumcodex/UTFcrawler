@@ -97,6 +97,7 @@ use termion::input::TermRead;
 		if(encounter >= 1 && encounter < floor + 1){
 			player.hp -= 10;
 			//enter combat();
+			println!("OOF");
 		}
 		
 		if(player.hp <= 0){
