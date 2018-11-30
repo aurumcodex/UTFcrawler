@@ -24,7 +24,6 @@ use std::io::{Read, Write, stdout, stdin};
 use self::player::*;
 use self::enemy::*;
 use self::status::*;
-// use self::combat::*;
 use self::dungeon::*;
 use self::inventory::*;
 use self::game_state::TITLE;
@@ -51,14 +50,16 @@ use termion::input::TermRead;
 	let mut playerY: usize = 0;
     
     let stdin = stdin();
-    let stdout = stdout();
-    let mut stdout = stdout.lock();
+    let stdout = stdout().into_raw_mode().unwrap();
+    //let mut stdout = stdout.lock();
     
-	let mut input: String = String::new();
+    
+    
+	let mut byteInput = stdin.bytes();
 	
 	let mut mainMap = createMap(length, width, Type);
 	
-	
+	//let mut stdout = stdout().into_raw_mode().unwrap();
 	
 	let mut i: usize = 0;
 	let mut j: usize = 0;
@@ -76,10 +77,15 @@ use termion::input::TermRead;
 		//println!("");
 	}
 	let mut player = Player::new(String::from("butch"),Archetype::Generalist);
+	println!("{}", color::Fg(nes_palette::NES_BRT_GREEN));
 	
-	println!("press Enter to start");
+	println!("{}",TITLE);
+	
+	println!("press Enter to start\r");
 	
 	//boss = 1;
+	
+	let mut enemyType: u8 = 0; 
 	
 	while(run == 1){
 		i = 0;
@@ -88,14 +94,18 @@ use termion::input::TermRead;
 		if(count >= 49){
 			boss = 1;	
 		}
-				
-		io::stdin().read_line(&mut input).expect("failed to read line");
-		//run = 0;
+		
+		let input = byteInput.next().unwrap().unwrap();		
+	
 		
 		encounter = rand::thread_rng().gen_range(0, 50);
 		println!("{}", clear::All);
 		if(encounter >= 1 && encounter < floor + 1){
-			player.hp -= 10;
+			enemyType = rand::thread_rng().gen_range(0, 255);
+			//player.hp -= 10;
+			let mut baddy = Enemy::new(enemy::EnemyType::Common, enemyType);
+			combat::combat(&mut player, &mut baddy);
+			
 			//enter combat();
 			//println!("OOF");
 		}
@@ -106,13 +116,14 @@ use termion::input::TermRead;
 			println!("{}", clear::All);
 				println!("dead");
 				run = 0;
-		}
+		}	
+		match input{
 		
-		if(input.eq(&String::from("q\n"))){
-			run = 0;
-		}
+		b'q' =>
+			run = 0,
 		
-		if(input.eq(&String::from("a\n"))){
+		
+		b'a' =>{
 			if(mainMap.output[playerX][playerY-1] == 2 || mainMap.output[playerX][playerY-1] > 5){
 				mainMap.output[playerX][playerY] = 3;
 			}
@@ -161,8 +172,8 @@ use termion::input::TermRead;
 			}
 			mainMap.output[playerX][playerY] = 5; 
 			
-		}
-		if(input.eq(&String::from("w\n"))){
+		},
+		b'w' =>{
 			if(mainMap.output[playerX-1][playerY] == 2 || mainMap.output[playerX-1][playerY] > 5){
 				mainMap.output[playerX][playerY] = 3;
 			}
@@ -206,8 +217,8 @@ use termion::input::TermRead;
 				}
 			}
 			mainMap.output[playerX][playerY] = 5; 
-		}
-		if(input.eq(&String::from("s\n"))){
+		},
+		b's' =>{
 			if(mainMap.output[playerX+1][playerY] == 2 || mainMap.output[playerX+1][playerY] > 5){
 				mainMap.output[playerX][playerY] = 3;
 			}
@@ -251,8 +262,8 @@ use termion::input::TermRead;
 				}
 			}
 			mainMap.output[playerX][playerY] = 5; 
-		}
-		if(input.eq(&String::from("d\n"))){
+		},
+		b'd' =>{
 			if(mainMap.output[playerX][playerY+1] == 2 || mainMap.output[playerX][playerY+1] > 5){
 				mainMap.output[playerX][playerY] = 3;
 			}
@@ -296,16 +307,18 @@ use termion::input::TermRead;
 				}
 			};
 			mainMap.output[playerX][playerY] = 5; 
-		}
+		},
+		_=> {},
+	}
 		print!("room: ");
-		println!("{}", count+1);
+		println!("{}\r", count+1);
 		print!("Floor: ");
-		println!("{}", floor);
+		println!("{}\r", floor);
 		print!("Will to live: ");
-		println!("{}", player.hp);
+		println!("{}\r", player.hp);
 		printMap(mainMap, length, width);
-		println!("{}", input);
-		input = "".to_string();
+		//println!("{}", input);
+		//input = "".to_string();
 		
 		
 	}
