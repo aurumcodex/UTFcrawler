@@ -222,7 +222,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 
 	}
 	
-	 if(select == 3 || select == 2 || select == 1){
+	 if(select == 3 || select == 2 || select == 1 || select == 8){
 		input[1][width/2] = 4;
 		input[1][width/2+1] = 4;
 			
@@ -439,6 +439,7 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 			}
 		}
 		if(mapType == 3){
+			
 			while(i <= length){
 				while(a <= width){
 					let mut choose: usize = rand::thread_rng().gen_range(0, 2);

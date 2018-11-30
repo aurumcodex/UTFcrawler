@@ -81,11 +81,57 @@ use termion::input::TermRead;
 	
 	println!("{}",TITLE);
 	
-	println!("press Enter to start\r");
+	println!("press 1 to select Alchemist\r");
+	println!("press 2 to select Blackguard\r");
+	println!("press 3 to select Generalist\r");
+	println!("press 4 to select Gunner\r");
+	println!("press 5 to select Mercinary\r");
 	
 	//boss = 1;
-	
+	let mut goo: usize = 0;
 	let mut enemyType: u8 = 0; 
+	let mut choose: u8 = 1;
+	
+	
+	while(choose == 1){
+	let input = byteInput.next().unwrap().unwrap();	
+		match input{
+			b'1' =>{
+				player = Player::new(String::from("Annwyn"),Archetype::Alchemist);
+				println!("you chose Annwyn, the Alchemist\r");
+						choose = 0;
+						println!("Press any key to continue\r");						
+			},
+			b'2' =>{
+				player = Player::new(String::from("Skipp"),Archetype::Blackguard);
+				println!("you chose Skipp, the Blackguard\r");
+						choose = 0;
+						println!("Press any key to continue\r");						
+			},
+			b'3' =>{
+				player = Player::new(String::from("John"),Archetype::Generalist);
+				println!("you chose John, the Generalist\r");
+						choose = 0;
+						println!("Press any key to continue\r");
+			},
+			b'4' =>{
+				player = Player::new(String::from("Leda-26"),Archetype::Gunner);
+				println!("you chose Leda-26, the Gunner\r");
+						choose = 0;
+						println!("Press any key to continue\r");
+			},
+			b'5' =>{
+				player = Player::new(String::from("Dusk"),Archetype::Mercenary);
+				println!("you chose Dusk, the Mercenary\r");
+						choose = 0;
+						println!("Press any key to continue\r");
+			},
+			_ => {
+				println!("Invalid entry\r");
+				},
+		}	
+
+	}
 	
 	while(run == 1){
 		i = 0;
@@ -94,11 +140,15 @@ use termion::input::TermRead;
 		if(count >= 49){
 			boss = 1;	
 		}
+		goo = rand::thread_rng().gen_range(0, 3);
+		if(Type == 3 && goo == 1){
+			player.hp -= 1;
+		}
 		
 		let input = byteInput.next().unwrap().unwrap();		
 	
 		
-		encounter = rand::thread_rng().gen_range(0, 50);
+		encounter = rand::thread_rng().gen_range(0, 100);
 		println!("{}", clear::All);
 		if(encounter >= 1 && encounter < floor + 1){
 			enemyType = rand::thread_rng().gen_range(0, 255);
@@ -311,10 +361,12 @@ use termion::input::TermRead;
 		_=> {},
 	}
 		print!("room: ");
-		println!("{}\r", count+1);
+		print!("{}", count+1);
+		print!("					Level: ");
+		println!("{}\r", player.level);
 		print!("Floor: ");
-		println!("{}\r", floor);
-		print!("Will to live: ");
+		print!("{}", floor);
+		print!("				{}'s will to live: ", player.player_name);
 		println!("{}\r", player.hp);
 		printMap(mainMap, length, width);
 		//println!("{}", input);
