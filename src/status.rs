@@ -2,7 +2,10 @@
 //! Authors: Nathan Adams, Reid Marsh, Nicolas Sanderson, Pressy Muraguri
 //!
 
-#[allow(dead_code)]
+// TODO: potentially scrap this file altogether and move contents into player.rs and enemy.rs
+
+#![allow(dead_code)]
+
 #[derive(Debug)]
 pub enum Ailment {
     Normal,
@@ -13,7 +16,6 @@ pub enum Ailment {
     Unconscious,
 }
 
-#[allow(dead_code)]
 #[derive(Debug)]
 pub enum Psyche {
     Normal,
@@ -23,7 +25,6 @@ pub enum Psyche {
 //    Hallucinating,
 }
 
-#[allow(dead_code)]
 #[derive(Debug)]
 pub enum EnemyAilment {
     Normal,
@@ -34,7 +35,6 @@ pub enum EnemyAilment {
     Dead,
 }
 
-#[allow(dead_code)]
 #[derive(Debug)]
 pub enum EnemyPsyche {
     Normal,

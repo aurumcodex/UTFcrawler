@@ -1,10 +1,8 @@
 #![allow(dead_code)]
 
-//extern crate ansi_term;
 extern crate termion;
 
-// use termion::color::{DetectColors, AnsiValue, Bg};
-// use std::io::stdout;
+// TODO: consider renaming file to util.rs, due to the lack of needing game state enums now.
 
 pub const TITLE: &str = "
  :::    :::  ::::::::  :::::::::      :::     :::       ::: :::        :::::::::: :::::::::\r
@@ -35,6 +33,8 @@ pub mod palettes {
         pub const NES_PURPLE: termion::color::Rgb      = termion::color::Rgb(104, 68, 252);
         pub const NES_BROWN: termion::color::Rgb       = termion::color::Rgb(80, 48, 0);
     }
+    // TODO: possibly just remove the enclosing module `palettes`
+    // it's redundant.
 }
 
 // #[derive(Debug)]
