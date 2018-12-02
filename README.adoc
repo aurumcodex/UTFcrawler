@@ -107,6 +107,6 @@ A remainder of what is needed to be completed before submittal:
 * [x] ☑ implement experience point functions and level up functions
 * [x] ☑ declare archetypes for the player
 
-===== status.rs [done, might delete and merge content into respective ]
+===== status.rs [done, might delete and merge content into respective files]
 * [x] ☑ declare enums that represent various states of being for player and enemy alike.
 
