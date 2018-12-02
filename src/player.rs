@@ -320,7 +320,8 @@ impl Player {
             self.status = Ailment::Unconscious;
             self.is_dead = true;
         }
-        print!("{}Player has taken {} points of damage!{}\n\r", color::Fg(NES_ORANGE), damage, );
+        print!("{}Player has taken {}{}{} points of damage!{}\n\r", color::Fg(NES_ORANGE), style::Bold, 
+                                                        damage, style::Reset, color::Fg(color::Reset));
     }//take_dmg
 
     /// A function to check if the player has run out of available HP and is dead.
