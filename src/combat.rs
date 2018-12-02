@@ -14,7 +14,7 @@ use termion::event::Key;
 
 use enemy::*;
 use player::*;
-use game_state::palettes::nes_palette;
+use game_state::palettes::nes_palette::*;
 //use game_state::{Score};
 
 use std::io::{Write, Read, stdout, stdin};
@@ -28,9 +28,9 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
 
     write!(stdout, r"
         {}{}{}=== combat mode initiated ==={}{}
-        player has encountered a {}{}",
-         clear::All, cursor::Goto(8, 7), style::Bold,
-         style::Reset, cursor::Goto(0, 8), enemy.enemy_name, cursor::Goto(0, 10)).unwrap();
+        {}player has encountered a {}{}{}",
+        clear::All, cursor::Goto(8, 7), style::Bold, style::Reset, cursor::Goto(0, 8), 
+        color::Fg(NES_ORANGE), enemy.enemy_name, color::Fg(color::Reset), cursor::Goto(0, 10)).unwrap();
     stdout.flush().unwrap();
 
     let mut in_bytes = stdin.bytes();
@@ -54,11 +54,11 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                 } else {
                     let damage_range = rand::thread_rng().gen_range(5, 16);
                     let player_damage_calc = |stat, range, defense| {
-                        println!("{} damage", range + stat - defense);
+                        println!("{} damage\r", range + stat - defense);
                         range + stat - defense
                     };
                     let enemy_damage_calc = |stat, range, defense| {
-                        println!("{} damage", range + stat);
+                        println!("{} damage\r", range + stat - defense);
                         range + stat - defense
                     };
                     match player.archetype {
@@ -120,11 +120,11 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                 } else {
                     let damage_range = rand::thread_rng().gen_range(5, 16);
                     let player_damage_calc = |stat, range, defense| {
-                        println!("{} damage", range + stat - defense);
+                        println!("{} damage\r", range + stat - defense);
                         range + stat - defense
                     };
                     let enemy_damage_calc = |stat, range, defense| {
-                        println!("{} damage", range + stat);
+                        println!("{} damage\r", range + stat - defense);
                         range + stat - defense
                     };
                     match player.archetype {
@@ -140,7 +140,8 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                         Archetype::Blackguard => {
                             let player_defense = player.vitality as i16;
                             let enemy_defense = enemy.vitality as i16;
-                            write!(stdout, "Player used a hidden shoe dagger on the {}!\n\r", enemy.enemy_name);
+                            write!(stdout, "Player used a hidden shoe dagger on the {}!\n\r", 
+                                   enemy.enemy_name);
                             enemy.decr_hp(player_damage_calc((player.dexterity + 2) as i16, damage_range,
                                                              enemy_defense));
                             player.take_dmg(enemy_damage_calc(enemy.strength as i16, damage_range - 5,
@@ -186,18 +187,19 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                 } else {
                     let damage_range = rand::thread_rng().gen_range(5, 16);
                     let player_damage_calc = |stat, range, defense| {
-                        println!("{} damage", range + stat - defense);
+                        println!("{} damage\r", range + stat - defense);
                         range + stat - defense
                     };
                     let enemy_damage_calc = |stat, range, defense| {
-                        println!("{} damage", range + stat);
+                        println!("{} damage\r", range + stat - defense);
                         range + stat - defense
                     };
                     match player.archetype {
                         Archetype::Alchemist => {
                             let player_defense = player.vitality as i16;
                             let enemy_defense = enemy.vitality as i16;
-                            write!(stdout, "Player used an electrifying formula on the {}!\n\r", enemy.enemy_name);
+                            write!(stdout, "Player used an electrifying formula on the {}!\n\r", 
+                                   enemy.enemy_name);
                             enemy.decr_hp(player_damage_calc((player.alchemy + 11) as i16, damage_range,
                                                              enemy_defense));
                             player.take_dmg(enemy_damage_calc(enemy.strength as i16, damage_range - 5,
@@ -252,18 +254,20 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
             }
             _a => {
                 write!(stdout, "{} please input a proper input.\n\r {}",
-                       color::Fg(nes_palette::NES_BRT_RED), color::Fg(color::Reset));
+                       color::Fg(NES_BRT_RED), color::Fg(color::Reset));
             }
         }
     }//main while loop
     if player.is_dead == true {
-        println!("{}{}\n\n\nyou have died{}\r\n", clear::All, color::Fg(nes_palette::NES_RED), color::Fg(color::Reset));
+        println!("{}{}\n\n\nyou have died{}\r\n", clear::All, color::Fg(NES_RED), 
+                 color::Fg(color::Reset));
         stdout.flush().unwrap();
         return;
     }//if player becomes dead
     if enemy.is_dead == true {
         println!("enemy status is now: {:?}", enemy.status);
-        write!(stdout, "{}{}player has gained {} exp. {}{}", cursor::Goto(8, 7), color::Fg(nes_palette::NES_BRT_GREEN),
+        write!(stdout, "{}{}player has gained {} exp. {}{}", cursor::Goto(8, 7), 
+               color::Fg(NES_BRT_GREEN),
                enemy.given_exp, color::Fg(color::Reset), clear::All);
         player.gain_exp(enemy.given_exp);
         player.check_level_up();

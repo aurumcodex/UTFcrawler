@@ -1,6 +1,6 @@
 = UTFcrawler
 
-image::utf-crawler.png[align="center"]
+image::utf-crawler.png[align="center", scalewidth="50%"]
 
 [.align="center", cols="7*^.^"]
 |=============================
@@ -20,12 +20,15 @@ image::utf-crawler.png[align="center"]
 '''
 == About
 '''
-This is a project that is designed to create an RPG game using Unicode characters as ASCII art, instead of using raw ASCII.
+This is a project that is designed to create an RPG game using Unicode characters as ASCII art, 
+instead of using raw ASCII.
 This effectively makes the display ANSI art, rather than ASCII art.
 
 Support for RGB colors is required for the best experience, but a plain terminal should do fine. +
-A monospaced font supporting a high number of Unicode characters is *highly* recommended, as that will allow the maps to render properly.
-//A QWERTY layout or similar keyboard/keymap is highly recommended for a proper experience
+A monospaced font supporting a high number of Unicode characters is *highly* recommended, as that 
+will allow the maps to render properly.
+
+A QWERTY layout or similar keyboard/keymap is highly recommended for a proper experience
 
 '''
 
@@ -36,6 +39,7 @@ For installation, the following dependencies are required:
 * A working installation of `rust`, `rustc`, and `cargo`.
 ** This is supplied either via the `rustup` script available link:https://rustup.rs/[here].
 *** Or it's supplied by your package managers for your Linux/Unix distro of choice.
+*** (It is highly recommended to unstall `rust` via the `rustup` script mentioned above.)
 * `git` to fetch this repository
 
 '''
@@ -51,6 +55,7 @@ Simple enough:
 ** Or for a more manual approach:
 *** `cargo build --release`
 *** and move/copy `./target/release` to your `$PATH`.
+*** or add it to your `$PATH` in some form.
 
 '''
 
@@ -66,38 +71,42 @@ A remainder of what is needed to be completed before submittal:
 
 ===== main.rs
 * [ ] ☐ initialize game (in progress)
+* [x] ☐ have mathod to choose player archetype
+* [ ] ☐ implement manner to display a help menu
 
-===== combat.rs
+===== combat.rs [98% done, cleanup in progress]
 * [x] ☑ implement battle flow of the game
 * [x] ☑ implement combat turn orders (good enough for now)
-* [ ] ☐ implement random encounters (in conjunction with `dungeon.rs`)
+* [x] ☑ implement random encounters (in conjunction with `dungeon.rs`)
 * [x] ☑ implement damage calculations (partially done)
 * [x] ☑ implement user input for attacks and skill usage, as well as guarding
 
-===== dungeon.rs
+===== dungeon.rs [97% done]
 * [x] ☑ implement the layouts and generation of the dungeon rooms (in `dungeon` branch)
 * [x] ☑ implement traversal of the dungeon (in `dungeon` branch)
+* [x] ☑ implement item pickups
 
-===== enemy.rs
+===== enemy.rs [done]
 * [x] ☑ define Enemy struct and enums for enemy creation
 * [x] ☑ implement common enemies and the "final" boss
 * [ ] ☐ (optional) implement potential elemental weaknesses/resistances
 
-===== game_state.rs
+===== game_state.rs [potentially will be renamed to util.rs]
 * [x] ☑ declare a color palette to be used for the display of the game
 * [x] ☑ create enums to act as a state of current game state (more might be added as needed)
-* [ ] ☐ implement functions to change between the various states
+* [ ] ☐ +++<s>☐ implement functions to change between the various states</s>+++
 
 ===== inventory.rs
 * [ ] ☐ implement a manner to store items
 * [ ] ☐ implement functions to add/use items
 * [ ] ☐ implement functions to reset items
+* [ ] ☐ implement function to access items
 
 ===== player.rs [95% done]
 * [x] ☑ implement a struct to hold the necessary data for a player entity.
 * [x] ☑ implement experience point functions and level up functions
 * [x] ☑ declare archetypes for the player
 
-===== status.rs [done]
+===== status.rs [done, might delete and merge content into respective ]
 * [x] ☑ declare enums that represent various states of being for player and enemy alike.
 
