@@ -79,7 +79,6 @@ fn main() {
                 player = Player::new(arch);
             },
             _ => {
-//                stderr().write(b"{}unknown argument.\n", color::Fg(nes_palette::NES_BRT_RED)).unwrap();
                 write!(stderr(), "{}unknown argument of {}\n{}", color::Fg(nes_palette::NES_BRT_RED), arg,
                        color::Fg(color::Reset));
                 stderr().flush().unwrap();
@@ -105,7 +104,7 @@ fn main() {
     loop {
         if player.is_dead == true {return}
 
-        write!(stdout, "{}please enter an input... (q to quit, c for another combat sequence, s for player stats){}\r\n\r",
+        write!(stdout, "\r{}please enter an input... (q to quit, c for another combat sequence, s for player stats){}\r\n\r",
                color::Fg(nes_palette::NES_BRT_BLUE), color::Fg(color::Reset));
 
         let input = in_bytes.next().unwrap().unwrap();
