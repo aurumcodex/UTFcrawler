@@ -200,7 +200,7 @@ use termion::input::TermRead;
 			mode = 1;
 		}
 		b'j' =>{
-			if(invPos <=15){invPos+=1;}
+			if(invPos <= 15){invPos+=1;}
 			println!("{}", clear::All);
 			list(&mut inv, invPos);
 		}

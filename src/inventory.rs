@@ -88,7 +88,7 @@ pub fn getDesc(index: usize, inv: &mut [usize; 15]) -> String {
 			7 => { desc = "health potion".to_string(); },
 			8 => { desc = "scrap pile".to_string(); },
 			9 => { desc = "rock".to_string(); },
-			_ => { desc = "".to_string(); },
+			_ => { desc = "_".to_string(); },
 		}
 		desc
 }
