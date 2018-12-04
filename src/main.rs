@@ -48,12 +48,15 @@ use termion::input::TermRead;
     
     let mut playerX: usize = 0;
 	let mut playerY: usize = 0;
+	
+	let mut demo: usize = 49;
+	let mut demoRoom: usize = 1;
     
     let stdin = stdin();
     let stdout = stdout().into_raw_mode().unwrap();
     //let mut stdout = stdout.lock();
     
-    
+    let mut inventory = inventory::init();
     
 	let mut byteInput = stdin.bytes();
 	
@@ -80,18 +83,22 @@ use termion::input::TermRead;
 	println!("{}", color::Fg(nes_palette::NES_BRT_GREEN));
 	
 	println!("{}",TITLE);
-	
+	print!("{}", color::Fg(nes_palette::NES_YELLOW));
 	println!("press 1 to select Alchemist\r");
 	println!("press 2 to select Blackguard\r");
 	println!("press 3 to select Generalist\r");
 	println!("press 4 to select Gunner\r");
 	println!("press 5 to select Mercinary\r");
+	println!("press 6 to start a demo dungeon\r");
 	
 	//boss = 1;
 	let mut goo: usize = 0;
 	let mut enemyType: u8 = 0; 
 	let mut choose: u8 = 1;
 	
+	let mut inv = init();
+	let mut mode: usize = 0;
+	let mut invPos: usize = 1;
 	
 	while(choose == 1){
 	let input = byteInput.next().unwrap().unwrap();	
@@ -126,6 +133,13 @@ use termion::input::TermRead;
 						choose = 0;
 						println!("Press any key to continue\r");
 			},
+			b'6' =>{
+				player = Player::new(String::from("Demo"),Archetype::Generalist);
+				println!("you chose Demo, the Generalist\r");
+						demo = 5;
+						choose = 0;
+						println!("Press any key to continue\r");
+			},
 			_ => {
 				println!("Invalid entry\r");
 				},
@@ -133,11 +147,16 @@ use termion::input::TermRead;
 
 	}
 	
+		if(demo != 49){
+			Type = demoRoom;
+			mainMap = createMap(length, width, Type);
+		}
+	
 	while(run == 1){
 		i = 0;
 		j = 0;
 		
-		if(count >= 49){
+		if(count >= demo){
 			boss = 1;	
 		}
 		goo = rand::thread_rng().gen_range(0, 3);
@@ -147,6 +166,9 @@ use termion::input::TermRead;
 		
 		let input = byteInput.next().unwrap().unwrap();		
 	
+		if(demo != 49){
+			Type = demoRoom;
+		}
 		
 		encounter = rand::thread_rng().gen_range(0, 100);
 		println!("{}", clear::All);
@@ -171,6 +193,30 @@ use termion::input::TermRead;
 		
 		b'q' =>
 			run = 0,
+			
+		b'i' =>{
+			println!("{}", clear::All);
+			list(&mut inv, invPos);
+			mode = 1;
+		}
+		b'j' =>{
+			if(invPos <=15){invPos+=1;}
+			println!("{}", clear::All);
+			list(&mut inv, invPos);
+		}
+		b'k' =>{
+			if(invPos >0){invPos-=1;}
+			println!("{}", clear::All);
+			list(&mut inv, invPos);
+		}
+		b'u' =>{
+			useItem(invPos, &mut inv, &mut player); 
+		}
+		b'm' =>{
+			println!("{}", clear::All);
+			mode = 0;
+		}
+			
 		
 		
 		b'a' =>{
@@ -188,10 +234,17 @@ use termion::input::TermRead;
 				Type = rand::thread_rng().gen_range(1, 6);
 				length = rand::thread_rng().gen_range(5, 26);
 				width = rand::thread_rng().gen_range(5, 26);
+				if(demo != 49){
+					Type = demoRoom;
+					floor = 6;
+					player.level = 6;
+					length = rand::thread_rng().gen_range(15, 26);
+					width = rand::thread_rng().gen_range(15, 26);
+				}
 				if(count % 5 == 0){
 					floor += 1;	
 				}
-				}else if(count >=  54){
+				}else if(count >=  54 || demoRoom >= 8){
 					Type = 8;	
 					length = 25;
 					width = 25;
@@ -216,9 +269,11 @@ use termion::input::TermRead;
 				j = 0;
 
 				}
+				demoRoom += 1;
 			}
 			if(mainMap.output[playerX][playerY] > 5){
-				//inventory.add(mainMap[playerX][playerY]);
+				//println!("{}",getDesc(mainMap.output[playerX][playerY],&mut inv));
+				storeItem(mainMap.output[playerX][playerY], &mut inv);
 			}
 			mainMap.output[playerX][playerY] = 5; 
 			
@@ -238,10 +293,17 @@ use termion::input::TermRead;
 				Type = rand::thread_rng().gen_range(1, 6);
 				length = rand::thread_rng().gen_range(5, 26);
 				width = rand::thread_rng().gen_range(5, 26);
+				if(demo != 49){
+					Type = demoRoom;
+					floor = 6;
+					player.level = 6;
+					length = rand::thread_rng().gen_range(15, 26);
+					width = rand::thread_rng().gen_range(15, 26);
+				}
 				if(count % 5 == 0){
 					floor += 1;	
 				}
-				}else if(count >=  54){
+				}else if(count >=  54 || demoRoom >= 8){
 					Type = 8;	
 					length = 25;
 					width = 25;
@@ -265,6 +327,11 @@ use termion::input::TermRead;
 				i+=1;
 				j = 0;
 				}
+				demoRoom += 1;
+			}
+			if(mainMap.output[playerX][playerY] > 5){
+				//println!("{}",mainMap.output[playerX][playerY]);
+				storeItem(mainMap.output[playerX][playerY], &mut inv);
 			}
 			mainMap.output[playerX][playerY] = 5; 
 		},
@@ -283,10 +350,17 @@ use termion::input::TermRead;
 				Type = rand::thread_rng().gen_range(1, 6);
 				length = rand::thread_rng().gen_range(5, 26);
 				width = rand::thread_rng().gen_range(5, 26);
+				if(demo != 49){
+					Type = demoRoom;
+					floor = 6;
+					player.level = 6;
+					length = rand::thread_rng().gen_range(15, 26);
+					width = rand::thread_rng().gen_range(15, 26);
+				}
 				if(count % 5 == 0){
 					floor += 1;	
 				}
-				}else if(count >=  54){
+				}else if(count >=  54 || demoRoom >= 8){
 					Type = 8;	
 					length = 25;
 					width = 25;
@@ -310,6 +384,11 @@ use termion::input::TermRead;
 				i+=1;
 				j = 0;
 				}
+				demoRoom += 1;
+			}
+			if(mainMap.output[playerX][playerY] > 5){
+				//println!("{}",mainMap.output[playerX][playerY]);
+				storeItem(mainMap.output[playerX][playerY], &mut inv);
 			}
 			mainMap.output[playerX][playerY] = 5; 
 		},
@@ -328,10 +407,17 @@ use termion::input::TermRead;
 				Type = rand::thread_rng().gen_range(1, 6);
 				length = rand::thread_rng().gen_range(5, 26);
 				width = rand::thread_rng().gen_range(5, 26);
+				if(demo != 49){
+					Type = demoRoom;
+					floor = 6;
+					player.level = 6;
+					length = rand::thread_rng().gen_range(15, 26);
+					width = rand::thread_rng().gen_range(15, 26);
+				}
 				if(count % 5 == 0){
 					floor += 1;	
 				}
-				}else if(count >=  54){
+				}else if(count >=  54 || demoRoom >= 8){
 					Type = 8;	
 					length = 25;
 					width = 25;
@@ -355,7 +441,12 @@ use termion::input::TermRead;
 				i+=1;
 				j = 0;
 				}
-			};
+				demoRoom += 1;
+			}
+			if(mainMap.output[playerX][playerY] > 5){
+				//println!("{}",mainMap.output[playerX][playerY]);
+				storeItem(mainMap.output[playerX][playerY], &mut inv);
+			}
 			mainMap.output[playerX][playerY] = 5; 
 		},
 		_=> {},
@@ -368,7 +459,8 @@ use termion::input::TermRead;
 		print!("{}", floor);
 		print!("				{}'s will to live: ", player.player_name);
 		println!("{}\r", player.hp);
-		printMap(mainMap, length, width);
+		//print!("{}", demoRoom);
+		if(mode == 0) {printMap(mainMap, length, width);}
 		//println!("{}", input);
 		//input = "".to_string();
 		

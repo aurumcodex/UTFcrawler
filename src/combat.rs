@@ -273,6 +273,6 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy) {
                enemy.given_exp, color::Fg(color::Reset), clear::All);
         player.gain_exp(enemy.given_exp);
         player.check_level_up();
-        player.print_stats();
+       // player.print_stats();
     }// on victory
 }// combat function

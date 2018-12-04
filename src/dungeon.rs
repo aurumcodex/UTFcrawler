@@ -93,7 +93,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				input[length/2+length/4][2] = 5;
 				lootX = rand::thread_rng().gen_range(length/2, length-2);
 				lootY = rand::thread_rng().gen_range(width/2, width-2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
 				
 				let X: usize = width/4;
 				let Y: usize = length/2+length/4;
@@ -126,7 +126,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				
 				lootX = rand::thread_rng().gen_range(2, length/2);
 				lootY = rand::thread_rng().gen_range(2, width/2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
 				
 				let X: usize = width/2+width/4;
 				let Y: usize = length-2;
@@ -161,7 +161,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				
 				lootX = rand::thread_rng().gen_range(length/4, length/2);
 				lootY = rand::thread_rng().gen_range(width/4, width/2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
 				
 				let X: usize = width/4;
 				let Y: usize = length-2;
@@ -197,7 +197,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				
 				lootX = rand::thread_rng().gen_range(length/2, length-2);
 				lootY = rand::thread_rng().gen_range(width/2, width-2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
 				
 				let X: usize = width-2;
 				let Y: usize = length/2+length/4;
@@ -238,7 +238,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 			if(length > 6){
 				lootX = rand::thread_rng().gen_range(2, length-2);
 				lootY = rand::thread_rng().gen_range(2, width-2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 11);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
 			}
 		}
 		
@@ -488,7 +488,10 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 					if(output[i][a] == 0){
 						print!("{}▦ ", color::Fg(nes_palette::NES_BLACK));
 					}
-					if(output[i][a] == 4){
+					if(output[i][a] == 4 && mapType == 8){
+						print!("{}▦ ", color::Fg(nes_palette::NES_PURPLE));
+					}
+					if(output[i][a] == 4 && mapType == 7){
 						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));
 					}
 					if(output[i][a] == 5){
