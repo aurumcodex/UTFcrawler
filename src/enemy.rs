@@ -66,7 +66,7 @@ impl Enemy {
         match foe_type {
             EnemyType::Common => {
                 match id as u8 {
-                    0..=50 => Enemy {
+                    1..=50 => Enemy {
                         enemy_type: EnemyType::Common,
                         enemy_id: 11,
                         enemy_name: String::from("Scrubbot"),

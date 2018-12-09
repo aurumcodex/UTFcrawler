@@ -5,6 +5,7 @@
 #![allow(dead_code)]
 
 extern crate rand;
+extern crate termion;
 
 use rand::Rng;
 use termion::{color, style};
@@ -62,17 +63,16 @@ impl Player {
     // TODO: potentially refactor the new() function to be more abstracted out; add documentation
     /// Creates a player using the Archetype as an argument, which sets the Player's stats
     /// accordingly. 
-    pub fn new(arch: Archetype) -> Player {
+    pub fn new(name: String, arch: Archetype) -> Player {
         let gen_normal_max_hp = rand::thread_rng().gen_range(40, 56);
         // let gen_normal_max_ap = rand::thread_rng().gen_range(40, 56);
         let gen_heavy_max_hp = rand::thread_rng().gen_range(50, 66);
         // let gen_heavy_max_ap = rand::thread_rng().gen_range(50, 66);
         let gen_weak_max_hp = rand::thread_rng().gen_range(35, 51);
         // let gen_weak_max_ap = rand::thread_rng().gen_range(35, 51);
-
         match arch {
             Archetype::Alchemist => Player {
-                player_name: String::from("Player"),
+                player_name: name,
                 level: 1,
                 exp: 0,
                 to_next_level: 1,
@@ -82,7 +82,7 @@ impl Player {
                 hp: gen_weak_max_hp,
                 // max_ap: gen_heavy_max_ap,
                 // ap: gen_heavy_max_ap,
-                strength: rand::thread_rng().gen_range(3, 11)-3,
+                strength: rand::thread_rng().gen_range(7, 11)-3,
                 alchemy: rand::thread_rng().gen_range(3, 11)+3,
                 vitality: rand::thread_rng().gen_range(3, 11)-2,
                 dexterity: rand::thread_rng().gen_range(3, 11),
@@ -93,7 +93,7 @@ impl Player {
                 is_dead: false,
             },
             Archetype::Blackguard => Player {
-                player_name: String::from("Player"),
+                player_name: name,
                 level: 1,
                 exp: 0,
                 to_next_level: 1,
@@ -103,7 +103,7 @@ impl Player {
                 hp: gen_normal_max_hp,
                 // max_ap: gen_normal_max_ap,
                 // ap: gen_normal_max_ap,
-                strength: rand::thread_rng().gen_range(3, 11),
+                strength: rand::thread_rng().gen_range(4, 11),
                 alchemy: rand::thread_rng().gen_range(3, 11)-2,
                 vitality: rand::thread_rng().gen_range(3, 11)-3,
                 dexterity: rand::thread_rng().gen_range(3, 11),
@@ -111,10 +111,10 @@ impl Player {
                 luck: rand::thread_rng().gen_range(3, 11)-1,
                 status: Ailment::Normal,
                 psyche: Psyche::Normal,
-                is_dead: false,
+                is_dead: false,               
             },
             Archetype::Generalist => Player {
-                player_name: String::from("Player"),
+                player_name: name,
                 level: 1,
                 exp: 0,
                 to_next_level: 1,
@@ -135,7 +135,7 @@ impl Player {
                 is_dead: false,
             },
             Archetype::Gunner => Player {
-                player_name: String::from("Player"),
+                player_name: name,
                 level: 1,
                 exp: 0,
                 to_next_level: 1,
@@ -145,7 +145,7 @@ impl Player {
                 hp: gen_normal_max_hp,
                 // max_ap: gen_normal_max_ap,
                 // ap: gen_normal_max_ap,
-                strength: rand::thread_rng().gen_range(3, 11)-2,
+                strength: rand::thread_rng().gen_range(6, 11)-2,
                 alchemy: rand::thread_rng().gen_range(3, 11)-3,
                 vitality: rand::thread_rng().gen_range(3, 11)-1,
                 dexterity: rand::thread_rng().gen_range(3, 11)+3,
@@ -156,7 +156,7 @@ impl Player {
                 is_dead: false,
             },
             Archetype::Mercenary => Player {
-                player_name: String::from("Player"),
+                player_name: name,
                 level: 1,
                 exp: 0,
                 to_next_level: 1,
@@ -183,6 +183,7 @@ impl Player {
     /// Creates a default player. Should only crop up when an error has occured of some kind that
     /// wasn't already dealt with.
     pub fn default() -> Player {
+		
         Player {
             player_name: String::from("unknown player entity"),
             level: 0,
@@ -205,6 +206,7 @@ impl Player {
             is_dead: false,
         }// player struct to return
     }//default player creation (used for pleyer gen errors)
+
 
     /// Adds experience points (EXP) to the player, and checks if the player is able to level up.
     pub fn gain_exp(&mut self, add_exp: usize) {
