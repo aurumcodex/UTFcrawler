@@ -45,6 +45,7 @@ use termion::input::TermRead;
     let mut boss = 0;
     let mut count = 0;
     let mut floor = 0;
+    let mut win: bool = false;
     
     let mut playerX: usize = 0;
 	let mut playerY: usize = 0;
@@ -55,6 +56,8 @@ use termion::input::TermRead;
     let stdin = stdin();
     let stdout = stdout().into_raw_mode().unwrap();
     //let mut stdout = stdout.lock();
+    
+    let mut baddy;
     
     let mut inventory = inventory::init();
     
@@ -152,7 +155,7 @@ use termion::input::TermRead;
 			mainMap = createMap(length, width, Type);
 		}
 	
-	while(run == 1){
+	while(run == 1 && win == false){
 		i = 0;
 		j = 0;
 		
@@ -174,14 +177,14 @@ use termion::input::TermRead;
 		println!("{}", clear::All);
 		if(encounter >= 1 && encounter < floor + 1){
 			enemyType = rand::thread_rng().gen_range(0, 255);
-			//player.hp -= 10;
-			let mut baddy = Enemy::new(enemy::EnemyType::Common, enemyType);
-			combat::combat(&mut player, &mut baddy);
-			
-			//enter combat();
-			//println!("OOF");
+			if(Type == 8){
+			baddy = Enemy::new(enemy::EnemyType::Boss, 0);
+			win = combat::combat(&mut player, &mut baddy, Type);
+			}else{
+			baddy = Enemy::new(enemy::EnemyType::Common, enemyType);
+			combat::combat(&mut player, &mut baddy, Type);
+			}
 		}
-		
 		if(player.hp <= 0){
 			Type = 6;
 			mainMap = createMap(length, width, Type);
@@ -210,7 +213,7 @@ use termion::input::TermRead;
 			list(&mut inv, invPos);
 		}
 		b'u' =>{
-			useItem(invPos, &mut inv, &mut player); 
+			if(mode == 1){useItem(invPos, &mut inv, &mut player); }
 		}
 		b'm' =>{
 			println!("{}", clear::All);
@@ -451,6 +454,7 @@ use termion::input::TermRead;
 		},
 		_=> {},
 	}
+		if(win == false){
 		print!("room: ");
 		print!("{}", count+1);
 		print!("					Level: ");
@@ -463,7 +467,7 @@ use termion::input::TermRead;
 		if(mode == 0) {printMap(mainMap, length, width);}
 		//println!("{}", input);
 		//input = "".to_string();
-		
+		}
 		
 	}
 }

@@ -27,7 +27,7 @@ pub fn list(inv: &mut [usize; 15], select: usize) {
 pub fn storeItem(item: usize, inv: &mut [usize; 15]) {
     let mut i: usize = 0;
     while(i < 15 && inv[i] != 0){ i+=1;}
-    if(i > 14){ println!("Your inventory is full! Cannot pick up item.");}
+    if(i > 14){ println!("Your inventory is full! Cannot pick up item.\r");}
     else{
         inv[i] = item;
         print!("Stored the ");
