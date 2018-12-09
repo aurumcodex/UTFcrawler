@@ -91,7 +91,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{   //functio
 				input[length/2+length/4][2] = 5;  //setting player starting position
 				lootX = rand::thread_rng().gen_range(length/2, length-2);
 				lootY = rand::thread_rng().gen_range(width/2, width-2);      //position for the loot pickup item. 
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);    //the number dictates what item it is
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);    //the number dictates what item it is
 				
 				let X: usize = width/4;
 				let Y: usize = length/2+length/4;
@@ -124,7 +124,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{   //functio
 				
 				lootX = rand::thread_rng().gen_range(2, length/2);
 				lootY = rand::thread_rng().gen_range(2, width/2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);
 				
 				let X: usize = width/2+width/4;
 				let Y: usize = length-2;
@@ -159,7 +159,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{   //functio
 				
 				lootX = rand::thread_rng().gen_range(length/4, length/2);
 				lootY = rand::thread_rng().gen_range(width/4, width/2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);
 				
 				let X: usize = width/4;
 				let Y: usize = length-2;
@@ -195,7 +195,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{   //functio
 				
 				lootX = rand::thread_rng().gen_range(length/2, length-2);
 				lootY = rand::thread_rng().gen_range(width/2, width-2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);
 				
 				let X: usize = width-2;
 				let Y: usize = length/2+length/4;
@@ -236,7 +236,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{   //functio
 			if(length > 6){
 				lootX = rand::thread_rng().gen_range(2, length-2);  //setting loot position
 				lootY = rand::thread_rng().gen_range(2, width-2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);
 			}
 		}
 		
