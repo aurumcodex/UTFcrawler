@@ -63,7 +63,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{   //functio
     a=0;//resetting itterators
     
     if(select == 4 || select == 5){   //creates 'L' shaped rooms. all 4 loops are structually identical, but act on different corners 
-		let mut corner: usize = rand::thread_rng().gen_range(0, 4); chooses random corner
+		let mut corner: usize = rand::thread_rng().gen_range(0, 4); //chooses random corner
 		//corner=0; 
 		if(length > 12 && width > 12){	  //if the room is too small, it is simply made a rectangualar room	
 			if(corner == 0){
