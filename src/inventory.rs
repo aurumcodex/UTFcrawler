@@ -9,33 +9,33 @@ pub fn init() -> [usize; 15] {
 	let mut inv: [usize; 15] = [0; 15];
 	inv
 }
-fn testFill(inv: &mut [usize]) {
+fn testFill(inv: &mut [usize]) {  //test for inventory
 	inv[2] = 2;
 	inv[3] = 1;
 	inv[10] = 3;
 	inv[14] = 1;
 }
-pub fn list(inv: &mut [usize; 15], select: usize) {
+pub fn list(inv: &mut [usize; 15], select: usize) {   //lists what's in inventory
 	println!("Your inventory currently contains:\r");
 	for x in 0..15 {
 		print!("{}", color::Fg(nes_palette::NES_LGT_GREY));
-		if(x == select){print!("{}", color::Fg(nes_palette::NES_YELLOW));}
+		if(x == select){print!("{}", color::Fg(nes_palette::NES_YELLOW));}  //highlight for selected item
 		println!("{}\r", getDesc(x, inv));
 		print!("{}", color::Fg(nes_palette::NES_LGT_GREY));
 	}
 }
-pub fn storeItem(item: usize, inv: &mut [usize; 15]) {
+pub fn storeItem(item: usize, inv: &mut [usize; 15]) {  //puts item in invetory
     let mut i: usize = 0;
     while(i < 15 && inv[i] != 0){ i+=1;}
     if(i > 14){ println!("Your inventory is full! Cannot pick up item.\r");}
     else{
         inv[i] = item;
         print!("Stored the ");
-        print!("{}",getDesc(item, inv));
+        print!("{}",getDesc(item, inv));   //small spash to say you've picked something up
         println!(" in inventory\r");
     }
 }
-pub fn dropItem(index: usize, inv: &mut [usize; 15]) {
+pub fn dropItem(index: usize, inv: &mut [usize; 15]) {   //drops item out of inventory. not used in porgram
     if(index > 15 || index < 0) {println!("Invalid index!\r");}
     else if(inv[index] == 0){ println!("There is no item there!\r");}
     else{
@@ -43,11 +43,11 @@ pub fn dropItem(index: usize, inv: &mut [usize; 15]) {
         println!("Item dropped.\r");
     }
 }
-pub fn useItem(index: usize, inv: &mut [usize; 15], player: &mut Player) {
+pub fn useItem(index: usize, inv: &mut [usize; 15], player: &mut Player) { //use item
     if(index > 15 || index < 0){ println!("Invalid index!\r");}
     match inv[index] {
-   	6 => { println!("The edges are sharp\r"); 
-		player.hp +=5;
+   	6 => { println!("The edges are sharp\r");    //match statement for selecting item effects
+		player.hp +=5;       
 		inv[index] = 0;
 		compress(inv);
 		},
@@ -71,7 +71,7 @@ pub fn useItem(index: usize, inv: &mut [usize; 15], player: &mut Player) {
 		}
     }
 }
-pub fn compress(inv: &mut [usize; 15]) {
+pub fn compress(inv: &mut [usize; 15]) {   //removes  blank areas frm inventory after you use an item. kinda like defragging
 	let mut current;
     for x in 0..14 {
         current = inv[x];
@@ -81,7 +81,7 @@ pub fn compress(inv: &mut [usize; 15]) {
         }
     }
 }
-pub fn getDesc(index: usize, inv: &mut [usize; 15]) -> String {
+pub fn getDesc(index: usize, inv: &mut [usize; 15]) -> String {    //outputs a strig describing what the pickup was
     let mut desc: String = "---".to_string();
     match inv[index] {
 			6 => { desc = "Cyan triangle".to_string(); }

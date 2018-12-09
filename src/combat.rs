@@ -58,7 +58,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
          clear::All, cursor::Goto(8, 7), style::Bold,
          style::Reset, cursor::Goto(0, 8), enemy.enemy_name, cursor::Goto(0, 10)).unwrap();
     stdout.flush().unwrap();
-    if(boss == 8){
+    if(boss == 8){ // prints boss character image when you fight him
 	println!("{}",bossSprite);
 	}
     let mut in_bytes = stdin.bytes();
@@ -320,7 +320,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
             },
             b'g' => {
 				if(boss == 8){
-					println!("{}\r", clear::All);
+					println!("{}\r", clear::All);    //taunt from boss
 					println!("Haha, foolish fool!\r");
 					println!("{}",bossSprite);
 					}
