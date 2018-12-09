@@ -278,7 +278,7 @@ impl Player {
                 },
                 _ => {},
             }
-            self.print_stats();
+           // self.print_stats();
         }
     }
 
