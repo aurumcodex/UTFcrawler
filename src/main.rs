@@ -16,13 +16,13 @@
 extern crate rand;     //import for rng libraries
 extern crate termion;   //import for the terminal manager. it allows full rgb support and easy clearing and buffering 
 
-mod player;
-mod enemy;
-mod status;   //the modules which are used in this file. each is its own separate file 
-mod combat;
-mod dungeon;
-mod inventory;
-mod util;
+pub mod player;
+pub mod enemy;
+pub mod status;   //the modules which are used in this file. each is its own separate file 
+pub mod combat;
+pub mod dungeon;
+pub mod inventory;
+pub mod util;
 
 use rand::Rng;
 use termion::{color, cursor, style};
