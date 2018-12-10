@@ -207,7 +207,9 @@ use termion::input::TermRead;
 			list(&mut inv, invPos);
 		}
 		b'u' =>{  //use selected inventory
-			if(mode == 1){useItem(invPos, &mut inv, &mut player); } //calling use item function in inventory module
+			if(mode == 1){useItem(invPos, &mut inv, &mut player); //calling use item function in inventory module
+				list(&mut inv, invPos);  //calling list function from inventory module
+				} 
 		}
 		b'm' =>{ //going to map mode
 			println!("{}", clear::All); //clearing terminal
