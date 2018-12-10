@@ -1,6 +1,6 @@
 [package]
 name = "utf-crawler"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Nathan Adams <nadams2@unca.edu>", "Reid Marsh <rmarsh@unca.edu>",
            "Nicholas Sanderson <nsanders@unca.edu>", "Pressy Muraguri <pmuragur@unca.edu>"]
 description = "An ASCII art themed dungeon crawler with roguelike elements written in Rust."
