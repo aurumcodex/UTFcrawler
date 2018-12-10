@@ -4,7 +4,7 @@ image::utf-crawler.png[align="center", scalewidth="50%"]
 
 [.align="center", cols="7*^.^"]
 |=============================
-|Language |Version |License |Platform 3+|Pipelines
+|Language |Version |License |Platform |Pipeline
 
 //| image:https://img.shields.io/badge/rust-1.30.0-654321.svg?logo=rust&logoColor=rgb(215,200,195)&style=popout-square["Rust Version", link:https://blog.rust-lang.org/2018/10/25/Rust-1.30.0.html]
 | image:https://img.shields.io/badge/rust-1.30.0-3b231b.svg?logo=rust&logoColor=rgb(247,209,187)&style=flat-square["Rust Version", link:https://blog.rust-lang.org/2018/10/25/Rust-1.30.0.html]
@@ -13,8 +13,6 @@ image::utf-crawler.png[align="center", scalewidth="50%"]
 | image:https://img.shields.io/badge/license-ISC-1e272d.svg?style=flat-square["License", LICENSE-MIT]
 | image:https://img.shields.io/badge/platform-shell-606060.svg?style=popout-square[]
 | `master:` image:https://gitlab.com/utf-crawler/utf-crawler/badges/master/pipeline.svg[Master Pipeline]
-| `combat:` image:https://gitlab.com/utf-crawler/utf-crawler/badges/combat/pipeline.svg[Combat Pipeline]
-| `dungeon:` image:https://gitlab.com/utf-crawler/utf-crawler/badges/dungeon/pipeline.svg[Dungeon Pipeline]
 |=============================
 
 '''
@@ -60,9 +58,32 @@ Simple enough:
 
 '''
 
+== How to Play
+'''
+|==============================
+2+|In Dungeon
+|Key |Action
+|`a` |move left
+|`s` |move down
+|`d` |move right
+|`w` |move up
+2+|In Inventory
+|`i` |switch to inventory menu
+|`u` |use selected item
+|`j` |move menu selection down
+|`k` |move menu selection up
+|`m` |switch back to the map
+2+|In Combat
+|`a` |standard attack
+|`s` |low-level skill
+|`d` |mid-level skill
+|`f` |high-level skill
+|`g` |guard
+|==============================
+
+
 == Licensing
 '''
 This software is released under the link:LICENSE-ISC[ISC License]
 
 '''
-

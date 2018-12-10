@@ -22,35 +22,17 @@ use termion::event::Key;
 
 use enemy::*;
 use player::*;
-use game_state::palettes::nes_palette;
+use util::palettes::nes_palette;
+use util::{BOSS_SPRITE, WIN};
 // use game_state::{Score};
 
 use std::{thread, time};
 use std::io::{Write, Read, stdout, stdin};
-// use std::process;
+
+// ---------------------------------------------------------- //
 
 /// Struct to determine if the game is in its end state.
 pub struct endGame { pub end: bool, }
-
-pub const bossSprite: &str =  "
-					\r
-                       ／ﾌﾌ              ム｀ヽ     \r
-                      / ノ)    Λ＿Λ       ）  ヽ    \r
-                     / ｜    ( • ω •）ノ⌒（ゝ ,ノ　\r
-                    /    ﾉ⌒7⌒     ヽーく　_＼_／　\r
-                    丶＿ ノ    ｡  ノ､  ｡ |/\r
-                        `ヽ `ー-'_人`ーﾉ\r
-                          丶 ￣ _人'彡ﾉ\r";
-
-pub const win: &str =  "\r
-oooooo   oooo   .oooooo.   ooooo     ooo    oooooo   oooooo     oooo ooooo ooooo      ooo    .o. \r
- `888.   .8'   d8P'  `Y8b  `888'     `8'     `888.    `888.     .8'  `888' `888b.     `8'    888 \r
-  `888. .8'   888      888  888       8       `888.   .8888.   .8'    888   8 `88b.    8     888 \r
-   `888.8'    888      888  888       8        `888  .8'`888. .8'     888   8   `88b.  8     Y8P \r
-    `888'     888      888  888       8         `888.8'  `888.8'      888   8     `88b.8     `8' \r
-     888      `88b    d88'  `88.    .8'          `888'    `888'       888   8       `888     .o. \r
-    o888o      `Y8bood8P'     `YbodP'             `8'      `8'       o888o o8o        `8     Y8P \r";
-
 
 /// Combat function. Implements a turn-based combat system for the game to use. 
 /// Takes a mutable Player and a mutable Enemy.
@@ -67,9 +49,9 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
         style::Reset, cursor::Goto(0, 8), enemy.enemy_name, cursor::Goto(0, 10)).unwrap();
     stdout.flush().unwrap();
 
-    // prints boss character image when you fight him
-    if boss == 8 { println!("{}",bossSprite); }
-
+    if(boss == 8){ // prints boss character image when you fight him
+	println!("{}", BOSS_SPRITE);
+	}
     let mut in_bytes = stdin.bytes();
     while player.is_dead != true && enemy.is_dead != true {
         let input = in_bytes.next().unwrap().unwrap();
@@ -84,7 +66,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
                 if(boss == 8){
 				println!("{}\r", clear::All);
 				println!("HAha! That tickles!\r");
-				println!("{}",bossSprite);
+				println!("{}", BOSS_SPRITE);
 				}
                 write!(stdout, "You slap the enemy for {} points of damage!\n\r", plyr_atk_dmg);
                 println!("\r");
@@ -102,7 +84,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
 					if(boss == 8){
 					println!("{}\r", clear::All);
 					println!("ANOTHER!\r");
-					println!("{}",bossSprite);
+					println!("{}", BOSS_SPRITE);
 					}
                     let damage_range = rand::thread_rng().gen_range(5, 16);
                     let player_damage_calc = |stat, range, defense| {
@@ -180,7 +162,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
 					if(boss == 8){
 					println!("{}\r", clear::All);
 					println!("A minor wound.\r");
-					println!("{}",bossSprite);
+					println!("{}",BOSS_SPRITE);
 					}
                     let damage_range = rand::thread_rng().gen_range(5, 16);
                     let player_damage_calc = |stat, range, defense| {
@@ -258,7 +240,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
 					if(boss == 8){
 					println!("{}\r", clear::All);
 					println!("HNNRH!\r");
-					println!("{}",bossSprite);
+					println!("{}", BOSS_SPRITE);
 					}
                     let damage_range = rand::thread_rng().gen_range(5, 16);
                     let player_damage_calc = |stat, range, defense| {
@@ -331,7 +313,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
 				if(boss == 8){
 					println!("{}\r", clear::All);    //taunt from boss
 					println!("Haha, foolish fool!\r");
-					println!("{}",bossSprite);
+					println!("{}",BOSS_SPRITE);
 					}
                 write!(stdout, "You defending this turn\n\r");
                 let attack_dmg: i16 = rand::thread_rng().gen_range(1, 6);
@@ -354,7 +336,7 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
 		if(boss == 8){
 				print!("{}", color::Fg(nes_palette::NES_YELLOW));
 				println!("{}\r", clear::All);	
-				println!("{}",win);
+				println!("{}", WIN);
 				bossKill = true;
 		}else{
         println!("enemy status is now: {:?}", enemy.status);

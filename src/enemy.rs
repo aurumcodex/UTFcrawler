@@ -16,6 +16,8 @@ use rand::Rng;
 
 use status::{EnemyAilment, EnemyPsyche};
 
+// ---------------------------------------------------------- //
+
 /// There are two common enemy types: `Common` and `Boss`.
 ///
 /// Within the `Common` enemies, there are a handful of different types.

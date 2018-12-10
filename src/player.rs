@@ -19,7 +19,9 @@ use rand::Rng;
 use termion::{color, style};
 
 use status::{Ailment, Psyche};
-use game_state::palettes::nes_palette::*;
+use util::palettes::nes_palette::*;
+
+// ---------------------------------------------------------- //
 
 /// The Archetypes (classes, if you will) of what the Player can be.
 ///
@@ -68,7 +70,6 @@ pub struct Player {
 }// struct to hold player data
 
 impl Player {
-    // TODO: potentially refactor the new() function to be more abstracted out; add documentation
     /// Creates a player using the Archetype as an argument, which sets the Player's stats
     /// accordingly. 
     pub fn new(name: String, arch: Archetype) -> Player {
@@ -223,14 +224,13 @@ impl Player {
         self.check_level_up();
     }
 
-    // TODO: RE: new() -- potential refactor to make more abstract.
     /// Function to level up.
     /// Increases the stats of the player depending on what Archetype they chose at the start of
     /// the game.
     pub fn level_up(&mut self) {
-        // FIXME: exp gain formula
         if self.level < 13_u8 {
             println!("\rplayer has gained a level!\r");
+
             self.prev_next_level = (self.prev_next_level + 2) / 2 << 1;
             self.to_next_level = self.prev_next_level;
 
@@ -310,7 +310,6 @@ impl Player {
                 },
                 _ => { /* nothing done */ },
             }
-            // self.print_stats();
         }
     }// level_up
 

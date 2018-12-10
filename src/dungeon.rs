@@ -11,55 +11,58 @@
 //! This is the `dungeon.rs` file, which runs this application's dungeon creation and traversal.
 
 #![allow(dead_code)]
-#![allow(warnings)]
+#![allow(warnings)]   //sticking fingersin ears about warnings
 
 
 extern crate rand;
-extern crate termion;
+extern crate termion;     //imports for external libraries
 
+//imports for the other libraries 
+use player::*;
 use rand::Rng;
 use termion::clear;
 use termion::{color, cursor};
 
 use combat::*;
 use player::*;
-use game_state::palettes::*;
+use util::palettes::*;
+use util::DEATH;
 
 use std::{thread, time};
 
+// ---------------------------------------------------------- //
+
 /// Struct to hold the map data.
 #[derive(Copy, Clone)]
-pub struct map {
-		pub output: [[usize; 32]; 32],	
+pub struct map {    //struct for the map object
+		pub output: [[usize; 32]; 32],	  //holds the map array and its tyep
 		pub mapType: usize,
 	}
 
 /// Struct for the Player's position.
-pub struct pPos{
+pub struct pPos{ // struct to pass the player's postion
 	pub X: usize,
 	pub Y: usize,
 }
-// TODO: do dungeon crafting things
 
 /// Creates a map and stores it into a variaple with the map struct type.
-pub fn createMap(length: usize, width: usize, select: usize) -> map{
+pub fn createMap(length: usize, width: usize, select: usize) -> map{   //function to generate a new map. returns a map struct
 
-	//let mut select: usize = rand::thread_rng().gen_range(1, 6);
-	let mut input: [[usize; 32]; 32]  = [[0; 32]; 32];
-	let mut lootX: usize = 0;
-	let mut lootY: usize = 0;
+    //let mut select: usize = rand::thread_rng().gen_range(1, 6);
+    let mut input: [[usize; 32]; 32]  = [[0; 32]; 32];    //map array
+    let mut lootX: usize = 0;   //coordinates for the loot in rooms
+    let mut lootY: usize = 0;
 	
-// select = 7;
 	
-	let mut a: usize = 0;
+    let mut a: usize = 0;   //itterators for nested while loops
     let mut i: usize = 0;
     
     while(i <= length){
 		while(a <= width){
 			
 			if((i < 2 || i >length-2) || (a < 2 || a >width-2)) {
-			input[i][a] = 1;
-			}else{
+			input[i][a] = 1; //setting outer bounds to 'wall' characers
+			}else{       //generateing map with checkered floor
 				if(a%2 == 0 && i%2 ==0){input[i][a] = 2;
 				}
 				if(a%2 != 0 && i%2 ==0){input[i][a] = 3
@@ -69,22 +72,22 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				if(a%2 != 0 && i%2 !=0){input[i][a] = 2;
 				}
 			}
-			a+=1;
+			a+=1; //itteratig loops
 		}
 		i+=1;
 		a=0;
 	}
     
     i=0;
-    a=0;
+    a=0;//resetting itterators
     
-    if(select == 4 || select == 5){
-		let mut corner: usize = rand::thread_rng().gen_range(0, 4);
+    if(select == 4 || select == 5){   //creates 'L' shaped rooms. all 4 loops are structually identical, but act on different corners 
+		let mut corner: usize = rand::thread_rng().gen_range(0, 4); //chooses random corner
 		//corner=0; 
-		if(length > 12 && width > 12){		
+		if(length > 12 && width > 12){	  //if the room is too small, it is simply made a rectangualar room	
 			if(corner == 0){
 				while(i <= length/2){
-					while(a <= width/2){
+					while(a <= width/2){  //loop that makes a chunk of the selected corner wall 
 						input[i][a] = 1;
 						a+=1;
 					}
@@ -93,7 +96,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				}
 				i=0;
 		        a=0;
-				while(i <= length/2-2){
+				while(i <= length/2-2){   //makes a smaller section black to give the impression that the room is 'L' shaped 
 					while(a <= width/2-2){
 						input[i][a] = 0;
 						a+=1;
@@ -102,19 +105,19 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 					a=0;
 				}
 				input[1][width/2+width/4] = 4;
-				input[1][width/2+width/4+1] = 4;
+				input[1][width/2+width/4+1] = 4;   //setting position for the single door in these type of rooms
 				
-				input[length/2+length/4][2] = 5;
+				input[length/2+length/4][2] = 5;  //setting player starting position
 				lootX = rand::thread_rng().gen_range(length/2, length-2);
-				lootY = rand::thread_rng().gen_range(width/2, width-2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
+				lootY = rand::thread_rng().gen_range(width/2, width-2);      //position for the loot pickup item. 
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);    //the number dictates what item it is
 				
 				let X: usize = width/4;
 				let Y: usize = length/2+length/4;
-				let pOut = pPos{X,Y};
+				let pOut = pPos{X,Y};            //putting the player's position in the player struct
 			}						
 		i = length;
-		if(corner == 1){
+		if(corner == 1){                    //the next three sections are the same structure, but knock out different corners
 				while(i >= length/2){
 					while(a <= width/2){
 						input[i][a] = 1;
@@ -140,7 +143,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				
 				lootX = rand::thread_rng().gen_range(2, length/2);
 				lootY = rand::thread_rng().gen_range(2, width/2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);
 				
 				let X: usize = width/2+width/4;
 				let Y: usize = length-2;
@@ -175,7 +178,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				
 				lootX = rand::thread_rng().gen_range(length/4, length/2);
 				lootY = rand::thread_rng().gen_range(width/4, width/2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);
 				
 				let X: usize = width/4;
 				let Y: usize = length-2;
@@ -211,7 +214,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				
 				lootX = rand::thread_rng().gen_range(length/2, length-2);
 				lootY = rand::thread_rng().gen_range(width/2, width-2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);
 				
 				let X: usize = width-2;
 				let Y: usize = length/2+length/4;
@@ -237,7 +240,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 	}
 	
 	 if(select == 3 || select == 2 || select == 1 || select == 8){
-		input[1][width/2] = 4;
+		input[1][width/2] = 4;  //settig doors on the top left and right of rectangluar rooms
 		input[1][width/2+1] = 4;
 			
 		input[length/2][1] = 4;
@@ -246,28 +249,28 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 		input[length/2][width-1] = 4;
 		input[length/2+1][width-1] = 4;
 		
-		input[length-2][width/2] = 5;
+		input[length-2][width/2] = 5;  //setting player position 
 		
 		if(width > 6){
 			if(length > 6){
-				lootX = rand::thread_rng().gen_range(2, length-2);
+				lootX = rand::thread_rng().gen_range(2, length-2);  //setting loot position
 				lootY = rand::thread_rng().gen_range(2, width-2);
-				input[lootX][lootY] = rand::thread_rng().gen_range(6, 9);
+				input[lootX][lootY] = rand::thread_rng().gen_range(6, 10);
 			}
 		}
 		
 		let X: usize = width/2;
-		let Y: usize = length-2;
+		let Y: usize = length-2;   //inserting player position into its struct
 		let pOut = pPos{X,Y};
 	}
 	
 	
-	 if(select == 7){
+	 if(select == 7){   //creates the '+' shaped pre boss rooms
 		 a = 25;
-		 i = 0;
+		 i = 0;    //setting itterators
 		 while(i <= 8){
 					while(a >= 17){
-						input[i][a] = 1;
+						input[i][a] = 1;  //makng the first corner wall
 						a-=1;
 					}
 					i+=1;
@@ -277,7 +280,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 		        i=0;
 				while(i <= 6){
 					while(a >= 19){
-						input[i][a] = 0;
+						input[i][a] = 0;  //making a slightly smaller area of the first corner black
 						a-=1;
 					}
 					i+=1;
@@ -286,7 +289,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				
 		 a = 0;
 		 i = 0;
-		 while(i <= 8){
+		 while(i <= 8){   //these also function the same jsut on different corners. similar to 'L' shaped rooms
 					while(a <= 8){
 						input[i][a] = 1;
 						a+=1;
@@ -348,79 +351,79 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 				}
 		 
 		input[1][width/2] = 4;
-		input[1][width/2+1] = 4;
+		input[1][width/2+1] = 4;    //setting doors on the top left and right
 			
 		input[length/2][1] = 4;
-		input[length/2+1][1] = 4;
+		input[length/2+1][1] = 4;   
 			
 		input[length/2][width-1] = 4;
 		input[length/2+1][width-1] = 4;
 		
 		input[length-2][width/2] = 5;
 		
-		let X: usize = width/2;
+		let X: usize = width/2;   //setting player position in the room
 		let Y: usize = length-2;
 		let pOut = pPos{X,Y};
 	}
 	
 	if(select == 3 || select == 2 || select == 1){
 		let X: usize = width/2;
-		let Y: usize = length-2;
+		let Y: usize = length-2;  //setting player position in nromal rectangular rooms
 		let pOut = pPos{X,Y};
 	}
 	
 	//println!("{}", select);
 	let output = input;
 	let mapType = select; 		
-	let mapOut = map{output, mapType}; 
+	let mapOut = map{output, mapType};    //putting map information in the map struct 
 	
-	mapOut
+	mapOut  //returnin the map
 }
 
 /// Prints the map so that the player can see where they are, and where the doors are.
-pub fn printMap(mapIn: map, length: usize, width: usize){
-	let mut d: u8= 0;
-	let mut output: [[usize; 32]; 32] = [[0; 32]; 32];
-	output = mapIn.output;
-	let mapType: usize = mapIn.mapType;
+pub fn printMap(mapIn: map, length: usize, width: usize){  //function that interprets and prints the map to the terminal
+	let mut d: u8= 0; //death animation itterator
+	let mut output: [[usize; 32]; 32] = [[0; 32]; 32]; //output array
+	output = mapIn.output;   //map taken is as argument
+	let mapType: usize = mapIn.mapType;   //may type variable
 	
 	let mut i: usize = 0;
-	let mut a: usize = 0;
+	let mut a: usize = 0;  //loop itterators
 	
-		if(mapType == 5 || mapType == 1){
+		if(mapType == 5 || mapType == 1){   //print for grey rooms with round floor tiles
 			while(i <= length){
 				while(a <= width){
-					print!("{}", color::Fg(nes_palette::NES_LGT_GREY));
+					print!("{}", color::Fg(nes_palette::NES_LGT_GREY));  //wall color
 					if(output[i][a] == 1){
-						print!("▦ " );
+						print!("▦ " ); //wall character
 					}
 					if(output[i][a] == 2){
-						print!("{}▢ ", color::Fg(nes_palette::NES_MED_GREY));
+						print!("{}▢ ", color::Fg(nes_palette::NES_MED_GREY));  //light floor color and its character
 					}
 					if(output[i][a] == 3){
-						print!("{}◯ ", color::Fg(nes_palette::NES_DRK_GREY));
-					}
+						print!("{}◯ ", color::Fg(nes_palette::NES_DRK_GREY)); //dark floor color and its character
+					} 
 					if(output[i][a] == 0){
-						print!("{}▦ ", color::Fg(nes_palette::NES_BLACK));
+						print!("{}▦ ", color::Fg(nes_palette::NES_BLACK)); //blank character that are unseen
 					}
 					if(output[i][a] == 4){
-						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));
+						print!("{}▦ ", color::Fg(nes_palette::NES_BRT_RED));  //door characters
 					}
 					if(output[i][a] == 5){
-						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));
+						print!("{}☺ ", color::Fg(nes_palette::NES_YELLOW));   //the player character
 					}
 					if(output [i][a] > 5){
-						print!("{}▲ ", color::Fg(nes_palette::NES_CYAN));
+						print!("{}▲ ", color::Fg(nes_palette::NES_CYAN));   //loot character
 					}
 					a+=1;
 				}
-				print!("{}", color::Fg(nes_palette::NES_YELLOW));
-				println!("\r");
-				i+=1;
-				a=0;
+				print!("{}", color::Fg(nes_palette::NES_YELLOW));  //setting color for the next frame
+				println!("\r"); //carraige return
+				i+=1; //itterating loops
+				a=0; //resetting loop
 			}
 		}
-		if(mapType == 4 || mapType == 2){
+		if(mapType == 4 || mapType == 2){  //loop for blue walled rooms with checkered floors. same structure as above 
 			while(i <= length){
 				while(a <= width){
 					print!("{}", color::Fg(nes_palette::NES_BLUE));
@@ -453,7 +456,7 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 				a=0;
 			}
 		}
-		if(mapType == 3){
+		if(mapType == 3){   //loop for the green walled goo rooms
 			
 			while(i <= length){
 				while(a <= width){
@@ -463,8 +466,8 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 						print!("▦ " );
 					}
 					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] < 5 && choose == 1 ){
-						print!("{}▤ ", color::Fg(nes_palette::NES_BROWN));
-					}
+						print!("{}▤ ", color::Fg(nes_palette::NES_BROWN));                               //ignores checkered pattern on map array and outputs a random position for the two colors
+					}                                                                                   //this creates a different floor every time the player moves wiving the illusion of a liquid floor
 					if(output [i][a] != 1 && output [i][a] != 4 && output [i][a] < 5 && choose == 0){
 						print!("{}▥ ", color::Fg(nes_palette::NES_RED));
 					}
@@ -486,7 +489,7 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 			}
     }
     
-    		if(mapType == 7 || mapType == 8){
+    		if(mapType == 7 || mapType == 8){    //loops for boss rooms
 				//println!("{}", mapType);
 			while(i <= length){
 				while(a <= width){
@@ -524,26 +527,26 @@ pub fn printMap(mapIn: map, length: usize, width: usize){
 			}
 		}
     
-    if(mapType == 6){
-			pub const DEATH: &str = "\r
-@@@ @@@   @@@@@@   @@@  @@@     @@@@@@@   @@@  @@@@@@@@  @@@@@@@\r
-@@@ @@@  @@@@@@@@  @@@  @@@     @@@@@@@@  @@@  @@@@@@@@  @@@@@@@@\r
-@@! !@@  @@!  @@@  @@!  @@@     @@!  @@@  @@!  @@!       @@!  @@@\r
-!@! @!!  !@!  @!@  !@!  @!@     !@!  @!@  !@!  !@!       !@!  @!@\r
- !@!@!   @!@  !@!  @!@  !@!     @!@  !@!  !!@  @!!!:!    @!@  !@!\r
-  @!!!   !@!  !!!  !@!  !!!     !@!  !!!  !!!  !!!!!:    !@!  !!!\r
-  !!:    !!:  !!!  !!:  !!!     !!:  !!!  !!:  !!:       !!:  !!!\r
-  :!:    :!:  !:!  :!:  !:!     :!:  !:!  :!:  :!:       :!:  !:!\r
-   ::    ::::: ::  ::::: ::      :::: ::   ::   :: ::::   :::: ::\r
-   :      : :  :    : :  :      :: :  :   :    : :: ::   :: :  : \r
-\r";
-			while(d < 250){
-				println!("{}", clear::All);
+    if(mapType == 6){   //loop for death splash screen. death stranscends the palette
+			// pub const DEATH: &str = "\r 
+// @@@ @@@   @@@@@@   @@@  @@@     @@@@@@@   @@@  @@@@@@@@  @@@@@@@\r
+// @@@ @@@  @@@@@@@@  @@@  @@@     @@@@@@@@  @@@  @@@@@@@@  @@@@@@@@\r
+// @@! !@@  @@!  @@@  @@!  @@@     @@!  @@@  @@!  @@!       @@!  @@@\r
+// !@! @!!  !@!  @!@  !@!  @!@     !@!  @!@  !@!  !@!       !@!  @!@\r
+ // !@!@!   @!@  !@!  @!@  !@!     @!@  !@!  !!@  @!!!:!    @!@  !@!\r
+  // @!!!   !@!  !!!  !@!  !!!     !@!  !!!  !!!  !!!!!:    !@!  !!!\r
+  // !!:    !!:  !!!  !!:  !!!     !!:  !!!  !!:  !!:       !!:  !!!\r
+  // :!:    :!:  !:!  :!:  !:!     :!:  !:!  :!:  :!:       :!:  !:!\r
+   // ::    ::::: ::  ::::: ::      :::: ::   ::   :: ::::   :::: ::\r
+   // :      : :  :    : :  :      :: :  :   :    : :: ::   :: :  : \r
+// \r"; //big raw string. basically a big sprite
+			while(d < 250){  //loop for color
+				println!("{}", clear::All); //clear terminal 
 				//println!("{}", d);
-				println!("{}", color::Fg(color::Rgb(d,0,0)));
-				println!("{}",DEATH);
+				println!("{}", color::Fg(color::Rgb(d,0,0)));  //fades into red from black
+				println!("{}",DEATH); //prints the big raw string in the color above as it fades to red
 				d+=2;
-				thread::sleep_ms(10);
+				thread::sleep_ms(10); //waits for 10 milliseconds to time the fade animation
 			}
     }	
 }
