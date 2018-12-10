@@ -1,6 +1,14 @@
+//! # UTFcrawler
 //!
-//!  Authors: Nathan Adams, Reid Marsh, Nicholas Sandserson, Pressy Muraguri
+//! ### Authors: Nathan Adams, Reid Marsh, Nicholas Sandserson, Pressy Muraguri
 //!
+//! ## About
+//! This is a program to render a top-down view of a dungeon crawler game that can be played in a
+//! termial. A terminal size of 103 cols x 30 lines is highly recommended for the maps to display
+//! correctly. A terminal font with a lot of Unicode character support is also recommended, as is a
+//! terminal that displays 256 colors, or has RGB color support.
+//!
+//! This is the `combat.rs` file, which runs this application's combat systems.
 
 #![allow(dead_code)]
 
@@ -21,6 +29,7 @@ use std::{thread, time};
 use std::io::{Write, Read, stdout, stdin};
 // use std::process;
 
+/// Struct to determine if the game is in its end state.
 pub struct endGame { pub end: bool, }
 
 pub const bossSprite: &str =  "
@@ -43,7 +52,8 @@ oooooo   oooo   .oooooo.   ooooo     ooo    oooooo   oooooo     oooo ooooo ooooo
     o888o      `Y8bood8P'     `YbodP'             `8'      `8'       o888o o8o        `8     Y8P \r";
 
 
-
+/// Combat function. Implements a turn-based combat system for the game to use. 
+/// Takes a mutable Player and a mutable Enemy.
 pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
     let mut bossKill = false;
     let stdin = stdin();
@@ -335,7 +345,8 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
         }
     }//main while loop
     if player.is_dead == true {
-        println!("{}{}\n\n\nyou have died{}\r\n", clear::All, color::Fg(nes_palette::NES_RED), color::Fg(color::Reset));
+        println!("{}{}\n\n\nyou have died{}\r\n", clear::All, color::Fg(nes_palette::NES_RED), 
+                 color::Fg(color::Reset));
         stdout.flush().unwrap();
         return bossKill;
     }//if player becomes dead
@@ -347,7 +358,8 @@ pub fn combat(player: &mut Player, enemy: &mut Enemy, boss: usize) -> bool {
 				bossKill = true;
 		}else{
         println!("enemy status is now: {:?}", enemy.status);
-        write!(stdout, "{}{}You gained {} exp. {}{}", cursor::Goto(8, 7), color::Fg(nes_palette::NES_BRT_GREEN),
+        write!(stdout, "{}{}You gained {} exp. {}{}", cursor::Goto(8, 7), 
+               color::Fg(nes_palette::NES_BRT_GREEN),
         enemy.given_exp, color::Fg(color::Reset), clear::All);
         player.gain_exp(enemy.given_exp);
         player.check_level_up();

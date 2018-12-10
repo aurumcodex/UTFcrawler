@@ -1,20 +1,31 @@
+//! # UTFcrawler
+//!
+//! ### Authors: Nathan Adams, Reid Marsh, Nicholas Sandserson, Pressy Muraguri
+//!
+//! ## About
+//! This is a program to render a top-down view of a dungeon crawler game that can be played in a
+//! termial. A terminal size of 103 cols x 30 lines is highly recommended for the maps to display
+//! correctly. A terminal font with a lot of Unicode character support is also recommended, as is a
+//! terminal that displays 256 colors, or has RGB color support.
+//!
+//! This is the `inventory.rs` file, which runs this application's inventory's management.
 
 extern crate termion;
 
-use player::*;
-use game_state::palettes::*;
 use termion::{color, cursor};
 
+use player::*;
+use game_state::palettes::*;
+
+// --------------------------------------- //
+
+/// Initializes the inventory for the player to use.
 pub fn init() -> [usize; 15] {
 	let mut inv: [usize; 15] = [0; 15];
 	inv
 }
-fn testFill(inv: &mut [usize]) {
-	inv[2] = 2;
-	inv[3] = 1;
-	inv[10] = 3;
-	inv[14] = 1;
-}
+
+/// Lists the inventory contents for usage.
 pub fn list(inv: &mut [usize; 15], select: usize) {
 	println!("Your inventory currently contains:\r");
 	for x in 0..15 {
@@ -24,6 +35,8 @@ pub fn list(inv: &mut [usize; 15], select: usize) {
 		print!("{}", color::Fg(nes_palette::NES_LGT_GREY));
 	}
 }
+
+/// Stores a picked up item into the inventory.
 pub fn storeItem(item: usize, inv: &mut [usize; 15]) {
     let mut i: usize = 0;
     while(i < 15 && inv[i] != 0){ i+=1;}
@@ -35,6 +48,8 @@ pub fn storeItem(item: usize, inv: &mut [usize; 15]) {
         println!(" in inventory\r");
     }
 }
+
+/// Drops an item from the inventory.
 pub fn dropItem(index: usize, inv: &mut [usize; 15]) {
     if(index > 15 || index < 0) {println!("Invalid index!\r");}
     else if(inv[index] == 0){ println!("There is no item there!\r");}
@@ -43,6 +58,9 @@ pub fn dropItem(index: usize, inv: &mut [usize; 15]) {
         println!("Item dropped.\r");
     }
 }
+
+/// Selects an item and uses it, granting its effects on the player, and removing it from the
+/// inventory.
 pub fn useItem(index: usize, inv: &mut [usize; 15], player: &mut Player) {
     if(index > 15 || index < 0){ println!("Invalid index!\r");}
     match inv[index] {
@@ -71,6 +89,8 @@ pub fn useItem(index: usize, inv: &mut [usize; 15], player: &mut Player) {
 		}
     }
 }
+
+/// Compresses the inventory array.
 pub fn compress(inv: &mut [usize; 15]) {
 	let mut current;
     for x in 0..14 {
@@ -81,6 +101,8 @@ pub fn compress(inv: &mut [usize; 15]) {
         }
     }
 }
+
+/// Gets the description of the item used.
 pub fn getDesc(index: usize, inv: &mut [usize; 15]) -> String {
     let mut desc: String = "---".to_string();
     match inv[index] {
@@ -92,5 +114,3 @@ pub fn getDesc(index: usize, inv: &mut [usize; 15]) -> String {
 		}
 		desc
 }
-
-

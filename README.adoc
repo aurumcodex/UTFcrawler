@@ -29,6 +29,7 @@ A monospaced font supporting a high number of Unicode characters is *highly* rec
 will allow the maps to render properly.
 
 A QWERTY layout or similar keyboard/keymap is highly recommended for a proper experience
+A treminal size of 103 cols x 30 lines is recommended for the maps to display correctly.
 
 '''
 
@@ -64,49 +65,4 @@ Simple enough:
 This software is released under the link:LICENSE-ISC[ISC License]
 
 '''
-
-== TODO List
-'''
-A remainder of what is needed to be completed before submittal:
-
-===== main.rs
-* [ ] ☐ initialize game (in progress)
-* [x] ☐ have mathod to choose player archetype
-* [ ] ☐ implement manner to display a help menu
-
-===== combat.rs [98% done, cleanup in progress]
-* [x] ☑ implement battle flow of the game
-* [x] ☑ implement combat turn orders (good enough for now)
-* [x] ☑ implement random encounters (in conjunction with `dungeon.rs`)
-* [x] ☑ implement damage calculations (partially done)
-* [x] ☑ implement user input for attacks and skill usage, as well as guarding
-
-===== dungeon.rs [97% done]
-* [x] ☑ implement the layouts and generation of the dungeon rooms (in `dungeon` branch)
-* [x] ☑ implement traversal of the dungeon (in `dungeon` branch)
-* [x] ☑ implement item pickups
-
-===== enemy.rs [done]
-* [x] ☑ define Enemy struct and enums for enemy creation
-* [x] ☑ implement common enemies and the "final" boss
-* [ ] ☐ (optional) implement potential elemental weaknesses/resistances
-
-===== game_state.rs [potentially will be renamed to util.rs]
-* [x] ☑ declare a color palette to be used for the display of the game
-* [x] ☑ create enums to act as a state of current game state (more might be added as needed)
-* [ ] ☐ +++<s>☐ implement functions to change between the various states</s>+++
-
-===== inventory.rs
-* [ ] ☐ implement a manner to store items
-* [ ] ☐ implement functions to add/use items
-* [ ] ☐ implement functions to reset items
-* [ ] ☐ implement function to access items
-
-===== player.rs [95% done]
-* [x] ☑ implement a struct to hold the necessary data for a player entity.
-* [x] ☑ implement experience point functions and level up functions
-* [x] ☑ declare archetypes for the player
-
-===== status.rs [done, might delete and merge content into respective files]
-* [x] ☑ declare enums that represent various states of being for player and enemy alike.
 

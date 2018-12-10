@@ -1,6 +1,14 @@
+//! # UTFcrawler
 //!
-//! Authors: Nathan Adams, Reid Marsh, Nicolas Sanderson, Pressy Muraguri
+//! ### Authors: Nathan Adams, Reid Marsh, Nicholas Sandserson, Pressy Muraguri
 //!
+//! ## About
+//! This is a program to render a top-down view of a dungeon crawler game that can be played in a
+//! termial. A terminal size of 103 cols x 30 lines is highly recommended for the maps to display
+//! correctly. A terminal font with a lot of Unicode character support is also recommended, as is a
+//! terminal that displays 256 colors, or has RGB color support.
+//!
+//! This is the `dungeon.rs` file, which runs this application's dungeon creation and traversal.
 
 #![allow(dead_code)]
 #![allow(warnings)]
@@ -9,25 +17,31 @@
 extern crate rand;
 extern crate termion;
 
-use std::{thread, time};
-use termion::clear;
-use crate::game_state::palettes::*;
-use crate::combat::*;
-use crate::player::*;
 use rand::Rng;
+use termion::clear;
 use termion::{color, cursor};
 
+use combat::*;
+use player::*;
+use game_state::palettes::*;
+
+use std::{thread, time};
+
+/// Struct to hold the map data.
 #[derive(Copy, Clone)]
 pub struct map {
 		pub output: [[usize; 32]; 32],	
 		pub mapType: usize,
 	}
+
+/// Struct for the Player's position.
 pub struct pPos{
 	pub X: usize,
 	pub Y: usize,
 }
 // TODO: do dungeon crafting things
 
+/// Creates a map and stores it into a variaple with the map struct type.
 pub fn createMap(length: usize, width: usize, select: usize) -> map{
 
 	//let mut select: usize = rand::thread_rng().gen_range(1, 6);
@@ -363,6 +377,7 @@ pub fn createMap(length: usize, width: usize, select: usize) -> map{
 	mapOut
 }
 
+/// Prints the map so that the player can see where they are, and where the doors are.
 pub fn printMap(mapIn: map, length: usize, width: usize){
 	let mut d: u8= 0;
 	let mut output: [[usize; 32]; 32] = [[0; 32]; 32];
