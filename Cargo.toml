@@ -6,7 +6,7 @@ authors = ["Nathan Adams <nadams2@unca.edu>", "Reid Marsh <rmarsh@unca.edu>",
 description = "An ASCII art themed dungeon crawler with roguelike elements written in Rust."
 repository = "https://gitlab.com/utf-crawler/utf-crawler"
 license = "ISC"
-keywords = ["ascii", "rpg", "tui", "games", "dungeon crawler"]
+keywords = ["ascii", "rpg", "tui", "games", "dungeon_crawler"]
 
 [badges]
 gitlab = {repository = "https://gitlab.com/utf-crawler/utf-crawler"}

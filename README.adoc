@@ -2,7 +2,7 @@
 
 image::utf-crawler.png[align="center", scalewidth="50%"]
 
-[.align="center", cols="7*^.^"]
+[.align="center", cols="5*^.^"]
 |=============================
 |Language |Version |License |Platform |Pipeline
 
@@ -27,6 +27,8 @@ will allow the maps to render properly.
 A QWERTY layout or similar keyboard/keymap is highly recommended for a proper experience
 A treminal size of 103 cols x 30 lines is recommended for the maps to display correctly.
 
+NOTE: This project was built with Rust version 1.30.0, but should work with any future versions.
+
 '''
 
 == Dependencies
@@ -44,8 +46,6 @@ For installation, the following dependencies are required:
 == Installation
 '''
 ==== Compiling from Source
-Simple enough:
-
 * Clone the repository: `git clone \https://gitlab.com/utf-crawler/utf-crawler.git`
 * Move into cloned folder: `cd utf-crawler`
 * Build: `cargo install`
@@ -55,6 +55,10 @@ Simple enough:
 *** or add it to your `$PATH` in some form.
 
 '''
+
+==== From link:crates.io[crates.io]
+* Since this project is also on crates.io, the same hosting service used for the dependencies,
+  all you need then is `cargo install utf-crawler`, once you have `rust` and `cargo` installed.
 
 == How to Play
 '''
