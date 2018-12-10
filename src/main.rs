@@ -8,7 +8,7 @@
 //! correctly. A terminal font with a lot of Unicode character support is also recommended, as is a
 //! terminal that displays 256 colors, or has RGB color support.
 //!
-//! This is the `main.rs` file, which runs this application in its entirety.
+//! ![Title Screen](../utf-crawler.png)
 
 #![allow(dead_code)]
 #![allow(warnings)]     //hides the 400+ warnigns about the usage of camel case

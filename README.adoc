@@ -2,15 +2,16 @@
 
 image::utf-crawler.png[align="center", scalewidth="50%"]
 
-[.align="center", cols="5*^.^"]
+[.align="center", cols="6*^.^"]
 |=============================
-|Language |Version |License |Platform |Pipeline
+|Language |Crate Version |Docs |License |Platform |Pipeline
 
 | image:https://img.shields.io/badge/rust-1.30.0-3b231b.svg?logo=rust&logoColor=rgb(247,209,187)&style=flat-square["Rust Version", link:https://blog.rust-lang.org/2018/10/25/Rust-1.30.0.html]
-| image:https://img.shields.io/badge/version-0.1.1-222b0d.svg?style=flat-square[Current Version]
+| image:https://shields.io/crates/v/utf-crawler.svg["Crate Version", link:https://crates.io/crates/utf-crawler]
+| image:https:/docs.rs/utf-crawler/badge.svg["Documentation", link:https://docs.rs/crate/utf-crawler/0.1.2]
 | image:https://img.shields.io/badge/license-ISC-1e272d.svg?style=flat-square["License", LICENSE-MIT]
-| image:https://img.shields.io/badge/platform-shell-606060.svg?style=popout-square[]
-| `master:` image:https://gitlab.com/utf-crawler/utf-crawler/badges/master/pipeline.svg[Master Pipeline]
+| image:https://img.shields.io/badge/platform-shell-606060.svg?style=popout-square[Platform]
+| `master:` image:https://gitlab.com/utf-crawler/utf-crawler/badges/master/pipeline.svg[Master Pipeline, ]
 |=============================
 
 '''
