@@ -63,6 +63,7 @@ For installation, the following dependencies are required:
 
 == How to Play
 '''
+The binary is called `utf-crawler`. That is what's used to start the program.
 |==============================
 2+|In Dungeon
 |Key |Action
